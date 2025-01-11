@@ -2,7 +2,10 @@
   imports = [
     ./bluetooth.nix
     ./bootloader.nix
+    ./docker.nix
     ./env.nix
+    ./flatpak.nix
+    ./gnome-softwares.nix
     ./hyprland.nix
     ./i18n.nix
     ./net.nix

@@ -6,7 +6,10 @@
     settings = {
       "$mainMod" = "SUPER";
 
-      monitor = "eDP-1,1920x1080@60.05200,auto,1";
+      monitor = [
+        "eDP-1,1920x1080@60.05200,0x0,1"
+        "HDMI-A-1,1920x1080@60.00000,-1920x0,1"
+      ];
       # vfr = "no";
       # renderer = "egl";
       # vulkan = "no";
@@ -256,10 +259,10 @@
         "$mainMod, F2, exec, brightnessctl -d *::kbd_backlight set 33%-"
 
         # Configuration files
-        "$mainMod SHIFT, N, exec, alacritty -e sh -c \"rb\""
-        "$mainMod SHIFT, C, exec, alacritty -e sh -c \"conf\""
-        "$mainMod SHIFT, H, exec, alacritty -e sh -c \"nvim ~/nix/home-manager/modules/wms/hyprland.nix\""
-        "$mainMod SHIFT, W, exec, alacritty -e sh -c \"nvim ~/nix/home-manager/modules/wms/waybar.nix\""
+        # "$mainMod SHIFT, N, exec, alacritty -e sh -c \"rb\""
+        # "$mainMod SHIFT, C, exec, alacritty -e sh -c \"conf\""
+        # "$mainMod SHIFT, H, exec, alacritty -e sh -c \"nvim ~/nix/home-manager/modules/wms/hyprland.nix\""
+        # "$mainMod SHIFT, W, exec, alacritty -e sh -c \"nvim ~/nix/home-manager/modules/wms/waybar.nix\""
         ", Print, exec, grim -g \"$(slurp)\" - | swappy -f -"
 
         # Waybar
@@ -273,7 +276,7 @@
       bindel = [
         # Laptop multimedia keys for volume and LCD brightness
         ",XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
-        ",XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%"
+        ",XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
         ",XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
         ",XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
         ",XF86MonBrightnessUp, exec, brightnessctl s 10%+"

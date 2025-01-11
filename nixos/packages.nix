@@ -2,7 +2,7 @@
   nixpkgs.config = {
     allowUnfree = true;
     cudaSupport = true;
-    cudnnSupport = true;
+    # cudnnSupport = true;
     # permittedInsecurePackages = ["python-2.7.18.8" "electron-25.9.0"];
   };
 
@@ -19,12 +19,13 @@
     rofi
     wofi
     mpv
-    # kdenlive
+    vscodium
     discord
+    # kdenlive
     # gparted
     # obsidian
     # zoom-us
-    pcmanfm-qt
+    # pcmanfm-qt
 
     # Coding stuff
     gnumake
@@ -40,7 +41,11 @@
     neovim
     nixd # lsp for nix laguage
     fzf
-    vscodium
+    docker-compose
+    podman
+    podman-compose
+    nvtop
+    nvtopPackages.full
     neofetch
     file
     tree
