@@ -11,6 +11,7 @@
     ./net.nix
     ./nvidia.nix
     ./sound.nix
+    ./special-configs.nix
     ./trim.nix
     ./user.nix
     ./virtualization-containerization.nix
