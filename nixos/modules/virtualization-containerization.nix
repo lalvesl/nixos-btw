@@ -1,21 +1,21 @@
 {pkgs, ...}:
 
 {
-  users.users.alves = {
-      extraGroups = [ "podman" ];
-      subGidRanges = [
-          {
-              count = 65536;
-              startGid = 1000;
-          }
-      ];
-      subUidRanges = [
-          {
-              count = 65536;
-              startUid = 1000;
-          }
-      ];
-  };
+  # users.users.alves = {
+  #     extraGroups = [ "podman" ];
+  #     subGidRanges = [
+  #         {
+  #             count = 65536;
+  #             startGid = 1000;
+  #         }
+  #     ];
+  #     subUidRanges = [
+  #         {
+  #             count = 65536;
+  #             startUid = 1000;
+  #         }
+  #     ];
+  # };
   # Multi architecture
   boot.binfmt.emulatedSystems = [
     "aarch64-linux"
