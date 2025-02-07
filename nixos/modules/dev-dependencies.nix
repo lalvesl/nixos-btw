@@ -18,6 +18,9 @@
     # nvtop
     nvtopPackages.full
 
+    # DBs
+    dbeaver-bin
+
     # Why?, i don't now, i not use, I USE NVIM BTW
     vscodium
   ];

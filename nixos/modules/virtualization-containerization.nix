@@ -1,12 +1,6 @@
 {pkgs, ...}:
 
 {
-  # Podman
-  virtualisation.podman = {
-    enable = true;
-    dockerCompat = true;
-  };
-
   users.users.alves = {
       extraGroups = [ "podman" ];
       subGidRanges = [
@@ -28,15 +22,20 @@
     "x86_64-windows"
   ];
 
-  # Docker
-  virtualisation.docker.enable = true;
-  virtualisation.docker.storageDriver = "btrfs";
-
-  # Virtmanager
-  virtualisation.libvirtd.enable = true;
   programs.virt-manager = {
     enable = true;
     package = pkgs.virt-manager;
+  };
+
+  virtualisation = {
+    libvirtd.enable = true;
+    docker = {
+      enable = true;
+      storageDriver = "btrfs";
+    };
+    podman = {
+      enable = true;
+    };
   };
 
   # Packages
