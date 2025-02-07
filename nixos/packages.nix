@@ -9,8 +9,10 @@
   environment.systemPackages = with pkgs; [
     # Desktop apps
     # audacity
+    linuxKernel.packages.linux_zen.cpupower
     chromium
     google-chrome
+    brave
     firefox
     # telegram-desktop
     alacritty
@@ -19,7 +21,6 @@
     rofi
     wofi
     mpv
-    vscodium
     discord
     # kdenlive
     # gparted
@@ -27,25 +28,6 @@
     # zoom-us
     # pcmanfm-qt
 
-    # Coding stuff
-    gnumake
-    gcc
-    nodejs
-    cargo
-    rustup
-    # python
-    # (python3.withPackages (ps: with ps; [ requests ]))
-
-    # CLI utils
-    vim
-    neovim
-    nixd # lsp for nix laguage
-    fzf
-    docker-compose
-    podman
-    podman-compose
-    nvtop
-    nvtopPackages.full
     neofetch
     file
     tree
@@ -72,6 +54,8 @@
     lazygit
     bluez
     bluez-tools
+
+    fortune
 
     # GUI utils
     feh

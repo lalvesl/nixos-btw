@@ -2,7 +2,7 @@
   imports = [
     ./bluetooth.nix
     ./bootloader.nix
-    ./docker.nix
+    ./dev-dependencies.nix
     ./env.nix
     ./flatpak.nix
     ./gnome-softwares.nix
@@ -13,7 +13,7 @@
     ./sound.nix
     ./trim.nix
     ./user.nix
-    ./virtmanager.nix
+    ./virtualization-containerization.nix
     # ./nixvim/nixvim.nix
     ./xserver.nix
     ./zram.nix
