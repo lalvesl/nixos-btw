@@ -7,8 +7,8 @@
     users.alves = {
       isNormalUser = true;
       description = "Alves";
-      extraGroups = [ "networkmanager" "wheel" "input" "libvirtd" ];
-      packages = with pkgs; [];
+      extraGroups = [ "networkmanager" "wheel" "input" "libvirtd" "podman" ];
+      packages = [];
     };
   };
 }

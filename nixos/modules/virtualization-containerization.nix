@@ -16,6 +16,7 @@
   #         }
   #     ];
   # };
+
   # Multi architecture
   boot.binfmt.emulatedSystems = [
     "aarch64-linux"
@@ -29,21 +30,27 @@
 
   virtualisation = {
     libvirtd.enable = true;
+    podman = {
+      enable = true;
+      defaultNetwork.settings.dns_enabled = true;
+    };
+
+    oci-containers.backend = "podman";
+
     docker = {
       enable = true;
       storageDriver = "btrfs";
-    };
-    podman = {
-      enable = true;
     };
   };
 
   # Packages
   environment.systemPackages = with pkgs; [
     distrobox
+
     podman
     podman-compose
 
+    dive
     docker-compose
   ];
 }
