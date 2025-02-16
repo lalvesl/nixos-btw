@@ -49,8 +49,14 @@
 
     podman
     podman-compose
+    runc  # Container runtime
+    conmon  # Container runtime monitor
+    skopeo  # Interact with container registry
+    slirp4netns  # User-mode networking for unprivileged namespaces
+    fuse-overlayfs  # CoW for images, much faster than default vfs
 
     dive
+
     docker-compose
   ];
 }
