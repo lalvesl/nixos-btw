@@ -14,6 +14,7 @@
     vim
     neovim
     nixd # lsp for nix laguage
+    nixfmt-rfc-style
     fzf
     # nvtop
     nvtopPackages.full
