@@ -13,7 +13,7 @@
       # vfr = "no";
       # renderer = "egl";
       # vulkan = "no";
-      
+
       ### Programns
       "$terminal" = "alacritty";
       "$fileManager" = "dolphin";
@@ -41,7 +41,7 @@
         allow_tearing = false;
 
         layout = "dwindle";
-      # no_cursor_warps = false;
+        # no_cursor_warps = false;
       };
 
       decoration = {
@@ -52,12 +52,11 @@
         inactive_opacity = 0.6;
 
         shadow = {
-            enabled = true;
-            range = 4;
-            render_power = 3;
-            color = "rgba(1a1a1aee)";
+          enabled = true;
+          range = 4;
+          render_power = 3;
+          color = "rgba(1a1a1aee)";
         };
-
 
         blur = {
           enabled = true;
@@ -94,7 +93,7 @@
           # "fade,        1, 7,  default"
           # "workspaces,  1, 6,  default"
 
-          #Default options 
+          #Default options
           "global, 1, 10, default"
           "border, 1, 5.39, easeOutQuint"
           "windows, 1, 4.79, easeOutQuint"
@@ -123,7 +122,7 @@
       # windowrulev2 = rounding 0, floating:0, onworkspace:w[tv1]
       # windowrulev2 = bordersize 0, floating:0, onworkspace:f[1]
       # windowrulev2 = rounding 0, floating:0, onworkspace:f[1]
-      
+
       # See https://wiki.hyprland.org/Configuring/Dwindle-Layout/ for more
       dwindle = {
         pseudotile = true; # master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
@@ -149,13 +148,12 @@
         disable_hyprland_logo = false;
       };
 
-
       input = {
         kb_layout = "br";
         # kb_variant = "lang";
-        # kb_model = 
+        # kb_model =
         # kb_options = "grp:caps_toggle";
-        # kb_rules = 
+        # kb_rules =
 
         follow_mouse = 1;
 
@@ -179,8 +177,8 @@
       # Example per-device config
       # See https://wiki.hyprland.org/Configuring/Keywords/#per-device-input-configs for more
       device = {
-          name = "epic-mouse-v1";
-          sensitivity = -0.5;
+        name = "epic-mouse-v1";
+        sensitivity = -0.5;
       };
 
       # windowrule = [
@@ -201,12 +199,12 @@
 
         "$mainMod, Return, exec, alacritty"
         "$mainMod, Q, killactive,"
-        "$mainMod, M, exit,"
+        # "$mainMod, M, exit,"
         "$mainMod, E, exec, dolphin"
         "$mainMod, F, togglefloating,"
         "$mainMod, D, exec, wofi --show drun"
         "$mainMod, P, pseudo, # dwindle"
-        "$mainMod, J, togglesplit, # dwindle"
+        # "$mainMod, J, togglesplit, # dwindle"
 
         # Move focus with mainMod + arrow keys
         "$mainMod, h,  movefocus, l"
@@ -275,12 +273,12 @@
 
       bindel = [
         # Laptop multimedia keys for volume and LCD brightness
-        ",XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
-        ",XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+        ",XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%+"
+        ",XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%-"
         ",XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
         ",XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
-        ",XF86MonBrightnessUp, exec, brightnessctl s 10%+"
-        ",XF86MonBrightnessDown, exec, brightnessctl s 10%"
+        ",XF86MonBrightnessUp, exec, brightnessctl s 2%+"
+        ",XF86MonBrightnessDown, exec, brightnessctl s 2%-"
       ];
 
       bindl = [
@@ -294,16 +292,16 @@
       ##############################
       ### WINDOWS AND WORKSPACES ###
       ##############################
-      
+
       # See https://wiki.hyprland.org/Configuring/Window-Rules/ for more
       # See https://wiki.hyprland.org/Configuring/Workspace-Rules/ for workspace rules
-      
+
       # Example windowrule v1
       # windowrule = float, ^(kitty)$
-      
+
       # Example windowrule v2
       # windowrulev2 = float,class:^(kitty)$,title:^(kitty)$
-      
+
       # Ignore maximize requests from apps. You'll probably like this.
       windowrulev2 = [
         "suppressevent maximize, class:.*"
@@ -313,21 +311,19 @@
 
       # See https://wiki.hyprland.org/Configuring/Window-Rules/ for more
       # See https://wiki.hyprland.org/Configuring/Workspace-Rules/ for workspace rules
-      
+
       # Example windowrule v1
       # windowrule = float, ^(kitty)$
-      
+
       # Example windowrule v2
       # windowrulev2 = float,class:^(kitty)$,title:^(kitty)$
-      
+
       # Ignore maximize requests from apps. You'll probably like this.
       # windowrulev2 = "suppressevent maximize, class:.*";
-      
+
       # Fix some dragging issues with XWayland
       # windowrulev2 = "nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0";
       # Move/resize windows with mainMod + LMB/RMB and dragging
-      
-
 
       # bindm = [
       #   "$mainMod, mouse:272, movewindow"
