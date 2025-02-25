@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   programs.zsh.enable = true;
 
   users = {
@@ -7,8 +8,12 @@
     users.alves = {
       isNormalUser = true;
       description = "Alves";
-      extraGroups = [ "networkmanager" "wheel" "input" "libvirtd" "podman" ];
-      packages = [];
+      extraGroups = [
+        "networkmanager"
+        "wheel"
+        "input"
+      ];
+      packages = [ ];
     };
   };
 }
