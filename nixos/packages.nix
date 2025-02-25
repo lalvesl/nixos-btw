@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   nixpkgs.config = {
     allowUnfree = true;
     cudaSupport = true;
@@ -83,12 +84,7 @@
     polybar
     waybar
 
-    # Sound
-    pipewire
-    pulseaudio
-    pamixer
-
-    # GPU stuff 
+    # GPU stuff
     #nvidia-somethink-someday
     cudatoolkit
     ncurses5
