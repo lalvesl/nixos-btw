@@ -253,8 +253,8 @@
         "$mainMod, mouse_up, workspace, e-1"
 
         # Keyboard backlight
-        "$mainMod, F3, exec, brightnessctl -d *::kbd_backlight set +33%"
-        "$mainMod, F2, exec, brightnessctl -d *::kbd_backlight set 33%-"
+        # "$mainMod, F3, exec, brightnessctl -d *::kbd_backlight set +33%"
+        # "$mainMod, F2, exec, brightnessctl -d *::kbd_backlight set 33%-"
 
         # Configuration files
         # "$mainMod SHIFT, N, exec, alacritty -e sh -c \"rb\""
@@ -274,15 +274,18 @@
       bindel = [
         # Laptop multimedia keys for volume and LCD brightness
         ",XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%+"
+        "Shift, XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%+"
         ",XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%-"
+        "Shift, XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%-"
         ",XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
         ",XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
         ",XF86MonBrightnessUp, exec, brightnessctl s 2%+"
+        "Shift, XF86MonBrightnessUp, exec, brightnessctl s 20%+"
         ",XF86MonBrightnessDown, exec, brightnessctl s 2%-"
+        "Shift, XF86MonBrightnessDown, exec, brightnessctl s 20%-"
       ];
 
       bindl = [
-        # Requires playerctl
         ",XF86AudioNext, exec, playerctl next"
         ",XF86AudioPause, exec, playerctl play-pause"
         ",XF86AudioPlay, exec, playerctl play-pause"
