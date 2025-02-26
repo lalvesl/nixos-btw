@@ -10,19 +10,21 @@
         "eDP-1,1920x1080@60.05200,0x0,1"
         "HDMI-A-1,1920x1080@60.00000,-1920x0,1"
       ];
+
+      # Error, hyprland does not support
       # vfr = "no";
       # renderer = "egl";
       # vulkan = "no";
 
       ### Programns
       "$terminal" = "alacritty";
-      "$fileManager" = "dolphin";
+      "$fileManager" = "range";
       "$menu" = "wofi --show drun";
 
       env = [
-        # "XCURSOR_SIZE,20"
-        # "HYPRCURSOR_SIZE,20"
-        # "XDG_SCREENSHOTS_DIR,~/screens"
+        "XCURSOR_SIZE,20"
+        "HYPRCURSOR_SIZE,20"
+        "XDG_SCREENSHOTS_DIR,~/screens"
         "XCURSOR_SIZE,24"
         "HYPRCURSOR_SIZE,24"
       ];
@@ -141,10 +143,10 @@
 
       misc = {
         force_default_wallpaper = -1;
-        # animate_manual_resizes = true;
-        # animate_mouse_windowdragging = true;
-        # enable_swallow = true;
-        # render_ahead_of_time = false;
+        animate_manual_resizes = true;
+        animate_mouse_windowdragging = true;
+        enable_swallow = true;
+        render_ahead_of_time = false;
         disable_hyprland_logo = false;
       };
 
@@ -220,9 +222,13 @@
 
         # Window resizing                     X  Y
         "$mainMod CTRL, h,  resizeactive, -60 0"
+        "$mainMod CTRL SHIFT, h,  resizeactive, -9999 0"
         "$mainMod CTRL, l, resizeactive,  60 0"
+        "$mainMod CTRL SHIFT, l, resizeactive,  9999 0"
         "$mainMod CTRL, k,    resizeactive,  0 -60"
+        "$mainMod CTRL SHIFT, k,    resizeactive,  0 -9999"
         "$mainMod CTRL, j,  resizeactive,  0  60"
+        "$mainMod CTRL SHIFT, j,  resizeactive,  0  9999"
 
         # Switch workspaces with mainMod + [0-9]
         "$mainMod, 1, workspace, 1"
@@ -248,9 +254,12 @@
         "$mainMod SHIFT, 9, movetoworkspacesilent, 9"
         "$mainMod SHIFT, 0, movetoworkspacesilent, 10"
 
-        # Scroll through existing workspaces with mainMod + scroll
-        "$mainMod, mouse_down, workspace, e+1"
-        "$mainMod, mouse_up, workspace, e-1"
+        # Switch workspaces with vim arrows
+        "$mainMod Alt, l, workspace, e+2"
+        "$mainMod Alt, h, workspace, e-2"
+
+        "$mainMod Alt Shift, l, movetoworkspacesilent, e+2"
+        "$mainMod Alt Shift, h, movetoworkspacesilent, e-2"
 
         # Keyboard backlight
         # "$mainMod, F3, exec, brightnessctl -d *::kbd_backlight set +33%"
@@ -271,11 +280,17 @@
         "$mainMod Shift, G, exec, ~/.config/hypr/gamemode.sh "
       ];
 
+      # Mouse bindings,       MOUSE WHY?????
+      bindm = [
+        "$mainMod CTRL, mouse:272, resizewindow"
+        "$mainMod, mouse:272, movewindow"
+      ];
+
       bindel = [
         # Laptop multimedia keys for volume and LCD brightness
-        ",XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%+"
+        ",XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%+"
         "Shift, XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%+"
-        ",XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%-"
+        ",XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%-"
         "Shift, XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%-"
         ",XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
         ",XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
@@ -328,10 +343,6 @@
       # windowrulev2 = "nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0";
       # Move/resize windows with mainMod + LMB/RMB and dragging
 
-      # bindm = [
-      #   "$mainMod, mouse:272, movewindow"
-      #   "$mainMod, mouse:273, resizewindow"
-      # ];
     };
   };
 }
