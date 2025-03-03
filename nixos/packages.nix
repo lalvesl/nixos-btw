@@ -7,6 +7,12 @@
     # permittedInsecurePackages = ["python-2.7.18.8" "electron-25.9.0"];
   };
 
+  users.users."alves" = {
+    packages = with pkgs; [
+      nautilus
+    ];
+  };
+
   environment.systemPackages = with pkgs; [
     # Desktop apps
     # audacity
