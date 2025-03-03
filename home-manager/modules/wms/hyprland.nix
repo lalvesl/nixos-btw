@@ -222,13 +222,13 @@
 
         # Window resizing                     X  Y
         "$mainMod CTRL, h,  resizeactive, -60 0"
-        "$mainMod CTRL SHIFT, h,  resizeactive, -9999 0"
+        "$mainMod CTRL SHIFT, h,  resizeactive, -300 0"
         "$mainMod CTRL, l, resizeactive,  60 0"
-        "$mainMod CTRL SHIFT, l, resizeactive,  9999 0"
+        "$mainMod CTRL SHIFT, l, resizeactive,  300 0"
         "$mainMod CTRL, k,    resizeactive,  0 -60"
-        "$mainMod CTRL SHIFT, k,    resizeactive,  0 -9999"
+        "$mainMod CTRL SHIFT, k,    resizeactive,  0 -300"
         "$mainMod CTRL, j,  resizeactive,  0  60"
-        "$mainMod CTRL SHIFT, j,  resizeactive,  0  9999"
+        "$mainMod CTRL SHIFT, j,  resizeactive,  0  300"
 
         # Switch workspaces with mainMod + [0-9]
         "$mainMod, 1, workspace, 1"
@@ -288,12 +288,20 @@
 
       bindel = [
         # Laptop multimedia keys for volume and LCD brightness
+        # Audio output
         ",XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%+"
         "Shift, XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%+"
         ",XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%-"
         "Shift, XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%-"
         ",XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
         ",XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+
+        # Audio input
+        "Ctrl ,XF86AudioRaiseVolume, exec, pamixer --source @DEFAULT_SOURCE@ -i 10"
+        "Ctrl ,XF86AudioLowerVolume, exec, pamixer --source @DEFAULT_SOURCE@ -d 10"
+        # "Ctrl ,XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+        # "Ctrl ,XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+
         ",XF86MonBrightnessUp, exec, brightnessctl s 2%+"
         "Shift, XF86MonBrightnessUp, exec, brightnessctl s 20%+"
         ",XF86MonBrightnessDown, exec, brightnessctl s 2%-"
