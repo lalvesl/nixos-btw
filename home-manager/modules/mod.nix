@@ -6,7 +6,6 @@
     ./alacritty.nix
     ./qt.nix
 
-    ./wms/hyprland.nix
-    ./wms/waybar.nix
+    ./wms/mod.nix
   ];
 }

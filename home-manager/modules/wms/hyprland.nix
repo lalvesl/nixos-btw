@@ -189,9 +189,8 @@
       # ];
 
       exec-once = [
-        # "swww init"
-        # "swww img ~/Downloads/nixos-chan.png"
         "waybar"
+        "hyprpaper"
         "wl-paste --type text --watch cliphist store"
         "wl-paste --type image --watch cliphist store"
       ];
