@@ -1,4 +1,5 @@
-{programs, ...}: {
+{ programs, ... }:
+{
   programs.nixvim.plugins = {
 
     treesitter = {

@@ -3,23 +3,23 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 {
-  imports =
-    [
-      ./hardware-configuration.nix
-      ./packages.nix
-      ./modules/mod.nix
-    ];
+  imports = [
+    ./hardware-configuration.nix
+    ./packages.nix
+    ./modules/mod.nix
+  ];
 
   # Set your time zone.
   time.timeZone = "America/Sao_Paulo";
 
+  #  disabledModules = [
+  #    ./modules/xserver.nix
+  #  ];
 
-#  disabledModules = [
-#    ./modules/xserver.nix
-#  ];
-
-  nix.settings.experimental-features = [ "nix-command" "flakes" ]; # Enabling flakes
-
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ]; # Enabling flakes
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

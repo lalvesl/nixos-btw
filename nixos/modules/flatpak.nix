@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   services.flatpak.enable = true;
   users.users."alves" = {
     packages = with pkgs; [
