@@ -254,11 +254,11 @@
         "$mainMod SHIFT, 0, movetoworkspacesilent, 10"
 
         # Switch workspaces with vim arrows
-        "$mainMod Alt, l, workspace, e+2"
-        "$mainMod Alt, h, workspace, e-2"
+        "$mainMod Alt, l, workspace, e+1"
+        "$mainMod Alt, h, workspace, e-1"
 
-        "$mainMod Alt Shift, l, movetoworkspacesilent, e+2"
-        "$mainMod Alt Shift, h, movetoworkspacesilent, e-2"
+        "$mainMod Alt Shift, l, movetoworkspacesilent, e+1"
+        "$mainMod Alt Shift, h, movetoworkspacesilent, e-1"
 
         # Keyboard backlight
         # "$mainMod, F3, exec, brightnessctl -d *::kbd_backlight set +33%"
