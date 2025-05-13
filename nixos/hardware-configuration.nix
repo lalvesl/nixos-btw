@@ -4,6 +4,7 @@
 {
   config,
   lib,
+  pkgs,
   modulesPath,
   ...
 }:
@@ -14,31 +15,33 @@
   ];
 
   boot.initrd.availableKernelModules = [
+    "nvme"
     "xhci_pci"
     "ahci"
-    "nvme"
+    "usbhid"
     "usb_storage"
     "sd_mod"
-    "rtsx_pci_sdmmc"
   ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel" ];
+  boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
+  # fileSystems."/home" =
+  #   { device = "/dev/disk/by-uuid/322401dd-1ba5-4223-8933-51572d8805e2";
+  #     fsType = "btrfs";
+  #     options = [ "subvol=@home" ];
+  #   };
+
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/177c8139-10fb-4361-99eb-5d6b6814036f";
-    fsType = "btrfs";
-    options = [ "subvol=@" ];
+    device = "/dev/disk/by-uuid/322401dd-1ba5-4223-8933-51572d8805e2";
+    fsType = "ext4";
   };
 
-  fileSystems."/home" = {
-    device = "/dev/disk/by-uuid/177c8139-10fb-4361-99eb-5d6b6814036f";
-    fsType = "btrfs";
-    options = [ "subvol=@home" ];
-  };
+  boot.initrd.luks.devices."luks-ed993ae3-28c8-46c0-a7fd-6e23c675f85b".device =
+    "/dev/disk/by-uuid/ed993ae3-28c8-46c0-a7fd-6e23c675f85b";
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/C39E-2E9B";
+    device = "/dev/disk/by-uuid/E20E-CAF8";
     fsType = "vfat";
     options = [
       "fmask=0077"
@@ -53,17 +56,14 @@
   # still possible to use this option, but it's recommended to use it in conjunction
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.enp7s0f1.useDHCP = lib.mkDefault true;
-  # networking.interfaces.wlp0s20f3.useDHCP = lib.mkDefault true;
+  # networking.interfaces.enp2s0f1.useDHCP = lib.mkDefault true;
+  # networking.interfaces.wlp3s0.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-
-  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.production;
+  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"
   ];
-
 }

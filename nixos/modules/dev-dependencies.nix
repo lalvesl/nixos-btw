@@ -7,6 +7,7 @@
     nodejs
     cargo
     rustup
+    git-credential-manager
     # python
     # (python3.withPackages (ps: with ps; [ requests ]))
 

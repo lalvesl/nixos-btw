@@ -2,7 +2,7 @@
 {
   nixpkgs.config = {
     allowUnfree = true;
-    cudaSupport = true;
+    # cudaSupport = true;
     # cudnnSupport = true;
     # permittedInsecurePackages = ["python-2.7.18.8" "electron-25.9.0"];
   };
@@ -84,15 +84,11 @@
 
     # WMs and stuff
     herbstluftwm
-    hyprland
     seatd
-    xdg-desktop-portal-hyprland
-    polybar
-    waybar
 
     # GPU stuff
     #nvidia-somethink-someday
-    cudatoolkit
+    # cudatoolkit
     ncurses5
 
     # Screenshotting
@@ -118,6 +114,8 @@
     font-awesome
     powerline-fonts
     powerline-symbols
-    (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
+    nerd-fonts.symbols-only
+    nerd-fonts._0xproto
+   # (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
   ];
 }

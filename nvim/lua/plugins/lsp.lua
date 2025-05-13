@@ -9,7 +9,7 @@ return {
 				"luacheck",
 				"shellcheck",
 				"shfmt",
-				"tailwindcss-language-server",
+				-- "tailwindcss-language-server",
 				"typescript-language-server",
 				"css-lsp",
 				"pyright",
@@ -98,26 +98,23 @@ return {
 						-- return require("lspconfig.util").root_pattern(".git")(...)
 						return require("lspconfig.util").root_pattern(
 							"tailwind.config.js",
+							"tailwind.config.mjs",
 							"tailwind.config.ts",
-							"postcss.config.js",
-							"postcss.config.ts",
-							"package.json",
-							"node_modules"
 						)(...)
 					end,
 				},
 				tsserver = {
 					root_dir = function(...)
-						return require("lspconfig.util").root_pattern(".git")(...)
+						return require("lspconfig.util").root_pattern("package.json")(...)
 					end,
 					single_file_support = false,
 					settings = {
 						typescript = {
 							inlayHints = {
 								includeInlayParameterNameHints = "literal",
-								includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+								includeInlayParameterNameHintsWhenArgumentMatchesName = true,
 								includeInlayFunctionParameterTypeHints = true,
-								includeInlayVariableTypeHints = false,
+								includeInlayVariableTypeHints = true,
 								includeInlayPropertyDeclarationTypeHints = true,
 								includeInlayFunctionLikeReturnTypeHints = true,
 								includeInlayEnumMemberValueHints = true,
@@ -126,7 +123,7 @@ return {
 						javascript = {
 							inlayHints = {
 								includeInlayParameterNameHints = "all",
-								includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+								includeInlayParameterNameHintsWhenArgumentMatchesName = true,
 								includeInlayFunctionParameterTypeHints = true,
 								includeInlayVariableTypeHints = true,
 								includeInlayPropertyDeclarationTypeHints = true,

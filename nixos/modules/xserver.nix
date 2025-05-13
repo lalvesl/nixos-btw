@@ -15,7 +15,7 @@
     #   touchpad.accelProfile = "flat";
     # };
 
-    videoDrivers = [ "nvidia" ];
+    videoDrivers = [ "amdgpu" ];
     deviceSection = ''Option "TearFree" "True"'';
     # displayManager.sddm = {
     #     enable = true;

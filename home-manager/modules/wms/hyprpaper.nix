@@ -9,7 +9,7 @@
       ];
 
       wallpaper = [
-        "eDP-1,${builtins.toString ./wall.jpg}"
+        "DP-1,${builtins.toString ./wall.jpg}"
         "HDMI-A-1,${builtins.toString ./wall.jpg}"
       ];
     };

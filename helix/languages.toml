@@ -1,0 +1,40 @@
+[[language]]
+name = "rust"
+formatter = { command = "rustfmt" }
+auto-format = true
+
+[[language]]
+name = "lua"
+language-server = { command = "lua-language-server" }
+
+[[language]]
+name = "python"
+language-server = { command = "pyright" }
+
+[[language]]
+name = "typescript"
+language-server = { command = "typescript-language-server", args = ["--stdio"] }
+
+[[language]]
+name = "javascript"
+language-server = { command = "typescript-language-server", args = ["--stdio"] }
+
+[[language]]
+name = "bash"
+language-server = { command = "bash-language-server", args = ["start"] }
+
+[[language]]
+name = "toml"
+
+[[language]]
+name = "json"
+
+[[language]]
+name = "markdown"
+
+[[language]]
+name = "yaml"
+
+[[language]]
+name = "nix"
+language-server = { command = "nixd" }
