@@ -1,21 +1,21 @@
--- local MODELS = {
---   GEMINI_2_5_FLASH_PREVIEW = 'gemini-2.5-flash-preview-04-17',
---   GEMINI_2_5_PRO_PREVIEW = 'gemini-2.5-pro-preview-03-25',
---   GEMINI_2_0_FLASH = 'gemini-2.0-flash',
---   GEMINI_2_0_FLASH_LITE = 'gemini-2.0-flash-lite',
---   GEMINI_2_0_FLASH_EXP = 'gemini-2.0-flash-exp',
---   GEMINI_2_0_FLASH_THINKING_EXP = 'gemini-2.0-flash-thinking-exp-1219',
---   GEMINI_1_5_PRO = 'gemini-1.5-pro',
---   GEMINI_1_5_FLASH = 'gemini-1.5-flash',
---   GEMINI_1_5_FLASH_8B = 'gemini-1.5-flash-8b',
--- }
+local MODELS = {
+  GEMINI_2_5_FLASH_PREVIEW = 'gemini-2.5-flash-preview-04-17',
+  GEMINI_2_5_PRO_PREVIEW = 'gemini-2.5-pro-preview-03-25',
+  GEMINI_2_0_FLASH = 'gemini-2.0-flash',
+  GEMINI_2_0_FLASH_LITE = 'gemini-2.0-flash-lite',
+  GEMINI_2_0_FLASH_EXP = 'gemini-2.0-flash-exp',
+  GEMINI_2_0_FLASH_THINKING_EXP = 'gemini-2.0-flash-thinking-exp-1219',
+  GEMINI_1_5_PRO = 'gemini-1.5-pro',
+  GEMINI_1_5_FLASH = 'gemini-1.5-flash',
+  GEMINI_1_5_FLASH_8B = 'gemini-1.5-flash-8b',
+}
 
 return {
   'kiddos/gemini.nvim',
   opts = {
   model_config = {
     completion_delay = 1000,
-    model_id = 'gemini-1.5-flash-8b',
+    model_id = MODELS.GEMINI_1_5_FLASH_8B,
     temperature = 0.2,
     top_k = 20,
     max_output_tokens = 8196,
