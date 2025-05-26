@@ -15,7 +15,6 @@
     ./trim.nix
     ./user.nix
     ./virtualization-containerization.nix
-    # ./nixvim/nixvim.nix
     ./xserver.nix
     ./zram.nix
   ];

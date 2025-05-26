@@ -72,7 +72,6 @@
   #  /etc/profiles/per-user/alves/etc/profile.d/hm-session-vars.sh
   #
   home.sessionVariables = {
-    EDITOR = "vim";
   };
 
   # Let Home Manager install and manage itself.
