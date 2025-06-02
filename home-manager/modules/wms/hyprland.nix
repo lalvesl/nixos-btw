@@ -209,26 +209,26 @@
         # "$mainMod, J, togglesplit, # dwindle"
 
         # Move focus with mainMod + arrow keys
-        "$mainMod, h,  movefocus, l"
+        "$mainMod, h, movefocus, l"
         "$mainMod, l, movefocus, r"
-        "$mainMod, k,    movefocus, u"
-        "$mainMod, j,  movefocus, d"
+        "$mainMod, k, movefocus, u"
+        "$mainMod, j, movefocus, d"
 
         # Moving windows
-        "$mainMod SHIFT, h,  swapwindow, l"
+        "$mainMod SHIFT, h, swapwindow, l"
         "$mainMod SHIFT, l, swapwindow, r"
-        "$mainMod SHIFT, k,    swapwindow, u"
-        "$mainMod SHIFT, j,  swapwindow, d"
+        "$mainMod SHIFT, k, swapwindow, u"
+        "$mainMod SHIFT, j, swapwindow, d"
 
         # Window resizing                     X  Y
-        "$mainMod CTRL, h,  resizeactive, -60 0"
-        "$mainMod CTRL SHIFT, h,  resizeactive, -300 0"
+        "$mainMod CTRL, h, resizeactive, -60 0"
+        "$mainMod CTRL SHIFT, h, resizeactive, -300 0"
         "$mainMod CTRL, l, resizeactive,  60 0"
         "$mainMod CTRL SHIFT, l, resizeactive,  300 0"
-        "$mainMod CTRL, k,    resizeactive,  0 -60"
-        "$mainMod CTRL SHIFT, k,    resizeactive,  0 -300"
-        "$mainMod CTRL, j,  resizeactive,  0  60"
-        "$mainMod CTRL SHIFT, j,  resizeactive,  0  300"
+        "$mainMod CTRL, k, resizeactive,  0 -60"
+        "$mainMod CTRL SHIFT, k, resizeactive,  0 -300"
+        "$mainMod CTRL, j, resizeactive,  0  60"
+        "$mainMod CTRL SHIFT, j, resizeactive,  0  300"
 
         # Switch workspaces with mainMod + [0-9]
         "$mainMod, 1, workspace, 1"
