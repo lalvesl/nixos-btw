@@ -23,7 +23,7 @@
           "cpu"
           "backlight"
           "battery"
-          "tray"
+          # "tray"
         ];
 
         "hyprland/workspaces" = {

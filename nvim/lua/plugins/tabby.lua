@@ -5,9 +5,9 @@
       "neovim/nvim-lspconfig",
     },
     init = function()
-      vim.g.rabby_agent_start_command = {"npx", "tabby-agent", "--stdio"}
-      vim.g.tabby_inline_completion_trigger = "auto"
-      vim.g.tabby_inline_completion_keybinding_accept = "<C-sdjlkbfsd>"
-      vim.g.tabby_inline_completion_keybinding_trigger_or_dismiss = "<C-ajsbdnaçjksb>"
+      vim.g.tabby_agent_start_command = {"npx", "tabby-agent", "--stdio"}
+      vim.g.tabby_inline_completion_trigger = "manual"
+      vim.g.tabby_inline_completion_keybinding_accept = "<C-g>"
+      vim.g.tabby_inline_completion_keybinding_trigger_or_dismiss = "<C-S-g>"
     end,
   }

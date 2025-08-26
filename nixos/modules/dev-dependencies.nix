@@ -16,6 +16,7 @@
     nixd # lsp for nix laguage
     nixfmt-rfc-style
     fzf
+    tmux
     # nvtop
     nvtopPackages.full
 

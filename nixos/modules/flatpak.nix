@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   services.flatpak.enable = true;
-  users.users."alves" = {
+  users.users."lalvesl" = {
     packages = with pkgs; [
       flatpak
     ];

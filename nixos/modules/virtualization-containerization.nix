@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 {
-  # users.users.alves = {
+  # users.users.lalvesl = {
   #     extraGroups = [ "podman" ];
   #     subGidRanges = [
   #         {
@@ -32,7 +32,7 @@
   programs.dconf.enable = true;
 
   # Add user to libvirtd group
-  users.users.alves.extraGroups = [
+  users.users.lalvesl.extraGroups = [
     "libvirtd"
     "podman"
   ];

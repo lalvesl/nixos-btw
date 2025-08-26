@@ -5,9 +5,9 @@
   users = {
     defaultUserShell = pkgs.zsh;
 
-    users.alves = {
+    users.lalvesl = {
       isNormalUser = true;
-      description = "Alves";
+      description = "lalvesl";
       extraGroups = [
         "networkmanager"
         "wheel"

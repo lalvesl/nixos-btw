@@ -76,7 +76,7 @@ return {
   },
   instruction = {
     enabled = true,
-    menu_key = '<C-o>',
+    menu_key = '<C-l>',
     prompts = {
       {
         name = 'Unit Test',

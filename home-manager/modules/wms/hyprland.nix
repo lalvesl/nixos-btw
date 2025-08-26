@@ -198,6 +198,9 @@
       bind = [
         "$mainMod, V, exec, cliphist list | wofi --dmenu | cliphist decode | wl-copy"
 
+        "$mainMod, S, exec, hyprshade toggle blue-light-filter"
+        "$mainMod, X, exec, hyprlock"
+
         "$mainMod, Return, exec, alacritty"
         "$mainMod, Space, exec, alacritty"
         "$mainMod, Q, killactive,"

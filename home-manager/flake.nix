@@ -1,5 +1,5 @@
 {
-  description = "Home Manager configuration of alves";
+  description = "Home Manager configuration of lalvesl";
 
   inputs = {
     # Specify the source of Home Manager and Nixpkgs.
@@ -26,7 +26,7 @@
       pkgs = nixpkgs.legacyPackages.${system};
     in
     {
-      homeConfigurations."alves" = home-manager.lib.homeManagerConfiguration {
+      homeConfigurations."lalvesl" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
 
         # Specify your home configuration modules here, for example,

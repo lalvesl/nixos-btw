@@ -7,7 +7,7 @@
     # permittedInsecurePackages = ["python-2.7.18.8" "electron-25.9.0"];
   };
 
-  users.users."alves" = {
+  users.users."lalvesl" = {
     packages = with pkgs; [
       nautilus
     ];
@@ -21,6 +21,7 @@
     google-chrome
     brave
     firefox
+    zathura
     # telegram-desktop
     alacritty
     kitty
@@ -89,6 +90,8 @@
     xdg-desktop-portal-hyprland
     polybar
     waybar
+    hyprlock
+    hyprshade
 
     # GPU stuff
     #nvidia-somethink-someday
