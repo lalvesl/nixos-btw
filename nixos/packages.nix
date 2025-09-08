@@ -108,8 +108,8 @@
     # Other
     home-manager
     spice-vdagent
-    libsForQt5.qtstyleplugin-kvantum
-    libsForQt5.qt5ct
+    # libsForQt5.qtstyleplugin-kvantum
+    # libsForQt5.qt5ct
     papirus-nord
   ];
 
@@ -121,6 +121,8 @@
     font-awesome
     powerline-fonts
     powerline-symbols
-    (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
+    nerd-fonts.symbols-only
+    nerd-fonts._0xproto
+    # (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
   ];
 }

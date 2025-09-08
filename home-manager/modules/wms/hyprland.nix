@@ -207,9 +207,11 @@
         # "$mainMod, M, exit,"
         "$mainMod, E, exec, dolphin"
         "$mainMod, F, togglefloating,"
+        "$mainMod, F, togglefloating"
         "$mainMod, D, exec, wofi --show drun"
-        "$mainMod, P, pseudo, # dwindle"
-        # "$mainMod, J, togglesplit, # dwindle"
+        # "$mainMod, P, pseudo, # dwindle"
+        "$mainMod, P, exec, hyprctl dispatch togglefloating && hyprctl dispatch pin"
+        "$mainMod, R, togglesplit, # dwindle"
 
         # Move focus with mainMod + arrow keys
         "$mainMod, h, movefocus, l"

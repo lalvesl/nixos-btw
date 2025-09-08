@@ -9,6 +9,7 @@
     ./i18n.nix
     ./net.nix
     ./nvidia.nix
+    ./qt.nix
     ./sound.nix
     ./special-configs.nix
     ./sys-utils.nix

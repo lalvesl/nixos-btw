@@ -4,11 +4,16 @@
 {
   config,
   lib,
-  pkgs,
   modulesPath,
   ...
 }:
-
+let
+  base_options_btrfs = [
+    "ssd"
+    "discard=async"
+    "space_cache=v2"
+  ];
+in
 {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
@@ -26,26 +31,68 @@
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" =
-    { device = "/dev/disk/by-uuid/4a787f53-75f7-4e02-8b29-d2569680e35b";
-      fsType = "btrfs";
-      options = [ "subvol=@" "compress=zstd:2" ];
-    };
-
-  boot.initrd.luks.devices."luks-cf51b511-083f-4e57-9257-c5e363d813bc".device = "/dev/disk/by-uuid/cf51b511-083f-4e57-9257-c5e363d813bc";
-
-
-  fileSystems."/home" = {
-    device = "/dev/disk/by-uuid/4a787f53-75f7-4e02-8b29-d2569680e35b";
+  fileSystems."/" = {
+    device = "/dev/disk/by-uuid/65b9c37e-aff8-4366-b6ad-d72cfe4c57bf";
     fsType = "btrfs";
-    options = [ "subvol=@home" "compress=zstd:2" ];
+    options = [
+      "subvol=@"
+      "compress=zstd:2"
+    ]
+    ++ base_options_btrfs;
   };
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/4CE2-B969";
-      fsType = "vfat";
-      options = [ "fmask=0077" "dmask=0077" ];
-    };
+  boot.initrd.luks.devices."cryptroot".device =
+    "/dev/disk/by-uuid/163b4267-0fcf-411c-8faa-6526c51f97d7";
+
+  fileSystems."/home" = {
+    device = "/dev/disk/by-uuid/65b9c37e-aff8-4366-b6ad-d72cfe4c57bf";
+    fsType = "btrfs";
+    options = [
+      "subvol=@home"
+      "compress=zstd:2"
+    ]
+    ++ base_options_btrfs;
+  };
+
+  fileSystems."/nix" = {
+    device = "/dev/disk/by-uuid/65b9c37e-aff8-4366-b6ad-d72cfe4c57bf";
+    fsType = "btrfs";
+    options = [
+      "subvol=@nix"
+      "compress=zstd:8"
+      "noatime"
+    ]
+    ++ base_options_btrfs;
+  };
+
+  fileSystems."/var/log" = {
+    device = "/dev/disk/by-uuid/65b9c37e-aff8-4366-b6ad-d72cfe4c57bf";
+    fsType = "btrfs";
+    options = [
+      "subvol=@log"
+      "compress-force=zstd:15"
+    ]
+    ++ base_options_btrfs;
+  };
+
+  fileSystems."/.snapshots" = {
+    device = "/dev/disk/by-uuid/65b9c37e-aff8-4366-b6ad-d72cfe4c57bf";
+    fsType = "btrfs";
+    options = [
+      "subvol=@snapshots"
+      "compress-force=zstd:15"
+    ]
+    ++ base_options_btrfs;
+  };
+
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/4C8A-DA32";
+    fsType = "vfat";
+    options = [
+      "fmask=0022"
+      "dmask=0022"
+    ];
+  };
 
   swapDevices = [ ];
 

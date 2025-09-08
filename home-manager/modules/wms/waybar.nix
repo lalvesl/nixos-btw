@@ -9,18 +9,21 @@
 
         modules-left = [
           "hyprland/workspaces"
-          "hyprland/language"
-          "keyboard-state"
-          "hyprland/submap"
+          # "hyprland/window"
+          # "hyprland/language"
+          # "keyboard-state"
+          # "hyprland/submap"
+          # "network"
         ];
         modules-center = [
           "clock"
-          "custom/weather"
+          # "custom/weather"
         ];
         modules-right = [
           "pulseaudio"
           "custom/mem"
           "cpu"
+          "temperature"
           "backlight"
           "battery"
           # "tray"
@@ -48,9 +51,10 @@
         };
 
         "clock" = {
+          interval = 1;
           # timezone = "America/New_York";
           tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
-          format = "{:%a; %d %b, %I:%M %p}";
+          format = "{:%a; %d %b, %I:%M:%S %p}";
         };
 
         "custom/weather" = {
@@ -73,7 +77,7 @@
           format-icons = {
             headphone = "";
             hands-free = "";
-            headset = "";
+            headset = "";
             phone = "";
             portable = "";
             car = "";
@@ -90,21 +94,36 @@
         "custom/mem" = {
           format = "{} ";
           interval = 3;
-          exec = "free -h | awk '/Mem:/{printf $3}'";
+          exec = "free -h | awk '/Mem:/{printf $3}' | sed 's/i//'";
           tooltip = false;
         };
 
+        # "cpu" = {
+        #   interval = 2;
+        #   format = "{usage}% ";
+        #   min-length = 6;
+        # };
         "cpu" = {
-          interval = 2;
-          format = "{usage}% ";
-          min-length = 6;
+          "interval" = 1;
+          "format" =
+            "{icon0}{icon1}{icon2}{icon3}{icon4}{icon5}{icon6}{icon7} {usage:>2}% {avg_frequency:1.2f}G ";
+          "format-icons" = [
+            "▁"
+            "▂"
+            "▃"
+            "▄"
+            "▅"
+            "▆"
+            "▇"
+            "█"
+          ];
         };
 
         "temperature" = {
-          # thermal-zone = 2;
-          # hwmon-path = "/sys/class/hwmon/hwmon2/temp1_input";
+          thermal-zone = 0;
+          hwmon-path = "/sys/class/hwmon/hwmon2/temp1_input";
           critical-threshold = 80;
-          # format-critical = "{temperatureC}°C {icon}";
+          format-critical = "{temperatureC}°C {icon}";
           format = "{temperatureC}°C {icon}";
           format-icons = [
             ""
@@ -257,7 +276,7 @@
       #clock {
           padding-left: 16px;
           padding-right: 16px;
-          border-radius: 10px 0px 0px 10px;
+          border-radius: 10px 10px 10px 10px;
           transition: none;
           color: #ffffff;
           background: #383c4a;
