@@ -16,11 +16,10 @@
   environment.systemPackages = with pkgs; [
     # Desktop apps
     # audacity
-    linuxKernel.packages.linux_zen.cpupower
     chromium
     google-chrome
     brave
-    firefox
+    firefox-bin
     zathura
     # telegram-desktop
     alacritty
@@ -28,6 +27,8 @@
     obs-studio
     rofi
     wofi
+    pavucontrol
+    linuxKernel.packages.linux_zen.cpupower
     mpv
     discord
     # kdenlive
