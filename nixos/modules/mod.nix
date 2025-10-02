@@ -7,6 +7,7 @@
     ./flatpak.nix
     ./hyprland.nix
     ./i18n.nix
+    ./kde_connect.nix
     ./net.nix
     ./nvidia.nix
     ./qt.nix
