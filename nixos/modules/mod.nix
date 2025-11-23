@@ -14,6 +14,7 @@
     ./sound.nix
     ./special-configs.nix
     ./sys-utils.nix
+    ./portals.nix
     ./trim.nix
     ./user.nix
     ./virtualization-containerization.nix

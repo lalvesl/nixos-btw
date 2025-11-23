@@ -14,6 +14,7 @@
   };
 
   environment.systemPackages = with pkgs; [
+    lan-mouse
     # Desktop apps
     # audacity
     chromium
@@ -88,7 +89,7 @@
     herbstluftwm
     hyprland
     seatd
-    xdg-desktop-portal-hyprland
+    # xdg-desktop-portal-hyprland
     polybar
     waybar
     hyprlock

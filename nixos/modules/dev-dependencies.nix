@@ -13,6 +13,7 @@
     # CLI utils
     vim
     neovim
+    helix
     nixd # lsp for nix laguage
     nixfmt-rfc-style
     fzf

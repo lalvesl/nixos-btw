@@ -1,3 +1,4 @@
+{ pkgs, ... }:
 {
   networking.networkmanager.enable = true;
   networking.hostName = "lalvesl-nix"; # Define your hostname.
@@ -14,12 +15,28 @@
       to = 1764;
     }
   ];
-
-  # KdeConnect ports
   networking.firewall.allowedUDPPortRanges = [
     {
       from = 1714;
       to = 1764;
     }
   ];
+
+  environment.systemPackages = with pkgs; [
+    openconnect
+    networkmanager-openconnect
+    networkmanagerapplet
+  ];
+
+  networking.networkmanager.plugins = with pkgs; [ networkmanager-openconnect ];
+  networking.firewall.trustedInterfaces = [ "tun0" ];
+
+  networking.firewall.interfaces.tun0.allowedTCPPorts = [
+    80
+    443
+    8080
+  ];
+  networking.firewall.interfaces.tun0.allowedUDPPorts = [ 53 ];
+
+  # services.network-manager-applet.enable = true;
 }

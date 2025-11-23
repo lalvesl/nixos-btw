@@ -62,6 +62,10 @@
       storageDriver = "btrfs";
     };
   };
+  users.groups.libvirtd.members = [
+    "root"
+    "lalvesl"
+  ];
 
   # Packages
   environment.systemPackages = with pkgs; [
