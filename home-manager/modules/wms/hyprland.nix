@@ -7,8 +7,8 @@
       "$mainMod" = "SUPER";
 
       monitor = [
-        "eDP-1,1920x1080@60.05200,0x0,1"
-        "HDMI-A-1,1920x1080@60.00000,-1920x0,1"
+        "eDP-1,1920x1080@60.05200,1920x0,1"
+        "HDMI-A-1,1920x1080@60.00000,0x0,1"
       ];
 
       # Error, hyprland does not support
@@ -205,9 +205,8 @@
         "$mainMod, Space, exec, alacritty"
         "$mainMod, Q, killactive,"
         # "$mainMod, M, exit,"
-        "$mainMod, E, exec, dolphin"
+        "$mainMod, N, exec, nautilus"
         "$mainMod, F, togglefloating,"
-        "$mainMod, F, togglefloating"
         "$mainMod, D, exec, wofi --show drun"
         # "$mainMod, P, pseudo, # dwindle"
         "$mainMod, P, exec, hyprctl dispatch togglefloating && hyprctl dispatch pin"
