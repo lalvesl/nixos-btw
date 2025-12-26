@@ -31,9 +31,9 @@ return {
 				lint_events = { "BufWrite", "CursorHold" },
 			},
 		},
-		config = function(_, opts)
-			require("nvim-treesitter.configs").setup(opts)
-
+		-- No config override: LazyVim's own does the setup for the nvim-treesitter
+		-- branch it ships with (master on the host, main in the sbx guest)
+		init = function()
 			-- MDX
 			vim.filetype.add({
 				extension = {
