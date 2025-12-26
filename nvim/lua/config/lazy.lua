@@ -1,4 +1,8 @@
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+-- Inside the sbx sandbox every plugin comes prebuilt from Nix
+-- (nixos/modules/sandbox/nvim.nix). Unset everywhere else.
+local nix_plugins = vim.g.sbx_plugins
+
+local lazypath = nix_plugins and (nix_plugins .. "/lazy.nvim") or vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.uv.fs_stat(lazypath) then
 	vim.fn.system({
 		"git",
@@ -26,6 +30,10 @@ require("lazy").setup({
 			},
 		},
 		-- import any extras modules here
+		-- Explorer and picker pinned: LazyVim picks them from the install age in
+		-- lazyvim.json, so a fresh install (the sbx guest) would get snacks instead
+		{ import = "lazyvim.plugins.extras.editor.neo-tree" },
+		{ import = "lazyvim.plugins.extras.editor.fzf" },
 		{ import = "lazyvim.plugins.extras.linting.eslint" },
 		{ import = "lazyvim.plugins.extras.formatting.prettier" },
 		{ import = "lazyvim.plugins.extras.lang.typescript" },
@@ -33,7 +41,6 @@ require("lazy").setup({
 		-- { import = "lazyvim.plugins.extras.lang.markdown" },
 		{ import = "lazyvim.plugins.extras.lang.rust" },
 		{ import = "lazyvim.plugins.extras.lang.tailwind" },
-		-- { import = "lazyvim.plugins.extras.coding.copilot" },
 		-- { import = "lazyvim.plugins.extras.dap.core" },
 		-- { import = "lazyvim.plugins.extras.vscode" },
 		{ import = "lazyvim.plugins.extras.util.mini-hipatterns" },
@@ -52,10 +59,15 @@ require("lazy").setup({
 		version = false, -- always use the latest git commit
 		-- version = "*", -- try installing the latest stable version for plugins that support semver
 	},
-	dev = {
+	dev = nix_plugins and {
+		-- Every plugin from the Nix plugin dir; one it lacks is cloned as usual
+		path = nix_plugins,
+		patterns = { "" },
+		fallback = true,
+	} or {
 		path = "~/.ghq/github.com",
 	},
-	checker = { enabled = true }, -- automatically check for plugin updates
+	checker = { enabled = not nix_plugins }, -- automatically check for plugin updates
 	performance = {
 		cache = {
 			enabled = true,
