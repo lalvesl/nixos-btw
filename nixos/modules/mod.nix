@@ -29,5 +29,6 @@
     ./virtualization-containerization.nix
     ./xserver.nix
     ./zram.nix
+    ./sandbox
   ];
 }
