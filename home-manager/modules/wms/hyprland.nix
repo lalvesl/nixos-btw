@@ -146,7 +146,7 @@
         animate_manual_resizes = true;
         animate_mouse_windowdragging = true;
         enable_swallow = true;
-        render_ahead_of_time = false;
+        # render_ahead_of_time = false;
         disable_hyprland_logo = false;
       };
 
@@ -168,7 +168,7 @@
       };
 
       gestures = {
-        workspace_swipe = false;
+        # workspace_swipe = false;
         # workspace_swipe = true;
         # workspace_swipe_fingers = 3;
         # workspace_swipe_invert = false;

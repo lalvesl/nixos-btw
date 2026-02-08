@@ -2,7 +2,8 @@
 {
   programs.kdeconnect = {
     enable = true;
-    package = pkgs.plasma5Packages.kdeconnect-kde;
+    # package = pkgs.kdeconnect-kde;
+    # package = pkgs.gnomeExtensions.gsconnect;
   };
   environment.etc."kdeconnect/config".text = ''
     [General]

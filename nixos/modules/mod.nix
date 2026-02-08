@@ -13,6 +13,7 @@
     ./qt.nix
     ./sound.nix
     ./special-configs.nix
+    ./steam.nix
     ./sys-utils.nix
     ./portals.nix
     ./trim.nix

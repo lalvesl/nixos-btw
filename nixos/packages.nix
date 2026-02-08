@@ -32,6 +32,7 @@
     linuxKernel.packages.linux_zen.cpupower
     mpv
     discord
+    resources
     # kdenlive
     # gparted
     # obsidian
@@ -118,7 +119,7 @@
   fonts.packages = with pkgs; [
     jetbrains-mono
     noto-fonts
-    noto-fonts-emoji
+    noto-fonts-color-emoji
     twemoji-color-font
     font-awesome
     powerline-fonts
