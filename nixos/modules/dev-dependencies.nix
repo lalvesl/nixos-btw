@@ -26,5 +26,8 @@
 
     # Why?, i don't now, i not use, I USE NVIM BTW
     vscodium
+
+    #Yep, this day has come
+    antigravity
   ];
 }
