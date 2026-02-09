@@ -1,14 +1,20 @@
-{ pkgs, modulesPath, ... }:
+{
+  pkgs,
+  modulesPath,
+  inputs,
+  ...
+}:
 
 {
   imports = [
     # Verify this path exists in the nixpkgs checkout or reference it correctly via modulesPath
     "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix"
     "${modulesPath}/installer/cd-dvd/channel.nix"
+    inputs.home-manager.nixosModules.home-manager
   ];
 
   # Networking
-  networking.hostName = "nixos-wallet";
+  networking.hostName = "lalvesl-wallet";
   networking.wireless.enable = true; # Enable wireless support for the live ISO
 
   # Enable Hyprland
@@ -16,8 +22,7 @@
 
   # Hardware Configuration for generic ISO
   # The installation-cd module handles most of this, but we need sound/video
-  sound.enable = true;
-  hardware.pulseaudio.enable = false;
+  # hardware.pulseaudio.enable = false; # Deprecated
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -27,7 +32,7 @@
   };
 
   # Webcam support
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
     # extraPackages = with pkgs; [ v4l-utils ]; # Often needed for webcam utils
   };
@@ -66,18 +71,35 @@
   ];
 
   # User Configuration
-  users.users.nixos = {
+  users.users.lalvesl = {
     isNormalUser = true;
     extraGroups = [
       "wheel"
       "video"
       "networkmanager"
     ];
-    password = "nixos"; # Default password for the live user
+    initialPassword = "lalvesl"; # Default password for the live user
   };
 
+  home-manager.users.lalvesl =
+    { pkgs, ... }:
+    {
+      imports = [
+        "${inputs.root}/home-manager/modules/wms/mod.nix"
+        "${inputs.root}/home-manager/modules/alacritty.nix"
+      ];
+      home.stateVersion = "24.11"; # Match installed version or latest
+
+      # Ensure home/username is set correctly for home-manager to work
+      home.username = "lalvesl";
+      home.homeDirectory = "/home/lalvesl";
+
+      # We need to enable programs that might be referenced but not enabled in the imported modules if they rely on system-level enabling,
+      # but usually home-manager modules are self-contained.
+    };
+
   # Auto-login to Hyprland
-  services.getty.autologinUser = "nixos";
+  services.getty.autologinUser = "lalvesl";
 
   # Necessary for someelectron apps to run under Wayland
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
