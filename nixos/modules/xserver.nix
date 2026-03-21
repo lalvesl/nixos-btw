@@ -21,8 +21,9 @@
     #     enable = true;
     #     wayland.enable = true;
     # };
-    displayManager.gdm.enable = true;
-    displayManager.gdm.wayland = true;
     # desktopManager.gnome.enable = true;
   };
+  # TDOO: need to split xserver and displayManager configs
+  services.displayManager.gdm.enable = true;
+  services.displayManager.gdm.wayland = true;
 }
