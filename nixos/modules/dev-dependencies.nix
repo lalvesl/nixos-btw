@@ -7,8 +7,10 @@ let
   };
   latest_antigravity = unstable.antigravity.overrideAttrs (oldAttrs: rec {
     src = unstable.fetchurl {
-      url = "https://edgedl.me.gvt1.com/edgedl/release2/j0qc3/antigravity/stable/1.19.6-6514342219874304/linux-x64/Antigravity.tar.gz";
-      sha256 = "sha256-gFIsnWC8wEuxPUD6E2YB0YTcg/NruQZespzEVttMKeE=";
+      # url = "https://edgedl.me.gvt1.com/edgedl/release2/j0qc3/antigravity/stable/1.19.6-6514342219874304/linux-x64/Antigravity.tar.gz";
+      # sha256 = "sha256-gFIsnWC8wEuxPUD6E2YB0YTcg/NruQZespzEVttMKeE=";
+      url = "https://edgedl.me.gvt1.com/edgedl/release2/j0qc3/antigravity/stable/1.20.6-5891862175809536/linux-x64/Antigravity.tar.gz";
+      sha256 = "sha256-rTgr8yGmIW0H+Vrx9hPgP1oH/fb8ZjK3ac6D2Br91Wc=";
     };
   });
 in
