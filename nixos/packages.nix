@@ -33,6 +33,9 @@
     mpv
     discord
     resources
+    gimp
+    kalker
+    libreoffice-fresh
     # kdenlive
     # gparted
     # obsidian
