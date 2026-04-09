@@ -79,9 +79,9 @@ return {
 	},
 
 	{
-		"simrat39/symbols-outline.nvim",
-		keys = { { "<leader>cs", "<cmd>SymbolsOutline<cr>", desc = "Symbols Outline" } },
-		cmd = "SymbolsOutline",
+		"hedyhli/outline.nvim",
+		keys = { { "<leader>cs", "<cmd>Outline<cr>", desc = "Toggle Outline" } },
+		cmd = "Outline",
 		opts = {
 			position = "right",
 		},
