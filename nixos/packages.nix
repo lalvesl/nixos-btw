@@ -48,6 +48,8 @@
     wget
     git
     fastfetch
+    ripgrep
+    fd
     htop
     nix-index
     unzip
