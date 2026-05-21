@@ -29,7 +29,7 @@ in
       neovim
       helix
       nixd # lsp for nix laguage
-      nixfmt-rfc-style
+      nixfmt
       fzf
       tmux
       # nvtop

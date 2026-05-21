@@ -42,7 +42,7 @@
     # zoom-us
     # pcmanfm-qt
 
-    neofetch
+    fastfetch
     file
     tree
     wget
@@ -55,7 +55,7 @@
     unzip
     scrot
     ffmpeg
-    light
+    brightnessctl
     lux
     mediainfo
     ranger
@@ -65,7 +65,7 @@
     ntfs3g
     yt-dlp
     brightnessctl
-    swww
+    awww
     openssl
     lazygit
     bluez
