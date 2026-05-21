@@ -93,13 +93,11 @@
 
     # WMs and stuff
     herbstluftwm
-    hyprland
     seatd
-    # xdg-desktop-portal-hyprland
     polybar
     waybar
-    hyprlock
-    hyprshade
+    swaylock
+    swaybg
 
     # GPU stuff
     #nvidia-somethink-someday

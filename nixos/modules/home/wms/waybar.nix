@@ -9,7 +9,7 @@
         margin = "9 13 -10 18";
 
         modules-left = [
-          "hyprland/workspaces"
+          "niri/workspaces"
         ];
         modules-center = [
           "clock"
@@ -23,15 +23,8 @@
           "battery"
         ];
 
-        "hyprland/workspaces" = {
+        "niri/workspaces" = {
           disable-scroll = true;
-        };
-
-        "hyprland/language" = {
-          format-en = "US";
-          format-ru = "RU";
-          min-length = 5;
-          tooltip = false;
         };
 
         "keyboard-state" = {
