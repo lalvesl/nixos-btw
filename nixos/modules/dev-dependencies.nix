@@ -1,12 +1,7 @@
 { pkgs, ... }:
 let
-  unstable_pkgs = fetchTarball "https://github.com/NixOS/nixpkgs/tarball/nixos-unstable";
-  unstable = import unstable_pkgs {
-    inherit pkgs;
-    config.allowUnfree = true;
-  };
-  latest_antigravity = unstable.antigravity.overrideAttrs (oldAttrs: rec {
-    src = unstable.fetchurl {
+  latest_antigravity = pkgs.antigravity.overrideAttrs (_: {
+    src = pkgs.fetchurl {
       url = "https://edgedl.me.gvt1.com/edgedl/release2/j0qc3/antigravity/stable/1.23.2-4781536860569600/linux-x64/Antigravity.tar.gz";
       sha256 = "sha256-UjKkBI/0+hVoXZqYG6T7pXPil/PvybdvY455S693VyU=";
     };
