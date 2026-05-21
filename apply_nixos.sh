@@ -1,1 +1,1 @@
-cp -r ./nixos /etc && sudo nixos-rebuild switch
+nixos-rebuild switch --flake /home/lalvesl/super_balas/nixos-btw#lalvesl-nix
