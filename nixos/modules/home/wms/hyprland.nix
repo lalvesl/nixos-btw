@@ -86,7 +86,6 @@
       };
 
       dwindle = {
-        pseudotile = true;
         preserve_split = true;
       };
 
@@ -118,7 +117,6 @@
 
       exec-once = [
         "waybar"
-        "hyprpaper"
         "wl-paste --type text --watch cliphist store"
         "wl-paste --type image --watch cliphist store"
       ];
@@ -134,7 +132,7 @@
         "$mainMod, F, togglefloating,"
         "$mainMod, D, exec, wofi --show drun"
         "$mainMod, P, exec, hyprctl dispatch togglefloating && hyprctl dispatch pin"
-        "$mainMod, R, togglesplit, # dwindle"
+        "$mainMod, R, layoutmsg, togglesplit"
         "$mainMod, h, movefocus, l"
         "$mainMod, l, movefocus, r"
         "$mainMod, k, movefocus, u"
@@ -208,10 +206,10 @@
         ",XF86AudioPrev, exec, playerctl previous"
       ];
 
-      windowrulev2 = [
-        "suppressevent maximize, class:.*"
-        "nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
-      ];
+      # windowrule = [
+      #   "suppressevent maximize, class:.*"
+      #   "nofocus, class:^$, title:^$, xwayland:1, floating:1, fullscreen:0, pinned:0"
+      # ];
     };
   };
 }
