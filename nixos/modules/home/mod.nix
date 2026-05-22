@@ -4,6 +4,7 @@
     ./zsh.nix
     ./git.nix
     ./alacritty.nix
+    ./kitty.nix
     ./htop.nix
     ./wms/mod.nix
   ];
