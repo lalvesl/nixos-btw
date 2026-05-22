@@ -40,6 +40,11 @@
     layout {
         gaps 16
         default-column-width { proportion 1.0; }
+        preset-column-widths {
+            proportion 0.5
+            proportion 0.33333
+            proportion 1.0
+        }
         border {
             off
         }
@@ -71,6 +76,7 @@
         Mod+Space { spawn "alacritty"; }
         Mod+Q { close-window; }
         Mod+N { spawn "nautilus"; }
+        Mod+T { switch-preset-column-width; }
         Mod+F { toggle-window-floating; }
         Mod+G { maximize-column; }
         Mod+F11 { fullscreen-window; }
