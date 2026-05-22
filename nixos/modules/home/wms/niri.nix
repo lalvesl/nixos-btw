@@ -30,6 +30,7 @@
 
     environment {
         XCURSOR_SIZE "16"
+        XCURSOR_THEME "Adwaita"
         XDG_SCREENSHOTS_DIR "/home/lalvesl/screens"
     }
 
@@ -64,6 +65,8 @@
         Mod+Q { close-window; }
         Mod+N { spawn "nautilus"; }
         Mod+F { toggle-window-floating; }
+        Mod+G { maximize-column; }
+        Mod+F11 { fullscreen-window; }
         Mod+D { spawn "sh" "-c" "rofi -show drun"; }
         Mod+V { spawn "sh" "-c" "cliphist list | rofi -dmenu | cliphist decode | wl-copy"; }
         Mod+X { spawn "swaylock"; }

@@ -97,7 +97,7 @@
     seatd
     polybar
     waybar
-    swaylock
+    swaylock-effects
     swaybg
 
     # GPU stuff

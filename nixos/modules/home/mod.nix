@@ -9,6 +9,7 @@
     ./gtk.nix
     ./rofi.nix
     ./helix.nix
+    ./swaylock.nix
     ./wms/mod.nix
   ];
 
