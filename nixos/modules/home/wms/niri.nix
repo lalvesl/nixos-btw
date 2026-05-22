@@ -41,12 +41,15 @@
             off
         }
         focus-ring {
-            off
+            width 2
+            active-color "#33ccffcc"
+            inactive-color "#00000000"
         }
     }
 
     window-rule {
         opacity 0.99
+        draw-border-with-background false
     }
 
     window-rule {
