@@ -65,6 +65,7 @@
     yt-dlp
     brightnessctl
     awww
+    wlsunset
     openssl
     lazygit
     bluez

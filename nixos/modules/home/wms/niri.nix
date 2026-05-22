@@ -19,6 +19,12 @@
                 layout "br"
             }
         }
+        touchpad {
+            tap
+            dwt
+            scroll-method "two-finger"
+            click-method "clickfinger"
+        }
         focus-follows-mouse
     }
 
@@ -61,6 +67,7 @@
         Mod+D { spawn "sh" "-c" "rofi -show drun"; }
         Mod+V { spawn "sh" "-c" "cliphist list | rofi -dmenu | cliphist decode | wl-copy"; }
         Mod+X { spawn "swaylock"; }
+        Mod+S { spawn "sh" "-c" "pgrep wlsunset && pkill wlsunset || wlsunset -t 3000 -T 3001"; }
         Mod+B { spawn "sh" "-c" "pkill -SIGUSR1 waybar"; }
         Mod+W { spawn "sh" "-c" "pkill -SIGUSR2 waybar"; }
 
