@@ -7,8 +7,10 @@
 
   # Load nvidia driver for Xorg and Wayland
   services.xserver.videoDrivers = [ "nvidia" ];
-  # Enable nvidia for containeirs
+  # Enable nvidia for containers
   hardware.nvidia-container-toolkit.enable = true;
+
+  systemd.services.nvidia-container-toolkit-cdi-generator.unitConfig.ConditionPathExists = "/dev/nvidia0";
 
   hardware.nvidia = {
 

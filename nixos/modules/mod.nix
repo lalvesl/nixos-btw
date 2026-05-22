@@ -5,7 +5,7 @@
     ./dev-dependencies.nix
     ./env.nix
     ./flatpak.nix
-    ./hyprland.nix
+    ./niri.nix
     ./i18n.nix
     ./kde_connect.nix
     ./net.nix

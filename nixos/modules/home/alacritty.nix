@@ -4,6 +4,7 @@
     enable = true;
     settings = {
       window.opacity = 0.7;
+      window.decorations = "None";
 
       font = {
         size = 13.0;
