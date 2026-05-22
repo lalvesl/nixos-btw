@@ -58,14 +58,14 @@
         Mod+Q { close-window; }
         Mod+N { spawn "nautilus"; }
         Mod+F { toggle-window-floating; }
-        Mod+D { spawn "sh" "-c" "wofi --show drun"; }
-        Mod+V { spawn "sh" "-c" "cliphist list | wofi --dmenu | cliphist decode | wl-copy"; }
+        Mod+D { spawn "sh" "-c" "rofi -show drun"; }
+        Mod+V { spawn "sh" "-c" "cliphist list | rofi -dmenu | cliphist decode | wl-copy"; }
         Mod+X { spawn "swaylock"; }
         Mod+B { spawn "sh" "-c" "pkill -SIGUSR1 waybar"; }
         Mod+W { spawn "sh" "-c" "pkill -SIGUSR2 waybar"; }
 
-        Mod+H { focus-column-left; }
-        Mod+L { focus-column-right; }
+        Mod+H { spawn "sh" "-c" "niri msg action focus-column-left || niri msg action focus-column-last"; }
+        Mod+L { spawn "sh" "-c" "niri msg action focus-column-right || niri msg action focus-column-first"; }
         Mod+K { focus-window-up; }
         Mod+J { focus-window-down; }
 
@@ -108,8 +108,8 @@
         Mod+Shift+9 { move-window-to-workspace 9; }
         Mod+Shift+0 { move-window-to-workspace 10; }
 
-        Mod+Alt+J { focus-workspace-down; }
-        Mod+Alt+K { focus-workspace-up; }
+        Mod+Alt+J { spawn "sh" "-c" "niri msg action focus-workspace-down || niri msg action focus-workspace 1"; }
+        Mod+Alt+K { spawn "sh" "-c" "niri msg action focus-workspace-up || niri msg action focus-workspace-down"; }
         Mod+Alt+Shift+J { move-window-to-workspace-down; }
         Mod+Alt+Shift+K { move-window-to-workspace-up; }
 

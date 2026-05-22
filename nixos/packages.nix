@@ -26,8 +26,7 @@
     alacritty
     kitty
     obs-studio
-    rofi
-    wofi
+
     pavucontrol
     linuxKernel.packages.linux_zen.cpupower
     mpv
@@ -80,6 +79,7 @@
     screenkey
     mako
     gromit-mpx
+    blueman
 
     # Xorg stuff
     #xterm
