@@ -26,16 +26,16 @@
     #media-session.enable = true;
   };
 
-  environment.etc = {
-    "wireplumber/bluetooth.lua.d/51-bluez-config.lua".text = ''
-            bluetooth_policy.set_policy("volume", "off")
-      		'';
-    # bluez_monitor.properties = {
-    # 	["bluez5.enable-sbc-xq"] = true,
-    # 	["bluez5.enable-msbc"] = true,
-    # 	["bluez5.enable-hw-volume"] = true,
-    # 	["bluez5.headset-roles"] = "[ hsp_hs hsp_ag hfp_hf hfp_ag ]"
-    # }
+  services.pipewire.wireplumber.extraConfig."51-bluetooth" = {
+    "monitor.bluez.properties" = {
+      "bluez5.roles" = [ "a2dp_sink" "a2dp_source" "hsp_hs" "hsp_ag" "hfp_hf" "hfp_ag" ];
+      "bluez5.codecs" = [ "sbc" "sbc_xq" "aac" ];
+      "bluez5.enable-sbc-xq" = true;
+      "bluez5.enable-hw-volume" = true;
+    };
+    "wireplumber.settings" = {
+      "bluetooth.autoswitch-to-headset-profile" = false;
+    };
   };
 
   environment.systemPackages = with pkgs; [
