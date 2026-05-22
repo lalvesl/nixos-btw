@@ -52,7 +52,7 @@
           C-q = ":q";
         };
         insert = {
-          C-s = [ "<esc>" ":w" ];
+          C-s = [ "normal_mode" ":w" ];
         };
       };
     };
