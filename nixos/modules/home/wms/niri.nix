@@ -32,6 +32,9 @@
         XCURSOR_SIZE "16"
         XCURSOR_THEME "Adwaita"
         XDG_SCREENSHOTS_DIR "/home/lalvesl/screens"
+        GTK_THEME "Adwaita:dark"
+        ADW_DEBUG_COLOR_SCHEME "prefer-dark"
+        XDG_CURRENT_DESKTOP "niri"
     }
 
     layout {
@@ -57,6 +60,7 @@
         opacity 0.75
     }
 
+    spawn-at-startup "sh" "-c" "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP DBUS_SESSION_BUS_ADDRESS && gsettings set org.gnome.desktop.interface color-scheme prefer-dark"
     spawn-at-startup "waybar"
     spawn-at-startup "swaybg" "-i" "${./wall.jpg}" "-m" "fill"
     spawn-at-startup "wl-paste" "--type" "text" "--watch" "cliphist" "store"
