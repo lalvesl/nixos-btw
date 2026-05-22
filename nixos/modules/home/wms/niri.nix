@@ -74,6 +74,9 @@
         Mod+Shift+K { move-window-up; }
         Mod+Shift+J { move-window-down; }
 
+        Mod+I { consume-window-into-column; }
+        Mod+O { expel-window-from-column; }
+
         Mod+Ctrl+H { set-column-width "-60"; }
         Mod+Ctrl+Shift+H { set-column-width "-300"; }
         Mod+Ctrl+L { set-column-width "+60"; }
