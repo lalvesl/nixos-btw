@@ -1,2 +1,4 @@
 .tabby_data
 result
+cloud/orangepi/nixos-rk3588
+nix-wallet/.luks-hash

@@ -1,9 +1,20 @@
 {
   pkgs,
   modulesPath,
+  lib,
   ...
 }:
 
+let
+  hashedPassword =
+    let
+      val = builtins.getEnv "WALLET_HASHED_PASSWORD";
+    in
+    if val == "" then
+      builtins.throw "WALLET_HASHED_PASSWORD env var not set. Run build.sh instead of nix build directly."
+    else
+      val;
+in
 {
   imports = [
     "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix"
@@ -14,9 +25,9 @@
   networking.hostName = "lalvesl-wallet";
 
   # Air-gapped: disable all networking by default
-  networking.networkmanager.enable = false;
-  networking.wireless.enable = false;
-  networking.useDHCP = false;
+  networking.networkmanager.enable = lib.mkForce false;
+  networking.wireless.enable = lib.mkForce false;
+  networking.useDHCP = lib.mkForce false;
   hardware.bluetooth.enable = false;
 
   # Enable niri
@@ -77,18 +88,24 @@
   ];
 
   # User
-  users.users.lalvesl = {
+  users.mutableUsers = false;
+
+  users.users.root = {
+    inherit hashedPassword;
+  };
+
+  users.users.lalvesl-wallet = {
     isNormalUser = true;
     extraGroups = [
       "wheel"
       "video"
       "audio"
     ];
-    initialPassword = "wallet";
+    inherit hashedPassword;
   };
 
   # Auto-login to niri
-  services.getty.autologinUser = "lalvesl";
+  services.getty.autologinUser = lib.mkForce "lalvesl-wallet";
 
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
