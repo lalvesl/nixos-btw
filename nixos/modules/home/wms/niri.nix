@@ -35,6 +35,7 @@
         GTK_THEME "Adwaita:dark"
         ADW_DEBUG_COLOR_SCHEME "prefer-dark"
         XDG_CURRENT_DESKTOP "niri"
+        DISPLAY ":0"
     }
 
     layout {

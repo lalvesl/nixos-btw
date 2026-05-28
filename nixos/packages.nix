@@ -89,6 +89,7 @@
 
     # Wayland stuff
     xwayland
+    xwayland-satellite
     wl-clipboard
     cliphist
 
