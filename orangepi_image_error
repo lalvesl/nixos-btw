@@ -1,0 +1,488 @@
+warning: Git tree '/home/lalvesl/super_balas/nixos-btw' is dirty
+warning: Git tree '/home/lalvesl/super_balas/nixos-btw' is dirty
+evaluation warning: The option `sdImage.imageBaseName' defined in `/nix/store/77dbgds155bbz3vd3qywq1sii07i5ljs-source/flake.nix' has been renamed to `image.baseName'.
+evaluation warning: The option `sdImage.imageBaseName' defined in `/nix/store/77dbgds155bbz3vd3qywq1sii07i5ljs-source/flake.nix' has been renamed to `image.baseName'.
+these 126 derivations will be built:
+these 126 derivations will be built:
+  /nix/store/wh71rjv0hb4xdbs3f5rz1pfx1d44h8jk-aarch64-unknown-linux-gnu-binutils-2.46.drv
+  /nix/store/fzw5plja8wng5865wmr0wxi1phff8cap-bpftools-6.18.7.drv
+  /nix/store/1ggs3k3h20b0x1bkw08djn1v6zl42x3c-systemd-aarch64-unknown-linux-gnu-260.1.drv
+  /nix/store/016qk3i3cwacczckwa9r4g1rmphm94nv-unit-reload-systemd-vconsole-setup.service.drv
+  /nix/store/vpk8x82ircqaz3by6vdh4wmaw1vf9jis-libqmi-aarch64-unknown-linux-gnu-1.38.0.drv
+  /nix/store/03fjjjrpcqyanbg5drxq279glsvgfmdl-modemmanager-aarch64-unknown-linux-gnu-1.24.2.drv
+  /nix/store/chmk9w78barvmhn2i5nvgy1cd9l97kzm-libical-aarch64-unknown-linux-gnu-3.0.20.drv
+  /nix/store/g1q6px78l06vc94158nwmxjwha4j3kfx-python3.13-pygobject-3.54.5-aarch64-unknown-linux-gnu.drv
+  /nix/store/1j0mz2wmqnd25ihych0dkcpfj2h3bbqz-bluez-aarch64-unknown-linux-gnu-5.86.drv
+  /nix/store/j187128i2q2iniryl8xf9isvpxgyc31j-bluez-5.86.drv
+  /nix/store/ssmi2q5yvmjw01wjp8h68pbyj9da3b9y-modemmanager-1.24.2.drv
+  /nix/store/6wfhp28f4qpkc00k5q316a7i77ad4igr-networkmanager-1.56.0.drv
+  /nix/store/qif8jhkb18wbvn8hhzic3b77k8gry7f3-networkmanager-aarch64-unknown-linux-gnu-1.56.0.drv
+  /nix/store/rg1s6mdd7qq6r14q01nm2qn7nz27xl8g-dbus-broker-aarch64-unknown-linux-gnu-37.drv
+  /nix/store/zv0rl0fsbyapl4l9j4ixc6zcpfyx7vdr-nixos-generate-config.drv
+  /nix/store/v3bw2fc0p4jjhw2rglgcy0aqqvgxyqcw-system-path.drv
+  /nix/store/68apxvhh257416gdwcbmb5zhp23ik2b2-dbus-1.drv
+  /nix/store/gblxwcdyf4bq56knm2xkxkqg0a6misn4-X-Restart-Triggers-dbus-broker.drv
+  /nix/store/04szhfffn29az2rchchj7hd8qki8zf6v-unit-dbus-broker.service.drv
+  /nix/store/05f1crq7gg5asj9mr93409vh5c6mrcmg-systemd-default-tmpfiles.drv
+  /nix/store/wh71rjv0hb4xdbs3f5rz1pfx1d44h8jk-aarch64-unknown-linux-gnu-binutils-2.46.drv
+  /nix/store/fzw5plja8wng5865wmr0wxi1phff8cap-bpftools-6.18.7.drv
+  /nix/store/1ggs3k3h20b0x1bkw08djn1v6zl42x3c-systemd-aarch64-unknown-linux-gnu-260.1.drv
+  /nix/store/016qk3i3cwacczckwa9r4g1rmphm94nv-unit-reload-systemd-vconsole-setup.service.drv
+  /nix/store/vpk8x82ircqaz3by6vdh4wmaw1vf9jis-libqmi-aarch64-unknown-linux-gnu-1.38.0.drv
+  /nix/store/03fjjjrpcqyanbg5drxq279glsvgfmdl-modemmanager-aarch64-unknown-linux-gnu-1.24.2.drv
+  /nix/store/chmk9w78barvmhn2i5nvgy1cd9l97kzm-libical-aarch64-unknown-linux-gnu-3.0.20.drv
+  /nix/store/g1q6px78l06vc94158nwmxjwha4j3kfx-python3.13-pygobject-3.54.5-aarch64-unknown-linux-gnu.drv
+  /nix/store/1j0mz2wmqnd25ihych0dkcpfj2h3bbqz-bluez-aarch64-unknown-linux-gnu-5.86.drv
+  /nix/store/j187128i2q2iniryl8xf9isvpxgyc31j-bluez-5.86.drv
+  /nix/store/ssmi2q5yvmjw01wjp8h68pbyj9da3b9y-modemmanager-1.24.2.drv
+  /nix/store/6wfhp28f4qpkc00k5q316a7i77ad4igr-networkmanager-1.56.0.drv
+  /nix/store/qif8jhkb18wbvn8hhzic3b77k8gry7f3-networkmanager-aarch64-unknown-linux-gnu-1.56.0.drv
+  /nix/store/rg1s6mdd7qq6r14q01nm2qn7nz27xl8g-dbus-broker-aarch64-unknown-linux-gnu-37.drv
+  /nix/store/zv0rl0fsbyapl4l9j4ixc6zcpfyx7vdr-nixos-generate-config.drv
+  /nix/store/v3bw2fc0p4jjhw2rglgcy0aqqvgxyqcw-system-path.drv
+  /nix/store/68apxvhh257416gdwcbmb5zhp23ik2b2-dbus-1.drv
+  /nix/store/gblxwcdyf4bq56knm2xkxkqg0a6misn4-X-Restart-Triggers-dbus-broker.drv
+  /nix/store/04szhfffn29az2rchchj7hd8qki8zf6v-unit-dbus-broker.service.drv
+  /nix/store/05f1crq7gg5asj9mr93409vh5c6mrcmg-systemd-default-tmpfiles.drv
+  /nix/store/0bmkvlkdw92z87pczxw9g54j21raix0b-hwdb.bin.drv
+  /nix/store/0gvrlxpq3xqp8yv53rvd2fa5sfh90hjj-unit-serial-getty-.service.drv
+  /nix/store/50jl5nh20dz6542l8h1r0bjixq1cjw47-shutdown-ramfs-contents.json.drv
+  /nix/store/0lc4wk6xwsm0mkyyzxmslalw40gjpg21-unit-generate-shutdown-ramfs.service.drv
+  /nix/store/0ps3fmdmjh6vlldi7hqshjpy9ndfq4qc-unit-sshd-.service.drv
+  /nix/store/0qx2fi4d2by40f819cwrrwa38alyrh4g-udev-path.drv
+  /nix/store/0zhb0mvnklync3kzanl344635a0bkx2a-unit-firewall.service.drv
+  /nix/store/15mbmnchfs926r7l7lx3zkhmvzhhik0r-udev-fido2.drv
+  /nix/store/5s0qzlq08qaa35s0xmr884grrjrfg0b3-etc-sysctl.d-60-nixos.conf.drv
+  /nix/store/1ab3ha3sjxs3c4wdmnkr9c16sgb1h5iv-X-Restart-Triggers-systemd-sysctl.drv
+  /nix/store/0bmkvlkdw92z87pczxw9g54j21raix0b-hwdb.bin.drv
+  /nix/store/0gvrlxpq3xqp8yv53rvd2fa5sfh90hjj-unit-serial-getty-.service.drv
+  /nix/store/50jl5nh20dz6542l8h1r0bjixq1cjw47-shutdown-ramfs-contents.json.drv
+  /nix/store/0lc4wk6xwsm0mkyyzxmslalw40gjpg21-unit-generate-shutdown-ramfs.service.drv
+  /nix/store/0ps3fmdmjh6vlldi7hqshjpy9ndfq4qc-unit-sshd-.service.drv
+  /nix/store/0qx2fi4d2by40f819cwrrwa38alyrh4g-udev-path.drv
+  /nix/store/0zhb0mvnklync3kzanl344635a0bkx2a-unit-firewall.service.drv
+  /nix/store/15mbmnchfs926r7l7lx3zkhmvzhhik0r-udev-fido2.drv
+  /nix/store/5s0qzlq08qaa35s0xmr884grrjrfg0b3-etc-sysctl.d-60-nixos.conf.drv
+  /nix/store/1ab3ha3sjxs3c4wdmnkr9c16sgb1h5iv-X-Restart-Triggers-systemd-sysctl.drv
+  /nix/store/1c1iqwv71hw83zj1sm7sl6d0gv2pmzrj-unit-systemd-tmpfiles-setup.service.drv
+  /nix/store/1li23i7z4rpsawfd1fn5iij8yjxx7859-unit-nscd.service.drv
+  /nix/store/2c3kqky499104yi9k7j3d12kcvf1h12b-unit-systemd-fsck-.service.drv
+  /nix/store/2j16cklbbb79b7517nf6fimdavv8k1yi-unit-prepare-kexec.service.drv
+  /nix/store/3av6hf36pjn0xcrwyc7ia42xkh83i4j7-unit-getty-.service.drv
+  /nix/store/1c1iqwv71hw83zj1sm7sl6d0gv2pmzrj-unit-systemd-tmpfiles-setup.service.drv
+  /nix/store/1li23i7z4rpsawfd1fn5iij8yjxx7859-unit-nscd.service.drv
+  /nix/store/2c3kqky499104yi9k7j3d12kcvf1h12b-unit-systemd-fsck-.service.drv
+  /nix/store/2j16cklbbb79b7517nf6fimdavv8k1yi-unit-prepare-kexec.service.drv
+  /nix/store/3av6hf36pjn0xcrwyc7ia42xkh83i4j7-unit-getty-.service.drv
+  /nix/store/3jid6nqffgjz5fzjhjdkp6jycnkbgnl9-unit-systemd-user-sessions.service.drv
+  /nix/store/3qywfq2q03vjgy2yj9f57gjq3hlar1ln-unit-systemd-hostnamed.service.drv
+  /nix/store/3jid6nqffgjz5fzjhjdkp6jycnkbgnl9-unit-systemd-user-sessions.service.drv
+  /nix/store/3qywfq2q03vjgy2yj9f57gjq3hlar1ln-unit-systemd-hostnamed.service.drv
+  /nix/store/4wf5za40lr2dlfwz7bi6a0bkzznp045g-unit-dbus.service.drv
+  /nix/store/562sl6k5idbiqw943acv6xh8f7nhfv9g-unit-sshd-vsock.socket.drv
+  /nix/store/4wf5za40lr2dlfwz7bi6a0bkzznp045g-unit-dbus.service.drv
+  /nix/store/562sl6k5idbiqw943acv6xh8f7nhfv9g-unit-sshd-vsock.socket.drv
+  /nix/store/6fhcrqgqxnbdvr45k9wsg4wcg4vi1lb9-unit-nix-optimise.service.drv
+  /nix/store/9gvq880fygsc55kdbpr3g0yvx7vc8l4q-udev-rules.drv
+  /nix/store/6fhcrqgqxnbdvr45k9wsg4wcg4vi1lb9-unit-nix-optimise.service.drv
+  /nix/store/9gvq880fygsc55kdbpr3g0yvx7vc8l4q-udev-rules.drv
+  /nix/store/9ca9w3zlqpnsdvr5y3z90jrdsvdqgbjl-X-Restart-Triggers-systemd-udevd.drv
+  /nix/store/9ca9w3zlqpnsdvr5y3z90jrdsvdqgbjl-X-Restart-Triggers-systemd-udevd.drv
+  /nix/store/6jpgf58bchzwd5z7qglrj89376p8jji6-unit-systemd-udevd.service.drv
+  /nix/store/6mpphm26m3lzjwykadnzikildff1br16-unit-wpa_supplicant.service.drv
+  /nix/store/6jpgf58bchzwd5z7qglrj89376p8jji6-unit-systemd-udevd.service.drv
+  /nix/store/6mpphm26m3lzjwykadnzikildff1br16-unit-wpa_supplicant.service.drv
+  /nix/store/6y6rcph431hkhhsspnfq18zzwv5dzmiw-unit-systemd-random-seed.service.drv
+  /nix/store/7qi6gz563psb4jskrxxh7a54ri6hbb2c-unit-systemd-localed.service.drv
+  /nix/store/6y6rcph431hkhhsspnfq18zzwv5dzmiw-unit-systemd-random-seed.service.drv
+  /nix/store/7qi6gz563psb4jskrxxh7a54ri6hbb2c-unit-systemd-localed.service.drv
+  /nix/store/7qkn3if459sxnsl3fp4faw3r61m8nl0s-unit-sshd-keygen.service.drv
+  /nix/store/7qkn3if459sxnsl3fp4faw3r61m8nl0s-unit-sshd-keygen.service.drv
+  /nix/store/85gi0bn3clhz77bwgfv7zdhg3sn48wjv-unit-logrotate-checkconf.service.drv
+  /nix/store/7qa3ixlw2s41d0ikafdy40gwjd6c0q5h-tmpfiles.d.drv
+  /nix/store/85gi0bn3clhz77bwgfv7zdhg3sn48wjv-unit-logrotate-checkconf.service.drv
+  /nix/store/7qa3ixlw2s41d0ikafdy40gwjd6c0q5h-tmpfiles.d.drv
+  /nix/store/nd2n6p4bhajmfpn01ksw8145lb947f4n-X-Restart-Triggers-systemd-tmpfiles-resetup.drv
+  /nix/store/nd2n6p4bhajmfpn01ksw8145lb947f4n-X-Restart-Triggers-systemd-tmpfiles-resetup.drv
+  /nix/store/86n63sxirg6c5cq1g5k6gdds994fzcsh-unit-systemd-tmpfiles-resetup.service.drv
+  /nix/store/8h2x5gmbvan2a76q5dyvnq9m8ahrmwcl-unit-network-local-commands.service.drv
+  /nix/store/91f3z2ylggsdnndilin76kcnpnk8l3mj-unit-nix-gc.service.drv
+  /nix/store/86n63sxirg6c5cq1g5k6gdds994fzcsh-unit-systemd-tmpfiles-resetup.service.drv
+  /nix/store/8h2x5gmbvan2a76q5dyvnq9m8ahrmwcl-unit-network-local-commands.service.drv
+  /nix/store/91f3z2ylggsdnndilin76kcnpnk8l3mj-unit-nix-gc.service.drv
+  /nix/store/9c8vj6cl1wqkp4j2bv727wy5jy9czhx5-unit-systemd-logind.service.drv
+  /nix/store/9czss1q46myd3vqfzjj88akpa0z14fj2-unit-systemd-makefs-.service.drv
+  /nix/store/9c8vj6cl1wqkp4j2bv727wy5jy9czhx5-unit-systemd-logind.service.drv
+  /nix/store/9czss1q46myd3vqfzjj88akpa0z14fj2-unit-systemd-makefs-.service.drv
+  /nix/store/aygchl4680bz0nklbzgbv5zjwxkza4vl-unit-systemd-nspawn-.service.drv
+  /nix/store/aygchl4680bz0nklbzgbv5zjwxkza4vl-unit-systemd-nspawn-.service.drv
+  /nix/store/bjngjwp3cm8z82pi5l1hxn241jxk32rx-unit-systemd-pstore.service.drv
+  /nix/store/bnj5nwda2cqcd70k87vh55z6639d9bvf-unit-sleep-actions.service.drv
+  /nix/store/bjngjwp3cm8z82pi5l1hxn241jxk32rx-unit-systemd-pstore.service.drv
+  /nix/store/bnj5nwda2cqcd70k87vh55z6639d9bvf-unit-sleep-actions.service.drv
+  /nix/store/clbdcphp3d558imxvd0dbhgpz8r1vnvw-unit-container-getty-.service.drv
+  /nix/store/clbdcphp3d558imxvd0dbhgpz8r1vnvw-unit-container-getty-.service.drv
+  /nix/store/d8s2k59ccl722a9adj6lb93y28zvqbiw-unit-systemd-timesyncd.service.drv
+  /nix/store/fd34bh9kid7g7d1aqpzxx911brkqd0h1-unit-polkit-agent-helper-.service.drv
+  /nix/store/d8s2k59ccl722a9adj6lb93y28zvqbiw-unit-systemd-timesyncd.service.drv
+  /nix/store/fd34bh9kid7g7d1aqpzxx911brkqd0h1-unit-polkit-agent-helper-.service.drv
+  /nix/store/2vn1k4nl9wiwcwrig032dz4g7x18fxph-unit-script-linger-users-start.drv
+  /nix/store/2vn1k4nl9wiwcwrig032dz4g7x18fxph-unit-script-linger-users-start.drv
+  /nix/store/fj01907278sg05n51b3lybm19gkmbmsa-unit-linger-users.service.drv
+  /nix/store/gvwbyfpja37fxdc6yb0dm8rdznadzk8r-unit-suid-sgid-wrappers.service.drv
+  /nix/store/fj01907278sg05n51b3lybm19gkmbmsa-unit-linger-users.service.drv
+  /nix/store/gvwbyfpja37fxdc6yb0dm8rdznadzk8r-unit-suid-sgid-wrappers.service.drv
+  /nix/store/j85cqmcbzmnv4szzsg09fjd6jcqind3v-unit-systemd-journald-.service.drv
+  /nix/store/jj7pkpxg4kcdj9ybf44bak0rpn0kvi44-unit-ModemManager.service.drv
+  /nix/store/j85cqmcbzmnv4szzsg09fjd6jcqind3v-unit-systemd-journald-.service.drv
+  /nix/store/jj7pkpxg4kcdj9ybf44bak0rpn0kvi44-unit-ModemManager.service.drv
+  /nix/store/k4pgv57iq90wcsv9nivcsgxzmff22ndd-unit-user-.service.drv
+  /nix/store/l95wbn0hx3qskhqdcb7p0rxdgdj39823-unit-post-boot.service.drv
+  /nix/store/k4pgv57iq90wcsv9nivcsgxzmff22ndd-unit-user-.service.drv
+  /nix/store/l95wbn0hx3qskhqdcb7p0rxdgdj39823-unit-post-boot.service.drv
+  /nix/store/lf3fbzg3r2aid7bi7yr888qfj6a0341g-unit-sshd-vsock-.service.drv
+  /nix/store/lf3fbzg3r2aid7bi7yr888qfj6a0341g-unit-sshd-vsock-.service.drv
+  /nix/store/li3jkik6d999ai0fxwn9lb0dpm46744i-unit-systemd-mkswap-.service.drv
+  /nix/store/m8rf8m8il2x08dwf1win91yyxm059w6p-unit-systemd-journal-flush.service.drv
+  /nix/store/li3jkik6d999ai0fxwn9lb0dpm46744i-unit-systemd-mkswap-.service.drv
+  /nix/store/m8rf8m8il2x08dwf1win91yyxm059w6p-unit-systemd-journal-flush.service.drv
+  /nix/store/mw2m1vzqyadja4p60p8sv55pvz8qzyl2-unit-user-runtime-dir-.service.drv
+  /nix/store/mw2m1vzqyadja4p60p8sv55pvz8qzyl2-unit-user-runtime-dir-.service.drv
+  /nix/store/mxnff0lvfgsndr08xwvxnidqnnb9dfnx-unit-systemd-journald.service.drv
+  /nix/store/nmdbgcb052vbvpvi08ihyyx9imy36bj2-unit-systemd-timedated.service.drv
+  /nix/store/mxnff0lvfgsndr08xwvxnidqnnb9dfnx-unit-systemd-journald.service.drv
+  /nix/store/nmdbgcb052vbvpvi08ihyyx9imy36bj2-unit-systemd-timedated.service.drv
+  /nix/store/np6h2h1cq2lmjyn7f2n1x5cx92aw70kx-unit-systemd-oomd.service.drv
+  /nix/store/pfa78iipvvhxqcigk10rz9mc320g5laz-unit-NetworkManager.service.drv
+  /nix/store/np6h2h1cq2lmjyn7f2n1x5cx92aw70kx-unit-systemd-oomd.service.drv
+  /nix/store/pfa78iipvvhxqcigk10rz9mc320g5laz-unit-NetworkManager.service.drv
+  /nix/store/psna5wkhf65360dmjiirdqgclm9ip09f-unit-cpufreq.service.drv
+  /nix/store/qr3l93lj745cnnw149w3ipk3v9nxqzyw-unit-resolvconf.service.drv
+  /nix/store/psna5wkhf65360dmjiirdqgclm9ip09f-unit-cpufreq.service.drv
+  /nix/store/qr3l93lj745cnnw149w3ipk3v9nxqzyw-unit-resolvconf.service.drv
+  /nix/store/r4v9r73h9mlvdgqvhs1b7wpi91bgxj96-unit-register-nix-paths.service.drv
+  /nix/store/vglzv8l4702naj98nld32f9y9xqsnw8c-unit-NetworkManager-dispatcher.service.drv
+  /nix/store/r4v9r73h9mlvdgqvhs1b7wpi91bgxj96-unit-register-nix-paths.service.drv
+  /nix/store/vglzv8l4702naj98nld32f9y9xqsnw8c-unit-NetworkManager-dispatcher.service.drv
+  /nix/store/w8cd1qymg6s3cjilpi46x2wj50vkj4hc-unit-systemd-update-utmp.service.drv
+  /nix/store/wc95s130yj0i6wa61yqgzgrpdhdvsbc3-unit-systemd-sysctl.service.drv
+  /nix/store/w8cd1qymg6s3cjilpi46x2wj50vkj4hc-unit-systemd-update-utmp.service.drv
+  /nix/store/wc95s130yj0i6wa61yqgzgrpdhdvsbc3-unit-systemd-sysctl.service.drv
+  /nix/store/wxlxcc3iaw01id0jj8fd53gw0whbgf3y-unit-expand-root-partition.service.drv
+  /nix/store/wxlxcc3iaw01id0jj8fd53gw0whbgf3y-unit-expand-root-partition.service.drv
+  /nix/store/xd3a0lv5hmj93bbkgxph3q9jlmln2mf3-unit-lastlog2-import.service.drv
+  /nix/store/xm3xmi9sx50mrsba4sz3g5dii7lj2m0k-unit-systemd-remount-fs.service.drv
+  /nix/store/xd3a0lv5hmj93bbkgxph3q9jlmln2mf3-unit-lastlog2-import.service.drv
+  /nix/store/xm3xmi9sx50mrsba4sz3g5dii7lj2m0k-unit-systemd-remount-fs.service.drv
+  /nix/store/xmbynnz42rr96fcb1ap71dsj18hmzmy0-unit-logrotate.service.drv
+  /nix/store/xmbynnz42rr96fcb1ap71dsj18hmzmy0-unit-logrotate.service.drv
+  /nix/store/xqvv4mcx0fhv81yk88kb0k9bnnlxg2qr-unit-systemd-backlight-.service.drv
+  /nix/store/mj32ss3p9psfi7bgn0jkpw7n9v817y2l-X-Restart-Triggers-polkit.drv
+  /nix/store/xqvv4mcx0fhv81yk88kb0k9bnnlxg2qr-unit-systemd-backlight-.service.drv
+  /nix/store/mj32ss3p9psfi7bgn0jkpw7n9v817y2l-X-Restart-Triggers-polkit.drv
+  /nix/store/yi0f7rqssqprksb5c78ld4w55snniqlf-unit-polkit.service.drv
+  /nix/store/yq4kryblaan80f5g1rz4sbdvdbhrq2b8-unit-kmod-static-nodes.service.drv
+  /nix/store/yi0f7rqssqprksb5c78ld4w55snniqlf-unit-polkit.service.drv
+  /nix/store/yq4kryblaan80f5g1rz4sbdvdbhrq2b8-unit-kmod-static-nodes.service.drv
+  /nix/store/yqkjjlr6nsm4py18ipy2g8kxq1rm6i58-unit-systemd-importd.service.drv
+  /nix/store/yqkjjlr6nsm4py18ipy2g8kxq1rm6i58-unit-systemd-importd.service.drv
+  /nix/store/z63aa11s9c17487wnz9cyvk8r044sn8l-unit-systemd-modules-load.service.drv
+  /nix/store/z6il14m46dl90nvfsk9hq4by8ws9207n-unit-sshd.service.drv
+  /nix/store/z63aa11s9c17487wnz9cyvk8r044sn8l-unit-systemd-modules-load.service.drv
+  /nix/store/z6il14m46dl90nvfsk9hq4by8ws9207n-unit-sshd.service.drv
+  /nix/store/zqhdklpal454jhygvxcqqlfi0khlw5by-unit-nix-daemon.service.drv
+  /nix/store/zqjaq85yapxqrb2nw1bn1mmk3020zqi5-unit-NetworkManager-wait-online.service.drv
+  /nix/store/zqhdklpal454jhygvxcqqlfi0khlw5by-unit-nix-daemon.service.drv
+  /nix/store/zqjaq85yapxqrb2nw1bn1mmk3020zqi5-unit-NetworkManager-wait-online.service.drv
+  /nix/store/zyjy0q8imz9hjwiz8y5lkmrl9cx5yk95-unit-modprobe-.service.drv
+  /nix/store/zyjy0q8imz9hjwiz8y5lkmrl9cx5yk95-unit-modprobe-.service.drv
+  /nix/store/1kmnlqi0wn4y91k1z0drvm8k9g0gvsbw-system-units.drv
+  /nix/store/figs5a2k3lbbs8pd387a8ggi1p27v590-k-aarch64-unknown-linux-gnu.drv
+  /nix/store/1kmnlqi0wn4y91k1z0drvm8k9g0gvsbw-system-units.drv
+  /nix/store/figs5a2k3lbbs8pd387a8ggi1p27v590-k-aarch64-unknown-linux-gnu.drv
+  /nix/store/75j7x327wdxc806npnsw53ly1rdpbgl3-k-aarch64-unknown-linux-gnu-modules.drv
+  /nix/store/8w3m7218h6wcvgwxvabgrfwvafjwz60h-k-aarch64-unknown-linux-gnu-modules-shrunk.drv
+  /nix/store/75j7x327wdxc806npnsw53ly1rdpbgl3-k-aarch64-unknown-linux-gnu-modules.drv
+  /nix/store/8w3m7218h6wcvgwxvabgrfwvafjwz60h-k-aarch64-unknown-linux-gnu-modules-shrunk.drv
+  /nix/store/jzfm0dg3gdbvvlg0i8fd7kbnkqs2wbnx-initrd-bin-env.drv
+  /nix/store/jzfm0dg3gdbvvlg0i8fd7kbnkqs2wbnx-initrd-bin-env.drv
+  /nix/store/pcxy5wbkwszwn435pmky5mwkasvvzhz0-initrd-udev-rules.drv
+  /nix/store/axlmv8b33av5bv621rcsl3vwb0kmh8yl-initrd-udev-rules.drv
+  /nix/store/pcxy5wbkwszwn435pmky5mwkasvvzhz0-initrd-udev-rules.drv
+  /nix/store/axlmv8b33av5bv621rcsl3vwb0kmh8yl-initrd-udev-rules.drv
+  /nix/store/cx8w7srq99b6pi55x2gpp28z64yzssf2-initrd-units.drv
+  /nix/store/xh6f5n6abf43nj6v8xljmb0ss3x7gr3q-dbus-1.drv
+  /nix/store/29k6f2wnyi73pdrz2nps7gg2p05dz5cr-initrd-k-aarch64-unknown-linux-gnu.drv
+  /nix/store/cx8w7srq99b6pi55x2gpp28z64yzssf2-initrd-units.drv
+  /nix/store/xh6f5n6abf43nj6v8xljmb0ss3x7gr3q-dbus-1.drv
+  /nix/store/29k6f2wnyi73pdrz2nps7gg2p05dz5cr-initrd-k-aarch64-unknown-linux-gnu.drv
+  /nix/store/4qkajc9fkmrj29w18dbp4806z9y5w71c-system-shutdown.drv
+  /nix/store/4qkajc9fkmrj29w18dbp4806z9y5w71c-system-shutdown.drv
+  /nix/store/askgh3m2zr867krrnf4xbswna5qzvmcd-unit-script-nixos-activation-start.drv
+  /nix/store/9p9x4zm7wnpkbz840r5fmq5fb4babd1f-unit-nixos-activation.service.drv
+  /nix/store/askgh3m2zr867krrnf4xbswna5qzvmcd-unit-script-nixos-activation-start.drv
+  /nix/store/9p9x4zm7wnpkbz840r5fmq5fb4babd1f-unit-nixos-activation.service.drv
+  /nix/store/mp4qwfszcbk2154pxb6wqfzh1krk3plg-unit-dbus-broker.service.drv
+  /nix/store/8sqlyj7ddsj7mw27ixaf6am8m1yml2qd-user-units.drv
+  /nix/store/mp4qwfszcbk2154pxb6wqfzh1krk3plg-unit-dbus-broker.service.drv
+  /nix/store/8sqlyj7ddsj7mw27ixaf6am8m1yml2qd-user-units.drv
+  /nix/store/akipgkhpnpzd1wv37jh7mgx6z5j378jp-sshd.pam.drv
+  /nix/store/b1s6v5vjf0lm84qbld0p8h5isjkihsq3-systemd-user.pam.drv
+  /nix/store/akipgkhpnpzd1wv37jh7mgx6z5j378jp-sshd.pam.drv
+  /nix/store/b1s6v5vjf0lm84qbld0p8h5isjkihsq3-systemd-user.pam.drv
+  /nix/store/dwyw2s8mn1zmcr4n3qxpzbxbrnxxbppz-login.pam.drv
+  /nix/store/dwyw2s8mn1zmcr4n3qxpzbxbrnxxbppz-login.pam.drv
+  /nix/store/lwzjcwl7nx00b204cclc8vz14hyy9agx-user-generators.drv
+  /nix/store/pmjs2rv80fa5ks2cw2mvm3ipma70ifg9-etc-ssh-ssh_config.drv
+  /nix/store/lwzjcwl7nx00b204cclc8vz14hyy9agx-user-generators.drv
+  /nix/store/pmjs2rv80fa5ks2cw2mvm3ipma70ifg9-etc-ssh-ssh_config.drv
+  /nix/store/qr0bcn04jyymxzw3ynmxil8p42cnprzy-system-generators.drv
+  /nix/store/5h9ccqcc6ax6ajh00q8ypff7w0g41bar-systemd.drv
+  /nix/store/qr0bcn04jyymxzw3ynmxil8p42cnprzy-system-generators.drv
+  /nix/store/5h9ccqcc6ax6ajh00q8ypff7w0g41bar-systemd.drv
+  /nix/store/y5wh58s5isa1ralbhy88hhfpanrbg9hv-50-coredump.conf.drv
+  /nix/store/hriadkqvzacjf0v07zhghkn03k89knbq-etc.drv
+  /nix/store/y5wh58s5isa1ralbhy88hhfpanrbg9hv-50-coredump.conf.drv
+  /nix/store/hriadkqvzacjf0v07zhghkn03k89knbq-etc.drv
+  /nix/store/4css1hwypinvar6dgdhfwvj1fcxnbsjd-activate.drv
+  /nix/store/jm63kicwqngd0iinrmhy74iqlq524r0h-boot.json.drv
+  /nix/store/4css1hwypinvar6dgdhfwvj1fcxnbsjd-activate.drv
+  /nix/store/jm63kicwqngd0iinrmhy74iqlq524r0h-boot.json.drv
+  /nix/store/94xazrz9wxf7jjg5jf0aqznldmjxg9az-nixos-system-orangepi-sd-card-26.05.20260515.d233902.drv
+  /nix/store/94xazrz9wxf7jjg5jf0aqznldmjxg9az-nixos-system-orangepi-sd-card-26.05.20260515.d233902.drv
+  /nix/store/2hfb1qg85fiscmw88wva94i6dgcswmsq-closure-info.drv
+  /nix/store/9424q7vb4ingdw27jpgm8r2wirg3147x-ext4-fs.img.zst-aarch64-unknown-linux-gnu.drv
+  /nix/store/2hfb1qg85fiscmw88wva94i6dgcswmsq-closure-info.drv
+  /nix/store/9424q7vb4ingdw27jpgm8r2wirg3147x-ext4-fs.img.zst-aarch64-unknown-linux-gnu.drv
+  /nix/store/da8f0m7333csp6ybpxlm7rzi0lm2l61s-orangepi-sd-image.img.zst-aarch64-unknown-linux-gnu.drv
+  /nix/store/da8f0m7333csp6ybpxlm7rzi0lm2l61s-orangepi-sd-image.img.zst-aarch64-unknown-linux-gnu.drv
+building '/nix/store/figs5a2k3lbbs8pd387a8ggi1p27v590-k-aarch64-unknown-linux-gnu.drv'...
+building '/nix/store/figs5a2k3lbbs8pd387a8ggi1p27v590-k-aarch64-unknown-linux-gnu.drv'...
+building '/nix/store/vpk8x82ircqaz3by6vdh4wmaw1vf9jis-libqmi-aarch64-unknown-linux-gnu-1.38.0.drv'...
+building '/nix/store/vpk8x82ircqaz3by6vdh4wmaw1vf9jis-libqmi-aarch64-unknown-linux-gnu-1.38.0.drv'...
+building '/nix/store/wh71rjv0hb4xdbs3f5rz1pfx1d44h8jk-aarch64-unknown-linux-gnu-binutils-2.46.drv'...
+building '/nix/store/wh71rjv0hb4xdbs3f5rz1pfx1d44h8jk-aarch64-unknown-linux-gnu-binutils-2.46.drv'...
+building '/nix/store/j187128i2q2iniryl8xf9isvpxgyc31j-bluez-5.86.drv'...
+building '/nix/store/j187128i2q2iniryl8xf9isvpxgyc31j-bluez-5.86.drv'...
+building '/nix/store/chmk9w78barvmhn2i5nvgy1cd9l97kzm-libical-aarch64-unknown-linux-gnu-3.0.20.drv'...
+building '/nix/store/chmk9w78barvmhn2i5nvgy1cd9l97kzm-libical-aarch64-unknown-linux-gnu-3.0.20.drv'...
+building '/nix/store/ssmi2q5yvmjw01wjp8h68pbyj9da3b9y-modemmanager-1.24.2.drv'...
+building '/nix/store/ssmi2q5yvmjw01wjp8h68pbyj9da3b9y-modemmanager-1.24.2.drv'...
+building '/nix/store/g1q6px78l06vc94158nwmxjwha4j3kfx-python3.13-pygobject-3.54.5-aarch64-unknown-linux-gnu.drv'...
+building '/nix/store/g1q6px78l06vc94158nwmxjwha4j3kfx-python3.13-pygobject-3.54.5-aarch64-unknown-linux-gnu.drv'...
+error: Cannot build '/nix/store/vpk8x82ircqaz3by6vdh4wmaw1vf9jis-libqmi-aarch64-unknown-linux-gnu-1.38.0.drv'.
+       Reason: builder failed with exit code 1.
+       Output paths:
+         /nix/store/dxxf0mk59k8kdsf2pxi79hv1lir12sr0-libqmi-aarch64-unknown-linux-gnu-1.38.0
+         /nix/store/ml5acq8iicrnjv34k0gz4rlnzhp7nibs-libqmi-aarch64-unknown-linux-gnu-1.38.0-dev
+       Last 25 log lines:
+       > Run-time dependency bash-completion found: YES 2.17.0
+       > Run-time dependency mbim-glib found: YES 1.34.0
+       > Run-time dependency qrtr-glib found: YES 1.2.2
+       > Run-time dependency gobject-introspection-1.0 found: YES 1.86.0
+       > Configuring qmi-version.h using configuration
+       > Found pkg-config: YES (/nix/store/3lyqhk44pkk408dvcszplqvnvsgfk6rd-aarch64-unknown-linux-gnu-pkg-config-wrapper-0.29.2/bin/aarch64-unknown-linux-gnu-pkg-config) 0.29.2
+       > Dependency gobject-introspection-1.0 found: YES 1.86.0 (cached)
+       > Dependency gobject-introspection-1.0 found: YES 1.86.0 (cached)
+       > Program /nix/store/sbajnqn952sl9r80rkg7b5banbv8bbvy-gobject-introspection-wrapped-1.86.0-dev/bin/g-ir-scanner found: YES (/nix/store/sbajnqn952sl9r80rkg7b5banbv8bbvy-gobject-introspection-wrapped-1.86.0-dev/bin/g-ir-scanner)
+       > Dependency gobject-introspection-1.0 found: YES 1.86.0 (cached)
+       > Program /nix/store/sbajnqn952sl9r80rkg7b5banbv8bbvy-gobject-introspection-wrapped-1.86.0-dev/bin/g-ir-compiler found: YES (/nix/store/sbajnqn952sl9r80rkg7b5banbv8bbvy-gobject-introspection-wrapped-1.86.0-dev/bin/g-ir-compiler)
+       > Compiler for C supports arguments -Wno-empty-body: YES
+       > Compiler for C supports arguments -Wno-sign-compare: YES
+       > Compiler for C supports arguments -Wno-switch-default: YES
+       > Configuring qmi-network using configuration
+       > Configuring libqmi-glib.toml using configuration
+       > Did not find pkg-config by name 'pkg-config'
+       > Found pkg-config: NO
+       > Did not find CMake 'cmake'
+       > Found CMake: NO
+       > Build-time dependency gi-docgen found: NO
+       >
+       > docs/reference/libqmi-glib/meson.build:19:0: ERROR: Dependency lookup for gi-docgen with method 'pkgconfig' failed: Pkg-config for machine build machine not found. Giving up.
+       >
+       > A full log can be found at /build/source/build/meson-logs/meson-log.txt
+       For full logs, run:
+         nix log /nix/store/vpk8x82ircqaz3by6vdh4wmaw1vf9jis-libqmi-aarch64-unknown-linux-gnu-1.38.0.drv
+error: Cannot build '/nix/store/vpk8x82ircqaz3by6vdh4wmaw1vf9jis-libqmi-aarch64-unknown-linux-gnu-1.38.0.drv'.
+       Reason: builder failed with exit code 1.
+       Output paths:
+         /nix/store/dxxf0mk59k8kdsf2pxi79hv1lir12sr0-libqmi-aarch64-unknown-linux-gnu-1.38.0
+         /nix/store/ml5acq8iicrnjv34k0gz4rlnzhp7nibs-libqmi-aarch64-unknown-linux-gnu-1.38.0-dev
+       Last 25 log lines:
+       > Run-time dependency bash-completion found: YES 2.17.0
+       > Run-time dependency mbim-glib found: YES 1.34.0
+       > Run-time dependency qrtr-glib found: YES 1.2.2
+       > Run-time dependency gobject-introspection-1.0 found: YES 1.86.0
+       > Configuring qmi-version.h using configuration
+       > Found pkg-config: YES (/nix/store/3lyqhk44pkk408dvcszplqvnvsgfk6rd-aarch64-unknown-linux-gnu-pkg-config-wrapper-0.29.2/bin/aarch64-unknown-linux-gnu-pkg-config) 0.29.2
+       > Dependency gobject-introspection-1.0 found: YES 1.86.0 (cached)
+       > Dependency gobject-introspection-1.0 found: YES 1.86.0 (cached)
+       > Program /nix/store/sbajnqn952sl9r80rkg7b5banbv8bbvy-gobject-introspection-wrapped-1.86.0-dev/bin/g-ir-scanner found: YES (/nix/store/sbajnqn952sl9r80rkg7b5banbv8bbvy-gobject-introspection-wrapped-1.86.0-dev/bin/g-ir-scanner)
+       > Dependency gobject-introspection-1.0 found: YES 1.86.0 (cached)
+       > Program /nix/store/sbajnqn952sl9r80rkg7b5banbv8bbvy-gobject-introspection-wrapped-1.86.0-dev/bin/g-ir-compiler found: YES (/nix/store/sbajnqn952sl9r80rkg7b5banbv8bbvy-gobject-introspection-wrapped-1.86.0-dev/bin/g-ir-compiler)
+       > Compiler for C supports arguments -Wno-empty-body: YES
+       > Compiler for C supports arguments -Wno-sign-compare: YES
+       > Compiler for C supports arguments -Wno-switch-default: YES
+       > Configuring qmi-network using configuration
+       > Configuring libqmi-glib.toml using configuration
+       > Did not find pkg-config by name 'pkg-config'
+       > Found pkg-config: NO
+       > Did not find CMake 'cmake'
+       > Found CMake: NO
+       > Build-time dependency gi-docgen found: NO
+       >
+       > docs/reference/libqmi-glib/meson.build:19:0: ERROR: Dependency lookup for gi-docgen with method 'pkgconfig' failed: Pkg-config for machine build machine not found. Giving up.
+       >
+       > A full log can be found at /build/source/build/meson-logs/meson-log.txt
+       For full logs, run:
+         nix log /nix/store/vpk8x82ircqaz3by6vdh4wmaw1vf9jis-libqmi-aarch64-unknown-linux-gnu-1.38.0.drv
+error: Cannot build '/nix/store/03fjjjrpcqyanbg5drxq279glsvgfmdl-modemmanager-aarch64-unknown-linux-gnu-1.24.2.drv'.
+       Reason: 1 dependency failed.
+       Output paths:
+         /nix/store/iwi5mjnlwb1mb8v0zr8iqsvwqaqlzlbv-modemmanager-aarch64-unknown-linux-gnu-1.24.2
+error: Cannot build '/nix/store/03fjjjrpcqyanbg5drxq279glsvgfmdl-modemmanager-aarch64-unknown-linux-gnu-1.24.2.drv'.
+       Reason: 1 dependency failed.
+       Output paths:
+         /nix/store/iwi5mjnlwb1mb8v0zr8iqsvwqaqlzlbv-modemmanager-aarch64-unknown-linux-gnu-1.24.2
+error: Build failed due to failed dependency
+error: Build failed due to failed dependency
+error: Cannot build '/nix/store/68apxvhh257416gdwcbmb5zhp23ik2b2-dbus-1.drv'.
+       Reason: 1 dependency failed.
+       Output paths:
+         /nix/store/q34q41fxhlmq22wvjidswhdvnn64frfj-dbus-1
+error: Cannot build '/nix/store/68apxvhh257416gdwcbmb5zhp23ik2b2-dbus-1.drv'.
+       Reason: 1 dependency failed.
+       Output paths:
+         /nix/store/q34q41fxhlmq22wvjidswhdvnn64frfj-dbus-1
+error: Cannot build '/nix/store/0bmkvlkdw92z87pczxw9g54j21raix0b-hwdb.bin.drv'.
+       Reason: 1 dependency failed.
+       Output paths:
+         /nix/store/3m883fscjh6lg6i8hdycpl3f5bggasgi-hwdb.bin
+error: Cannot build '/nix/store/0bmkvlkdw92z87pczxw9g54j21raix0b-hwdb.bin.drv'.
+       Reason: 1 dependency failed.
+       Output paths:
+         /nix/store/3m883fscjh6lg6i8hdycpl3f5bggasgi-hwdb.bin
+error: Cannot build '/nix/store/qif8jhkb18wbvn8hhzic3b77k8gry7f3-networkmanager-aarch64-unknown-linux-gnu-1.56.0.drv'.
+       Reason: 1 dependency failed.
+       Output paths:
+         /nix/store/471i0rzqygw2132i1dsmq2nnsbgz7nr3-networkmanager-aarch64-unknown-linux-gnu-1.56.0-devdoc
+         /nix/store/6xx1rr6y81iys58b5z29kh2mhp834zcm-networkmanager-aarch64-unknown-linux-gnu-1.56.0-man
+         /nix/store/9g7g38bdk95j5s0c4ppav3hlwb4ph1dm-networkmanager-aarch64-unknown-linux-gnu-1.56.0-dev
+         /nix/store/wxdnn85rnjqr4qsd0qgahfacplr4yayi-networkmanager-aarch64-unknown-linux-gnu-1.56.0-doc
+         /nix/store/ya6zy4iz4i0wxpk3dgr20yallynyjx9q-networkmanager-aarch64-unknown-linux-gnu-1.56.0
+error: Cannot build '/nix/store/qif8jhkb18wbvn8hhzic3b77k8gry7f3-networkmanager-aarch64-unknown-linux-gnu-1.56.0.drv'.
+       Reason: 1 dependency failed.
+       Output paths:
+         /nix/store/471i0rzqygw2132i1dsmq2nnsbgz7nr3-networkmanager-aarch64-unknown-linux-gnu-1.56.0-devdoc
+         /nix/store/6xx1rr6y81iys58b5z29kh2mhp834zcm-networkmanager-aarch64-unknown-linux-gnu-1.56.0-man
+         /nix/store/9g7g38bdk95j5s0c4ppav3hlwb4ph1dm-networkmanager-aarch64-unknown-linux-gnu-1.56.0-dev
+         /nix/store/wxdnn85rnjqr4qsd0qgahfacplr4yayi-networkmanager-aarch64-unknown-linux-gnu-1.56.0-doc
+         /nix/store/ya6zy4iz4i0wxpk3dgr20yallynyjx9q-networkmanager-aarch64-unknown-linux-gnu-1.56.0
+error: Cannot build '/nix/store/qr0bcn04jyymxzw3ynmxil8p42cnprzy-system-generators.drv'.
+       Reason: 1 dependency failed.
+       Output paths:
+         /nix/store/q2x58dn2qvr68x7nvydjfzbnzkppwzq8-system-generators
+error: Cannot build '/nix/store/qr0bcn04jyymxzw3ynmxil8p42cnprzy-system-generators.drv'.
+       Reason: 1 dependency failed.
+       Output paths:
+         /nix/store/q2x58dn2qvr68x7nvydjfzbnzkppwzq8-system-generators
+error: Cannot build '/nix/store/v3bw2fc0p4jjhw2rglgcy0aqqvgxyqcw-system-path.drv'.
+       Reason: 1 dependency failed.
+       Output paths:
+         /nix/store/kkrxqz9n9chs2g2gszb6nx0d72w2916q-system-path
+error: Cannot build '/nix/store/v3bw2fc0p4jjhw2rglgcy0aqqvgxyqcw-system-path.drv'.
+       Reason: 1 dependency failed.
+       Output paths:
+         /nix/store/kkrxqz9n9chs2g2gszb6nx0d72w2916q-system-path
+error: Cannot build '/nix/store/4qkajc9fkmrj29w18dbp4806z9y5w71c-system-shutdown.drv'.
+       Reason: 1 dependency failed.
+       Output paths:
+         /nix/store/xa6s970vf94jxjh42lhvd0hmrxw3llgq-system-shutdown
+error: Cannot build '/nix/store/4qkajc9fkmrj29w18dbp4806z9y5w71c-system-shutdown.drv'.
+       Reason: 1 dependency failed.
+       Output paths:
+         /nix/store/xa6s970vf94jxjh42lhvd0hmrxw3llgq-system-shutdown
+error: Cannot build '/nix/store/1kmnlqi0wn4y91k1z0drvm8k9g0gvsbw-system-units.drv'.
+       Reason: 1 dependency failed.
+       Output paths:
+         /nix/store/74z9s9mn6y4b7rdip1cnw9zilkfq0j8h-system-units
+error: Cannot build '/nix/store/1kmnlqi0wn4y91k1z0drvm8k9g0gvsbw-system-units.drv'.
+       Reason: 1 dependency failed.
+       Output paths:
+         /nix/store/74z9s9mn6y4b7rdip1cnw9zilkfq0j8h-system-units
+error: Cannot build '/nix/store/9gvq880fygsc55kdbpr3g0yvx7vc8l4q-udev-rules.drv'.
+       Reason: 1 dependency failed.
+       Output paths:
+         /nix/store/af01z1fdww9wzvj3bvh0wbcz2qk2s0jh-udev-rules
+error: Cannot build '/nix/store/9gvq880fygsc55kdbpr3g0yvx7vc8l4q-udev-rules.drv'.
+       Reason: 1 dependency failed.
+       Output paths:
+         /nix/store/af01z1fdww9wzvj3bvh0wbcz2qk2s0jh-udev-rules
+error: Cannot build '/nix/store/lwzjcwl7nx00b204cclc8vz14hyy9agx-user-generators.drv'.
+       Reason: 1 dependency failed.
+       Output paths:
+         /nix/store/1xq16sqqlasmv03avss054x1f8046gnm-user-generators
+error: Cannot build '/nix/store/lwzjcwl7nx00b204cclc8vz14hyy9agx-user-generators.drv'.
+       Reason: 1 dependency failed.
+       Output paths:
+         /nix/store/1xq16sqqlasmv03avss054x1f8046gnm-user-generators
+error: Cannot build '/nix/store/8sqlyj7ddsj7mw27ixaf6am8m1yml2qd-user-units.drv'.
+       Reason: 1 dependency failed.
+       Output paths:
+         /nix/store/ny5j4a7rqlij91lgqs8c956aqwr4mmbd-user-units
+error: Cannot build '/nix/store/8sqlyj7ddsj7mw27ixaf6am8m1yml2qd-user-units.drv'.
+       Reason: 1 dependency failed.
+       Output paths:
+         /nix/store/ny5j4a7rqlij91lgqs8c956aqwr4mmbd-user-units
+error: Build failed due to failed dependency
+error: Build failed due to failed dependency
+error: Build failed due to failed dependency
+error: Build failed due to failed dependency
+error: Build failed due to failed dependency
+error: Build failed due to failed dependency
+error: Cannot build '/nix/store/hriadkqvzacjf0v07zhghkn03k89knbq-etc.drv'.
+       Reason: 1 dependency failed.
+       Output paths:
+         /nix/store/7ddddl37kgxdak5j6niffzb6kcxas00d-etc
+error: Cannot build '/nix/store/hriadkqvzacjf0v07zhghkn03k89knbq-etc.drv'.
+       Reason: 1 dependency failed.
+       Output paths:
+         /nix/store/7ddddl37kgxdak5j6niffzb6kcxas00d-etc
+error: Cannot build '/nix/store/94xazrz9wxf7jjg5jf0aqznldmjxg9az-nixos-system-orangepi-sd-card-26.05.20260515.d233902.drv'.
+       Reason: 1 dependency failed.
+       Output paths:
+         /nix/store/bvhdwsq0h5qkj7l8d77kxm1n6skmy334-nixos-system-orangepi-sd-card-26.05.20260515.d233902
+error: Cannot build '/nix/store/94xazrz9wxf7jjg5jf0aqznldmjxg9az-nixos-system-orangepi-sd-card-26.05.20260515.d233902.drv'.
+       Reason: 1 dependency failed.
+       Output paths:
+         /nix/store/bvhdwsq0h5qkj7l8d77kxm1n6skmy334-nixos-system-orangepi-sd-card-26.05.20260515.d233902
+error: Build failed due to failed dependency
+error: Build failed due to failed dependency
+error: Cannot build '/nix/store/2hfb1qg85fiscmw88wva94i6dgcswmsq-closure-info.drv'.
+       Reason: 1 dependency failed.
+       Output paths:
+         /nix/store/9d2c7vgfwbhi0sira7q3p0vzckm1s3xq-closure-info
+error: Cannot build '/nix/store/2hfb1qg85fiscmw88wva94i6dgcswmsq-closure-info.drv'.
+       Reason: 1 dependency failed.
+       Output paths:
+         /nix/store/9d2c7vgfwbhi0sira7q3p0vzckm1s3xq-closure-info
+error: Cannot build '/nix/store/9424q7vb4ingdw27jpgm8r2wirg3147x-ext4-fs.img.zst-aarch64-unknown-linux-gnu.drv'.
+       Reason: 1 dependency failed.
+       Output paths:
+         /nix/store/70pnpngnpa9s2v09ckp2xkd32d2ic2kb-ext4-fs.img.zst-aarch64-unknown-linux-gnu
+error: Cannot build '/nix/store/9424q7vb4ingdw27jpgm8r2wirg3147x-ext4-fs.img.zst-aarch64-unknown-linux-gnu.drv'.
+       Reason: 1 dependency failed.
+       Output paths:
+         /nix/store/70pnpngnpa9s2v09ckp2xkd32d2ic2kb-ext4-fs.img.zst-aarch64-unknown-linux-gnu
+error: Build failed due to failed dependency
+error: Build failed due to failed dependency
+error: Cannot build '/nix/store/da8f0m7333csp6ybpxlm7rzi0lm2l61s-orangepi-sd-image.img.zst-aarch64-unknown-linux-gnu.drv'.
+       Reason: 1 dependency failed.
+       Output paths:
+         /nix/store/v9scjzknmz675bg0cbhwr2hvmg0izcvh-orangepi-sd-image.img.zst-aarch64-unknown-linux-gnu
+error: Cannot build '/nix/store/da8f0m7333csp6ybpxlm7rzi0lm2l61s-orangepi-sd-image.img.zst-aarch64-unknown-linux-gnu.drv'.
+       Reason: 1 dependency failed.
+       Output paths:
+         /nix/store/v9scjzknmz675bg0cbhwr2hvmg0izcvh-orangepi-sd-image.img.zst-aarch64-unknown-linux-gnu
+error: Build failed due to failed dependency
+error: Build failed due to failed dependency

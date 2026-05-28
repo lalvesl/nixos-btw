@@ -2,7 +2,7 @@
 {
   xdg.configFile."niri/config.kdl".text = ''
     output "eDP-1" {
-        mode "1920x1080@60.052"
+        mode "1920x1080@59.999"
         position x=1920 y=0
         scale 1.0
     }

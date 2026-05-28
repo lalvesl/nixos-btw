@@ -4,7 +4,9 @@
     powerOnBoot = true;
     settings = {
       General = {
+        ControllerMode = "bredr";
         Enable = "Source,Sink,Media,Socket";
+        Disable = "Headset,Sink";
         Experimental = true;
       };
     };

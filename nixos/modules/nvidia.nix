@@ -40,7 +40,13 @@
     # accessible via `nvidia-settings`.
     nvidiaSettings = true;
 
-    # Optionally, you may need to select the appropriate driver version for your specific GPU.
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
+    # GTX 1050 requires legacy 580.xx driver (595+ dropped support)
+    package = config.boot.kernelPackages.nvidiaPackages.legacy_580;
+
+    prime = {
+      sync.enable = true;
+      intelBusId = "PCI:0:2:0";
+      nvidiaBusId = "PCI:1:0:0";
+    };
   };
 }

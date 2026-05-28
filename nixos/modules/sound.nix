@@ -26,16 +26,47 @@
     #media-session.enable = true;
   };
 
-  services.pipewire.wireplumber.extraConfig."51-bluetooth" = {
-    "monitor.bluez.properties" = {
-      "bluez5.roles" = [ "a2dp_sink" "a2dp_source" "hsp_hs" "hsp_ag" "hfp_hf" "hfp_ag" ];
-      "bluez5.codecs" = [ "sbc" "sbc_xq" "aac" ];
-      "bluez5.enable-sbc-xq" = true;
-      "bluez5.enable-hw-volume" = true;
-    };
+  #Disabled for testing
+  # services.pipewire.wireplumber.extraConfig."51-bluetooth" = {
+  #   "monitor.bluez.properties" = {
+  #     "bluez5.roles" = [
+  #       #Another unecessary roles
+  #       # "a2dp_sink" "hsp_hs" "hsp_ag" "hfp_hf" "hfp_ag"
+  #       "a2dp_source"
+  #     ];
+  #     "bluez5.codecs" = [
+  #       "sbc"
+  #       "sbc_xq"
+  #       "aac"
+  #     ];
+  #     "bluez5.enable-sbc-xq" = true;
+  #     "bluez5.enable-hw-volume" = true;
+  #   };
+  #   "wireplumber.settings" = {
+  #     "bluetooth.autoswitch-to-headset-profile" = false;
+  #   };
+  # };
+
+  services.pipewire.wireplumber.extraConfig."51-echo-fix" = {
     "wireplumber.settings" = {
       "bluetooth.autoswitch-to-headset-profile" = false;
     };
+
+    "monitor.bluez.rules" = [
+      {
+        matches = [
+          # Catches the Echo (and any other BT speaker) as soon as it pairs
+          { "device.name" = "~bluez_card.*"; }
+        ];
+        actions = {
+          "update-props" = {
+            # Forcefully overrides the broken handshake and locks it as a speaker
+            "bluez5.profile" = "a2dp-sink";
+            "bluez5.auto-connect" = [ "a2dp_sink" ];
+          };
+        };
+      }
+    ];
   };
 
   environment.systemPackages = with pkgs; [
