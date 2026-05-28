@@ -14,14 +14,22 @@
   };
 
   outputs =
-    { self, nixpkgs, home-manager, nixos-rk3588, ... }@inputs:
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      nixos-rk3588,
+      ...
+    }@inputs:
     let
       system = "x86_64-linux";
 
       # Cross-compilation toolchain: build on x86_64, target aarch64
       pkgsCross = import nixpkgs {
         localSystem = system;
-        crossSystem = { config = "aarch64-unknown-linux-gnu"; };
+        crossSystem = {
+          config = "aarch64-unknown-linux-gnu";
+        };
       };
 
       rk3588Path = nixos-rk3588;
@@ -71,7 +79,10 @@
       # Orange Pi 5 — cross-compiled from x86_64 to aarch64
       nixosConfigurations.orangepi = nixpkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = { inherit inputs nixpkgs; } // rk3588SpecialArgs;
+        specialArgs = {
+          inherit inputs nixpkgs;
+        }
+        // rk3588SpecialArgs;
         modules = [
           { nixpkgs.crossSystem.config = "aarch64-unknown-linux-gnu"; }
           (import "${toString rk3588Path}/modules/boards/orangepi5.nix")
@@ -85,7 +96,13 @@
 
       # Colmena deployment hive
       colmena = import ./cloud/colmena.nix {
-        inherit nixpkgs inputs pkgsCross rk3588SpecialArgs rk3588Path;
+        inherit
+          nixpkgs
+          inputs
+          pkgsCross
+          rk3588SpecialArgs
+          rk3588Path
+          ;
       };
 
       packages.${system} = {

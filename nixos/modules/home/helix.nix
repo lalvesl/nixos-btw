@@ -21,9 +21,22 @@
         };
 
         statusline = {
-          left = [ "mode" "spinner" "file-name" "read-only-indicator" "file-modification-indicator" ];
-          center = [];
-          right = [ "diagnostics" "selections" "position" "position-percentage" "file-encoding" "file-type" ];
+          left = [
+            "mode"
+            "spinner"
+            "file-name"
+            "read-only-indicator"
+            "file-modification-indicator"
+          ];
+          center = [ ];
+          right = [
+            "diagnostics"
+            "selections"
+            "position"
+            "position-percentage"
+            "file-encoding"
+            "file-type"
+          ];
           mode = {
             normal = "NORMAL";
             insert = "INSERT";
@@ -52,7 +65,10 @@
           C-q = ":q";
         };
         insert = {
-          C-s = [ "normal_mode" ":w" ];
+          C-s = [
+            "normal_mode"
+            ":w"
+          ];
         };
       };
     };
@@ -60,9 +76,13 @@
     themes = {
       gruvbox-transparent = {
         inherits = "gruvbox_dark_hard";
-        "ui.background" = {};
-        "ui.popup" = { bg = "bg0_h"; };
-        "ui.window" = { fg = "orange"; };
+        "ui.background" = { };
+        "ui.popup" = {
+          bg = "bg0_h";
+        };
+        "ui.window" = {
+          fg = "orange";
+        };
       };
     };
   };

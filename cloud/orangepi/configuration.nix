@@ -1,5 +1,9 @@
-{ pkgs, lib, ... }: {
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+{ pkgs, lib, ... }:
+{
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   networking = {
     hostName = "orangepi";
@@ -44,7 +48,10 @@
   users.users.lalvesl = {
     isNormalUser = true;
     home = "/home/lalvesl";
-    extraGroups = [ "wheel" "disk" ];
+    extraGroups = [
+      "wheel"
+      "disk"
+    ];
     initialPassword = "changeme";
   };
 

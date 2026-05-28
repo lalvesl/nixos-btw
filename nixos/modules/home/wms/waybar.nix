@@ -36,7 +36,11 @@
           format-source = "{volume}% 󰍬";
           format-source-muted = "󰍭";
           format-icons = {
-            default = [ "󰕿" "󰖀" "󰕾" ];
+            default = [
+              "󰕿"
+              "󰖀"
+              "󰕾"
+            ];
             headphone = "󰋋";
             headset = "󰋎";
             phone = "󰏲";
@@ -57,7 +61,16 @@
         "cpu" = {
           interval = 1;
           format = "{icon0}{icon1}{icon2}{icon3}{icon4}{icon5}{icon6}{icon7} {usage:>2}% {avg_frequency:1.2f}G 󰻠";
-          format-icons = [ "▁" "▂" "▃" "▄" "▅" "▆" "▇" "█" ];
+          format-icons = [
+            "▁"
+            "▂"
+            "▃"
+            "▄"
+            "▅"
+            "▆"
+            "▇"
+            "█"
+          ];
         };
 
         "temperature" = {
@@ -66,14 +79,22 @@
           critical-threshold = 80;
           format = "{temperatureC}°C {icon}";
           format-critical = "{temperatureC}°C {icon}";
-          format-icons = [ "󱃃" "󰔏" "󱃂" ];
+          format-icons = [
+            "󱃃"
+            "󰔏"
+            "󱃂"
+          ];
           tooltip = false;
         };
 
         "backlight" = {
           device = "intel_backlight";
           format = "{percent}% {icon}";
-          format-icons = [ "󰃞" "󰃟" "󰃠" ];
+          format-icons = [
+            "󰃞"
+            "󰃟"
+            "󰃠"
+          ];
           min-length = 7;
         };
 
@@ -86,7 +107,18 @@
           format-charging = "{capacity}% 󰂄";
           format-plugged = "{capacity}% 󰚥";
           format-alt = "{time} {icon}";
-          format-icons = [ "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹" ];
+          format-icons = [
+            "󰁺"
+            "󰁻"
+            "󰁼"
+            "󰁽"
+            "󰁾"
+            "󰁿"
+            "󰂀"
+            "󰂁"
+            "󰂂"
+            "󰁹"
+          ];
           on-update = "$HOME/.config/waybar/scripts/check_battery.sh";
         };
       };

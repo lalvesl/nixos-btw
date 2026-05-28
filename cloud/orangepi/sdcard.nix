@@ -1,8 +1,15 @@
-{ nixpkgs, lib, config, pkgs, ... }:
+{
+  nixpkgs,
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 let
   rootPartitionUUID = "14e19a7b-0ae0-484d-9d54-43bd6fdc20c7";
   uboot = pkgs.ubootOrangePi5;
-in {
+in
+{
   imports = [
     "${nixpkgs}/nixos/modules/installer/sd-card/sd-image.nix"
   ];
