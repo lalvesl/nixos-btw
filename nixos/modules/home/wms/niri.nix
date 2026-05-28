@@ -87,6 +87,7 @@
         Mod+B { spawn "swaylock"; }
         Mod+S { spawn "sh" "-c" "pgrep wlsunset && pkill wlsunset || wlsunset -t 3000 -T 3001"; }
         Mod+W { spawn "sh" "-c" "pgrep waybar && pkill -SIGUSR1 waybar || waybar &"; }
+        Mod+P { spawn "sh" "-c" "niri msg output HDMI-A-1 on"; }
 
         Mod+H { focus-column-left; }
         Mod+L { focus-column-right; }

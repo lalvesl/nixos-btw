@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 {
   # Enable OpenGL
   hardware.graphics = {
@@ -49,4 +49,8 @@
       nvidiaBusId = "PCI:1:0:0";
     };
   };
+
+  services.udev.extraRules = ''
+    ACTION=="change", SUBSYSTEM=="drm", RUN+="${pkgs.bash}/bin/bash -c 'sleep 2 && WAYLAND_DISPLAY=/run/user/1000/wayland-1 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus ${pkgs.niri}/bin/niri msg output HDMI-A-1 on'"
+  '';
 }
