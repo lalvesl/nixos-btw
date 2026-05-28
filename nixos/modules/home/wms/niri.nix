@@ -83,10 +83,10 @@
         Mod+F11 { fullscreen-window; }
         Mod+D { spawn "sh" "-c" "rofi -show drun"; }
         Mod+V { spawn "sh" "-c" "cliphist list | rofi -dmenu | cliphist decode | wl-copy"; }
-        Mod+X { spawn "swaylock"; }
+        Mod+Alt+Ctrl+Shift+X { spawn "sh" "-c" "if pgrep xwayland-satellite > /dev/null; then pkill xwayland-satellite && notify-send 'XWayland' 'Disabled'; else xwayland-satellite & notify-send 'XWayland' 'Enabled'; fi"; }
+        Mod+B { spawn "swaylock"; }
         Mod+S { spawn "sh" "-c" "pgrep wlsunset && pkill wlsunset || wlsunset -t 3000 -T 3001"; }
-        Mod+B { spawn "sh" "-c" "pkill -SIGUSR1 waybar"; }
-        Mod+W { spawn "sh" "-c" "pkill -SIGUSR2 waybar"; }
+        Mod+W { spawn "sh" "-c" "pgrep waybar && pkill -SIGUSR1 waybar || waybar &"; }
 
         Mod+H { focus-column-left; }
         Mod+L { focus-column-right; }

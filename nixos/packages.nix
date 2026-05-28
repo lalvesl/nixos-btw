@@ -79,6 +79,7 @@
     dmenu
     screenkey
     mako
+    libnotify
     gromit-mpx
     blueman
 
