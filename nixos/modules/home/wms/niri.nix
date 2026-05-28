@@ -87,8 +87,8 @@
         Mod+B { spawn "sh" "-c" "pkill -SIGUSR1 waybar"; }
         Mod+W { spawn "sh" "-c" "pkill -SIGUSR2 waybar"; }
 
-        Mod+H { spawn "sh" "-c" "niri msg action focus-column-left || niri msg action focus-column-last"; }
-        Mod+L { spawn "sh" "-c" "niri msg action focus-column-right || niri msg action focus-column-first"; }
+        Mod+H { focus-column-left; }
+        Mod+L { focus-column-right; }
         Mod+K { focus-window-up; }
         Mod+J { focus-window-down; }
 
@@ -135,6 +135,11 @@
         Mod+Alt+K { spawn "sh" "-c" "niri msg action focus-workspace-up || niri msg action focus-workspace-down"; }
         Mod+Alt+Shift+J { move-window-to-workspace-down; }
         Mod+Alt+Shift+K { move-window-to-workspace-up; }
+
+        Mod+Alt+H { focus-monitor-left; }
+        Mod+Alt+L { focus-monitor-right; }
+        Mod+Alt+Shift+H { move-window-to-monitor-left; }
+        Mod+Alt+Shift+L { move-window-to-monitor-right; }
 
         Print { spawn "sh" "-c" "grim -g \"$(slurp)\" - | swappy -f -"; }
 
