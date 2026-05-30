@@ -34,6 +34,8 @@ in
       tmux
       # nvtop
       nvtopPackages.full
+      jq
+      jq-zsh-plugin
 
       # DBs
       dbeaver-bin
