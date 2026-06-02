@@ -40,11 +40,10 @@
 
     layout {
         gaps 16
-        default-column-width { proportion 1.0; }
+        default-column-width { proportion 0.45; }
         preset-column-widths {
-            proportion 0.5
+            proportion 0.45
             proportion 0.33333
-            proportion 1.0
         }
         border {
             off
@@ -134,8 +133,8 @@
         Mod+Shift+9 { move-window-to-workspace 9; }
         Mod+Shift+0 { move-window-to-workspace 10; }
 
-        Mod+Alt+J { spawn "sh" "-c" "niri msg action focus-workspace-down || niri msg action focus-workspace 1"; }
-        Mod+Alt+K { spawn "sh" "-c" "niri msg action focus-workspace-up || niri msg action focus-workspace-down"; }
+        Mod+Alt+J { focus-workspace-down; }
+        Mod+Alt+K { focus-workspace-up; }
         Mod+Alt+Shift+J { move-window-to-workspace-down; }
         Mod+Alt+Shift+K { move-window-to-workspace-up; }
 
