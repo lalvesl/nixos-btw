@@ -70,3 +70,29 @@ end)
 keymap.set("n", "<leader>i", function()
 	require("craftzdog.lsp").toggleInlayHints()
 end)
+
+-- Copy file path as @-reference (with line range in visual mode)
+local function copy_file_path_ref()
+	local path = vim.fn.expand("%:.")
+	if path == "" then
+		vim.notify("No file path for current buffer", vim.log.levels.WARN)
+		return
+	end
+	local mode = vim.fn.mode()
+	local ref
+	if mode == "v" or mode == "V" or mode == "\22" then
+		local s = vim.fn.line("v")
+		local e = vim.fn.line(".")
+		if s > e then
+			s, e = e, s
+		end
+		ref = string.format("@%s#L%d-%d", path, s, e)
+	else
+		ref = "@" .. path
+	end
+	vim.fn.setreg("+", ref)
+	vim.fn.setreg('"', ref)
+	vim.notify("Copied: " .. ref)
+end
+
+keymap.set({ "n", "v" }, "<leader>yr", copy_file_path_ref, { desc = "Copy file path as @-ref" })
