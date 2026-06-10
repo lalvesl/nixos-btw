@@ -7,8 +7,8 @@ let
     };
   });
   claude-code-src = builtins.fetchTarball {
-    url = "https://github.com/sadjow/claude-code-nix/archive/3cc73775ecceb02a798519a5527f4eb400c8c8e4.tar.gz";
-    sha256 = "sha256:0qjs9qzg9i8javqdv0k4pcz2zrcpypx2p61k3d0wfqnbg1s5q6nn";
+    url = "https://github.com/sadjow/claude-code-nix/archive/4b0229ec9e37c594156b492653eada8413446f09.tar.gz";
+    sha256 = "sha256:1s5fxvhap3plr3i954k0m7877qj9615s6d3q9nv54d4y9b2mkgxh";
   };
   latest_claude-code = pkgs.callPackage "${claude-code-src}/package.nix" { };
 in
