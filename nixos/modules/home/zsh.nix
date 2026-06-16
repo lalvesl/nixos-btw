@@ -23,6 +23,32 @@
     };
 
     initContent = ''
+      # Remove user@host from agnoster
+      prompt_context() {}
+
+      # Compress middle dirs to first letter: ~/super_balas/nixos-btw → ~/s/nixos-btw
+      _compressed_dir() {
+        local p="''${PWD/#$HOME/~}"
+        local -a parts=("''${(@s:/:)p}")
+        local result="" n=''${#parts[@]}
+        for (( i=1; i<=n; i++ )); do
+          if (( i == n )); then
+            result+="''${parts[$i]}"
+          elif [[ "''${parts[$i]}" == "~" ]]; then
+            result+="~/"
+          elif [[ -z "''${parts[$i]}" ]]; then
+            result+="/"
+          else
+            result+="''${parts[$i][1]}/"
+          fi
+        done
+        echo "$result"
+      }
+
+      prompt_dir() {
+        prompt_segment blue black "$(_compressed_dir)"
+      }
+
       _cmd_start=0
       _cmd_duration_str=""
 
