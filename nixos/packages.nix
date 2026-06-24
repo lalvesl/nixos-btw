@@ -1,7 +1,14 @@
 { pkgs, ... }:
 let
+  chromiumFlags = "--mojo-use-eventfd --single-process-gpu";
   braveWithFlags = pkgs.brave.override {
-    commandLineArgs = "--mojo-use-eventfd --single-process-gpu --enable-features=MemorySaverMode --time-before-discard-in-minutes=1 --disable-background-networking --disable-sync --no-first-run --no-default-browser-check";
+    commandLineArgs = "${chromiumFlags} --enable-features=MemorySaverMode --time-before-discard-in-minutes=1 --disable-background-networking --disable-sync --no-first-run --no-default-browser-check";
+  };
+  chromiumWithFlags = pkgs.chromium.override {
+    commandLineArgs = chromiumFlags;
+  };
+  chromeWithFlags = pkgs.google-chrome.override {
+    commandLineArgs = chromiumFlags;
   };
 in
 {
@@ -22,8 +29,8 @@ in
     lan-mouse
     # Desktop apps
     # audacity
-    chromium
-    google-chrome
+    chromiumWithFlags
+    chromeWithFlags
     braveWithFlags
     firefox-bin
     zathura
