@@ -1,6 +1,7 @@
 {
   imports = [
     ./bluetooth.nix
+    ./cpu.nix
     ./bootloader.nix
     ./dev-dependencies.nix
     ./env.nix

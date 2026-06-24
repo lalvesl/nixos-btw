@@ -1,4 +1,9 @@
 { pkgs, ... }:
+let
+  braveWithFlags = pkgs.brave.override {
+    commandLineArgs = "--mojo-use-eventfd --single-process-gpu --enable-features=MemorySaverMode --time-before-discard-in-minutes=1 --disable-background-networking --disable-sync --no-first-run --no-default-browser-check";
+  };
+in
 {
   nixpkgs.config = {
     allowUnfree = true;
@@ -19,7 +24,7 @@
     # audacity
     chromium
     google-chrome
-    brave
+    braveWithFlags
     firefox-bin
     zathura
     # telegram-desktop
