@@ -1,5 +1,53 @@
-{ ... }:
+{ pkgs, ... }:
+let
+  claudebar = pkgs.stdenv.mkDerivation {
+    pname = "claudebar";
+    version = "master";
+    src = pkgs.fetchurl {
+      url = "https://raw.githubusercontent.com/mryll/claudebar/master/claudebar";
+      hash = "sha256-d2C1W4dzf9nBcxjYc/JxNuGkZUmKICXcVBxsqpinedA=";
+    };
+    dontUnpack = true;
+    nativeBuildInputs = [ pkgs.makeWrapper ];
+    installPhase = ''
+      install -Dm755 $src $out/bin/claudebar
+    '';
+    postInstall = ''
+      wrapProgram $out/bin/claudebar \
+        --prefix PATH : ${pkgs.lib.makeBinPath [ pkgs.curl pkgs.jq pkgs.coreutils pkgs.util-linux ]}
+    '';
+  };
+in
 {
+
+  xdg.configFile."waybar/scripts/watch_claude.sh" = {
+    executable = true;
+    text = ''
+      #!/usr/bin/env bash
+      SESSIONS="$HOME/.claude/sessions"
+      mkdir -p "$SESSIONS"
+      inotifywait -m -q -e create -e delete "$SESSIONS" 2>/dev/null | while read -r; do
+        pkill -RTMIN+8 waybar 2>/dev/null
+      done
+    '';
+  };
+
+  systemd.user.services.waybar-claude-watcher = {
+    Unit = {
+      Description = "Watch ~/.claude/sessions for waybar claude indicator";
+      After = [ "graphical-session.target" ];
+      PartOf = [ "graphical-session.target" ];
+    };
+    Service = {
+      ExecStart = "%h/.config/waybar/scripts/watch_claude.sh";
+      Restart = "on-failure";
+      RestartSec = "2s";
+    };
+    Install = {
+      WantedBy = [ "graphical-session.target" ];
+    };
+  };
+
   programs.waybar = {
     enable = true;
     settings = {
@@ -8,7 +56,7 @@
         position = "top";
         margin = "9 13 -10 18";
 
-        modules-left = [ "niri/workspaces" ];
+        modules-left = [ "niri/workspaces" "custom/claude" ];
         modules-center = [ "clock" ];
         modules-right = [
           "pulseaudio"
@@ -21,6 +69,15 @@
 
         "niri/workspaces" = {
           disable-scroll = true;
+        };
+
+        "custom/claude" = {
+          exec = "${claudebar}/bin/claudebar";
+          exec-if = "ls $HOME/.claude/sessions/ 2>/dev/null | grep -q .";
+          return-type = "json";
+          interval = 30;
+          signal = 8;
+          format = "{}";
         };
 
         "clock" = {
@@ -177,6 +234,22 @@
           border-radius: 10px;
           color: #ffffff;
           background: #383c4a;
+      }
+
+      #custom-claude {
+          margin-left: 6px;
+          padding: 0 14px;
+          border-radius: 10px;
+          color: #cc785c;
+          background: #383c4a;
+      }
+
+      #custom-claude.warning {
+          color: #ffbe61;
+      }
+
+      #custom-claude.critical {
+          color: #f53c3c;
       }
 
       #pulseaudio,

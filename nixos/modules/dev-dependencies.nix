@@ -36,6 +36,7 @@ in
       nvtopPackages.full
       jq
       jq-zsh-plugin
+      inotify-tools
 
       # DBs
       dbeaver-bin
