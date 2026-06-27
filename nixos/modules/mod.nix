@@ -17,6 +17,7 @@
     ./steam.nix
     ./sys-utils.nix
     ./portals.nix
+    ./hotstarter.nix
     ./trim.nix
     ./user.nix
     ./virtualization-containerization.nix
