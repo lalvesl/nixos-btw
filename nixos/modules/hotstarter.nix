@@ -38,6 +38,17 @@ let
     touch_path ${userHome}/.zsh_history
     touch_path ${userHome}/.config/alacritty
     touch_path ${userHome}/.config/kitty
+
+    # ── Niri ─────────────────────────────────────────────────────
+    touch_path ${pkgs.niri}/bin/niri
+    touch_path ${pkgs.niri}/lib
+    touch_path ${userHome}/.config/niri
+
+    # ── Waybar ───────────────────────────────────────────────────
+    touch_path ${pkgs.waybar}/bin/waybar
+    touch_path ${pkgs.waybar}/lib
+    touch_path ${pkgs.waybar}/share/waybar
+    touch_path ${userHome}/.config/waybar
   '';
 in
 {
