@@ -8,8 +8,8 @@ let
     sourceRoot = "Antigravity-x64";
   });
   claude-code-src = fetchTarball {
-    url = "https://github.com/sadjow/claude-code-nix/archive/e0c8acbcb3690471a2d2d485b03d09e303780932.tar.gz";
-    sha256 = "sha256:08zi4rfwr7fch23hyfmdyycbg2qgvgn2pzfhp739niyk9hy0x47a";
+    url = "https://github.com/sadjow/claude-code-nix/archive/90a137caf9a6d82389c0b26a719e26c4e6707367.tar.gz";
+    sha256 = "sha256:1y46wjg9wzwhyg2b13h276xavxwka37rbfscymh1sjchl45qnnvl";
   };
   latest_claude-code = pkgs.callPackage "${claude-code-src}/package.nix" { };
 in
