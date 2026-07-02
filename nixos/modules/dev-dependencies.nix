@@ -1,12 +1,6 @@
 { pkgs, ... }:
 let
-  latest_antigravity = pkgs.antigravity.overrideAttrs (_: {
-    src = pkgs.fetchurl {
-      url = "https://storage.googleapis.com/antigravity-public/antigravity-hub/2.2.1-5287492581195776/linux-x64/Antigravity.tar.gz";
-      sha256 = "sha256-prp3BG+SqhziHYoMZ0lUca9MK+EbpiTl2TWCGWmyCYk=";
-    };
-    sourceRoot = "Antigravity-x64";
-  });
+  latest_antigravity = pkgs.antigravity;
   claude-code-src = fetchTarball {
     url = "https://github.com/sadjow/claude-code-nix/archive/90a137caf9a6d82389c0b26a719e26c4e6707367.tar.gz";
     sha256 = "sha256:1y46wjg9wzwhyg2b13h276xavxwka37rbfscymh1sjchl45qnnvl";
