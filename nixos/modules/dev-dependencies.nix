@@ -2,13 +2,14 @@
 let
   latest_antigravity = pkgs.antigravity.overrideAttrs (_: {
     src = pkgs.fetchurl {
-      url = "https://edgedl.me.gvt1.com/edgedl/release2/j0qc3/antigravity/stable/1.23.2-4781536860569600/linux-x64/Antigravity.tar.gz";
-      sha256 = "sha256-UjKkBI/0+hVoXZqYG6T7pXPil/PvybdvY455S693VyU=";
+      url = "https://storage.googleapis.com/antigravity-public/antigravity-hub/2.2.1-5287492581195776/linux-x64/Antigravity.tar.gz";
+      sha256 = "sha256-prp3BG+SqhziHYoMZ0lUca9MK+EbpiTl2TWCGWmyCYk=";
     };
+    sourceRoot = "Antigravity-x64";
   });
   claude-code-src = fetchTarball {
-    url = "https://github.com/sadjow/claude-code-nix/archive/a020d210d15807efebdf18aa1ff84f893956b714.tar.gz";
-    sha256 = "sha256:1kdkxb8awmbbnm9jayz0s1pq5p8zgsw9p8i6rjkv2kd4qca73z69";
+    url = "https://github.com/sadjow/claude-code-nix/archive/e0c8acbcb3690471a2d2d485b03d09e303780932.tar.gz";
+    sha256 = "sha256:08zi4rfwr7fch23hyfmdyycbg2qgvgn2pzfhp739niyk9hy0x47a";
   };
   latest_claude-code = pkgs.callPackage "${claude-code-src}/package.nix" { };
 in
