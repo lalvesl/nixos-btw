@@ -108,6 +108,12 @@
       packages.${system} = {
         wallet = walletIso.config.system.build.isoImage;
         orangepi-sdimage = self.nixosConfigurations.orangepi.config.system.build.sdImage;
+        gamebox-image = import ./nixos/modules/gamebox-image.nix {
+          pkgs = import nixpkgs {
+            inherit system;
+            config.allowUnfree = true;
+          };
+        };
       };
     };
 }
