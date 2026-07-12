@@ -40,7 +40,7 @@ pkgs'.dockerTools.buildLayeredImage {
 
     steam
     lutris
-    wineWowPackages.stagingFull
+    wineWow64Packages.stagingFull
     winetricks
     proton-ge-bin
 
