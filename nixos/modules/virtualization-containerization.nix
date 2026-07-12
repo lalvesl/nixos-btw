@@ -79,7 +79,7 @@
     slirp4netns # User-mode networking for unprivileged namespaces
     fuse-overlayfs # CoW for images, much faster than default vfs
 
-    qemu_full
+    qemu
     quickemu
     virt-manager
     virt-viewer
