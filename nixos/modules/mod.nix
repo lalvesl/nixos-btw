@@ -6,6 +6,7 @@
     ./dev-dependencies.nix
     ./env.nix
     ./flatpak.nix
+    ./gamebox.nix
     ./niri.nix
     ./i18n.nix
     ./kde_connect.nix
