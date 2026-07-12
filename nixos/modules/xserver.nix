@@ -25,5 +25,4 @@
   };
   # TDOO: need to split xserver and displayManager configs
   services.displayManager.gdm.enable = true;
-  services.displayManager.gdm.wayland = true;
 }
