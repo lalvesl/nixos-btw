@@ -18,6 +18,24 @@ let
   uid = "1000";
   gid = "1000";
   home = "/home/${user}";
+
+  # wine-wow64-staging and winetricks each ship share/applications and
+  # share/icons as symlinks rather than plain directories, which the
+  # image layer merge can't reconcile. Resolve the collisions ourselves
+  # (first listed wins) before handing them to buildLayeredImage.
+  #
+  # proton-ge-bin is deliberately excluded: its package output is just a
+  # placeholder file (not a real directory tree) telling you not to
+  # install it into an environment. We only need its store path for
+  # PROTONPATH below.
+  winingStuff = pkgs'.buildEnv {
+    name = "gamebox-wine-stuff";
+    paths = with pkgs'; [
+      wineWow64Packages.stagingFull
+      winetricks
+    ];
+    ignoreCollisions = true;
+  };
 in
 pkgs'.dockerTools.buildLayeredImage {
   name = "gamebox";
@@ -40,9 +58,8 @@ pkgs'.dockerTools.buildLayeredImage {
 
     steam
     lutris
-    wineWow64Packages.stagingFull
-    winetricks
-    proton-ge-bin
+    winingStuff
+    proton-ge-bin.steamcompattool
 
     mesa
     libglvnd
@@ -86,7 +103,7 @@ EOF
       "PATH=/bin:/usr/bin"
       "SSL_CERT_FILE=${pkgs'.cacert}/etc/ssl/certs/ca-bundle.crt"
       "XDG_DATA_HOME=${home}/.local/share"
-      "PROTONPATH=${pkgs'.proton-ge-bin}"
+      "PROTONPATH=${pkgs'.proton-ge-bin.steamcompattool}"
     ];
     Cmd = [
       "sleep"
