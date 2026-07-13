@@ -5,7 +5,7 @@ let
     version = "master";
     src = pkgs.fetchurl {
       url = "https://raw.githubusercontent.com/mryll/claudebar/master/claudebar";
-      hash = "sha256-d2C1W4dzf9nBcxjYc/JxNuGkZUmKICXcVBxsqpinedA=";
+      hash = "sha256-A+BbHgf5YxU3zaqrQ7EUZxNgiOjPIV3zFeP63wiPJ5U=";
     };
     dontUnpack = true;
     nativeBuildInputs = [ pkgs.makeWrapper ];
