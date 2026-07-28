@@ -13,6 +13,16 @@
         scale 1.0
     }
 
+    // The HDMI-A-1 port is wired to the NVIDIA GPU (card0), but niri defaults to
+    // rendering on the Intel iGPU (card1). Buffers can't be shared Intel->NVIDIA
+    // with the proprietary driver, so the external monitor stays on "no signal".
+    // Force niri to render on the NVIDIA GPU so it drives its own HDMI output
+    // directly; the internal eDP panel is then fed via NVIDIA->Intel (the PRIME
+    // direction that works). Path is by PCI address so it survives reboots.
+    debug {
+        render-drm-device "/dev/dri/by-path/pci-0000:01:00.0-render"
+    }
+
     input {
         keyboard {
             xkb {
