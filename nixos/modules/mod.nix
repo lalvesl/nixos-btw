@@ -10,6 +10,7 @@
     ./niri.nix
     ./i18n.nix
     ./kde_connect.nix
+    ./keyring.nix
     ./net.nix
     ./nvidia.nix
     ./qt.nix

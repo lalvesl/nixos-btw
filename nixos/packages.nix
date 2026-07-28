@@ -1,6 +1,9 @@
 { pkgs, ... }:
 let
-  chromiumFlags = "--mojo-use-eventfd --single-process-gpu";
+  # niri sets XDG_CURRENT_DESKTOP=niri, which Chromium's desktop-environment
+  # autodetection doesn't recognize, so it silently falls back to "basic"
+  # (plaintext) password storage unless the backend is forced explicitly.
+  chromiumFlags = "--mojo-use-eventfd --single-process-gpu --password-store=gnome-libsecret";
   braveWithFlags = pkgs.brave.override {
     commandLineArgs = "${chromiumFlags} --enable-features=MemorySaverMode --time-before-discard-in-minutes=1 --disable-background-networking --disable-sync --no-first-run --no-default-browser-check";
   };
