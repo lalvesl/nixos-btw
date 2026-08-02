@@ -88,6 +88,7 @@
           (import "${toString rk3588Path}/modules/boards/orangepi5.nix")
           ./cloud/orangepi/sdcard.nix
           ./cloud/orangepi/configuration.nix
+          ./cloud/orangepi/cross-fixes.nix
           {
             image.baseName = "orangepi-sd-image";
           }

@@ -29,6 +29,7 @@
       imports = [
         (import "${toString rk3588Path}/modules/boards/orangepi5.nix")
         ./orangepi/configuration.nix
+        ./orangepi/cross-fixes.nix
       ];
     };
 }
