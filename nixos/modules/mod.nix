@@ -11,6 +11,7 @@
     ./i18n.nix
     ./kde_connect.nix
     ./keyring.nix
+    ./matlab.nix
     ./net.nix
     ./nvidia.nix
     ./qt.nix
