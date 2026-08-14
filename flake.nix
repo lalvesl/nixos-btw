@@ -11,6 +11,11 @@
       url = "github:gnull/nixos-rk3588";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # FHS wrappers for an imperatively installed native MATLAB (no docker/web)
+    nix-matlab = {
+      url = "gitlab:doronbehar/nix-matlab";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
