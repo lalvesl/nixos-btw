@@ -11,6 +11,7 @@
     ./i18n.nix
     ./kde_connect.nix
     ./keyring.nix
+    ./lan-mouse.nix
     ./matlab.nix
     ./net.nix
     ./nvidia.nix
