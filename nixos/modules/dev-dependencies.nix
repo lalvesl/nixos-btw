@@ -2,8 +2,8 @@
 let
   latest_antigravity = pkgs.antigravity;
   claude-code-src = fetchTarball {
-    url = "https://github.com/sadjow/claude-code-nix/archive/0d3cd1d6260b6f0ed232224c274c565407446fa1.tar.gz";
-    sha256 = "sha256:1ivvwih3cdypqxwlw3lbpjs2sx01smcf3m838ps328pfl73v4yfd";
+    url = "https://github.com/sadjow/claude-code-nix/archive/a96094aad959f52a99e5b59670d8e7ae481d7a81.tar.gz";
+    sha256 = "sha256:043i4h37q34qlxhhb2xzvlkl3fvk1kb9ysba7r750j7ran7g0a0w";
   };
   latest_claude-code = pkgs.callPackage "${claude-code-src}/package.nix" { };
 in
