@@ -14,7 +14,14 @@ let
     '';
     postInstall = ''
       wrapProgram $out/bin/claudebar \
-        --prefix PATH : ${pkgs.lib.makeBinPath [ pkgs.curl pkgs.jq pkgs.coreutils pkgs.util-linux ]}
+        --prefix PATH : ${
+          pkgs.lib.makeBinPath [
+            pkgs.curl
+            pkgs.jq
+            pkgs.coreutils
+            pkgs.util-linux
+          ]
+        }
     '';
   };
 in
@@ -56,7 +63,10 @@ in
         position = "top";
         margin = "9 13 -10 18";
 
-        modules-left = [ "niri/workspaces" "custom/claude" ];
+        modules-left = [
+          "niri/workspaces"
+          "custom/claude"
+        ];
         modules-center = [ "clock" ];
         modules-right = [
           "pulseaudio"
