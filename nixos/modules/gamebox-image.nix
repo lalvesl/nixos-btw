@@ -75,22 +75,22 @@ pkgs'.dockerTools.buildLayeredImage {
   ];
 
   fakeRootCommands = ''
-    mkdir -p ${home} tmp
-    chmod 1777 tmp
+        mkdir -p ${home} tmp
+        chmod 1777 tmp
 
-    cat > etc/passwd <<EOF
-root:x:0:0:root:/root:/bin/bash
-${user}:x:${uid}:${gid}:${user}:${home}:/bin/bash
-nobody:x:65534:65534:nobody:/var/empty:/bin/false
-EOF
+        cat > etc/passwd <<EOF
+    root:x:0:0:root:/root:/bin/bash
+    ${user}:x:${uid}:${gid}:${user}:${home}:/bin/bash
+    nobody:x:65534:65534:nobody:/var/empty:/bin/false
+    EOF
 
-    cat > etc/group <<EOF
-root:x:0:
-${user}:x:${gid}:
-nobody:x:65534:
-EOF
+        cat > etc/group <<EOF
+    root:x:0:
+    ${user}:x:${gid}:
+    nobody:x:65534:
+    EOF
 
-    chown -R ${uid}:${gid} ${home}
+        chown -R ${uid}:${gid} ${home}
   '';
   enableFakechroot = true;
 
