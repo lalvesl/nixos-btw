@@ -15,6 +15,7 @@
     ./matlab.nix
     ./net.nix
     ./nvidia.nix
+    ./ports.nix
     ./qt.nix
     ./sound.nix
     ./special-configs.nix
