@@ -57,7 +57,10 @@ in
   systemd.services.hotstarter = {
     description = "Pre-warm frequently used binaries into page cache";
     wantedBy = [ "multi-user.target" ];
-    after = [ "local-fs.target" "nix-daemon.service" ];
+    after = [
+      "local-fs.target"
+      "nix-daemon.service"
+    ];
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = true;
@@ -71,8 +74,16 @@ in
   # Re-warm after suspend — page cache is dropped on resume
   systemd.services.hotstarter-resume = {
     description = "Re-warm page cache after suspend";
-    wantedBy = [ "suspend.target" "hibernate.target" "hybrid-sleep.target" ];
-    after = [ "suspend.target" "hibernate.target" "hybrid-sleep.target" ];
+    wantedBy = [
+      "suspend.target"
+      "hibernate.target"
+      "hybrid-sleep.target"
+    ];
+    after = [
+      "suspend.target"
+      "hibernate.target"
+      "hybrid-sleep.target"
+    ];
     serviceConfig = {
       Type = "oneshot";
       ExecStart = preloadScript;
