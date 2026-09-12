@@ -89,6 +89,7 @@
         Mod+N { spawn "nautilus"; }
         Mod+T { switch-preset-column-width; }
         Mod+F { toggle-window-floating; }
+        Mod+Ctrl+F { fullscreen-window; }
         Mod+G { maximize-column; }
         Mod+F11 { fullscreen-window; }
         Mod+D { spawn "sh" "-c" "rofi -show drun"; }
