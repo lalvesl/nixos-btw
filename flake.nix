@@ -111,9 +111,19 @@
           ;
       };
 
+      apps.${system}.send-orangepi-sdimage = {
+        type = "app";
+        program = "${self.packages.${system}.send-orangepi-sdimage}/bin/send-orangepi-sdimage";
+      };
+
       packages.${system} = {
         wallet = walletIso.config.system.build.isoImage;
         orangepi-sdimage = self.nixosConfigurations.orangepi.config.system.build.sdImage;
+        send-orangepi-sdimage = import ./cloud/orangepi/send-sdimage.nix {
+          pkgs = import nixpkgs { inherit system; };
+          sdImage = self.nixosConfigurations.orangepi.config.system.build.sdImage;
+        };
+
         gamebox-image = import ./nixos/modules/gamebox-image.nix {
           pkgs = import nixpkgs {
             inherit system;
