@@ -1,5 +1,7 @@
 { pkgs, lib, ... }:
 {
+  imports = [ ./valheim.nix ];
+
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"
@@ -36,6 +38,15 @@
       X11Forwarding = lib.mkDefault false;
     };
     openFirewall = true;
+  };
+
+  # Runs the x86_64 dedicated server under box64. Set a password with
+  # `services.valheim.passwordFile`, or let the first start generate one in
+  # /var/lib/valheim/password.
+  services.valheim = {
+    enable = true;
+    serverName = "orangepi";
+    worldName = "Dedicated";
   };
 
   # USB HDDs — add after identifying disks with lsblk/blkid
