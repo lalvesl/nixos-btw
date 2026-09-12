@@ -29,6 +29,7 @@ in
   };
 
   environment.systemPackages = with pkgs; [
+    cage
     lan-mouse
     # Desktop apps
     # audacity
