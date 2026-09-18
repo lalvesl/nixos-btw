@@ -11,6 +11,11 @@
       url = "github:gnull/nixos-rk3588";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # Secrets encrypted at rest in the repo, decrypted only at activation
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     # FHS wrappers for an imperatively installed native MATLAB (no docker/web)
     nix-matlab = {
       url = "gitlab:doronbehar/nix-matlab";
@@ -94,6 +99,10 @@
           ./cloud/orangepi/sdcard.nix
           ./cloud/orangepi/configuration.nix
           ./cloud/orangepi/cross-fixes.nix
+          # First-boot image: cleartext initial password and no sops secrets. The
+          # board has no host key yet, so nothing here may depend on decrypting
+          # anything. Colmena takes over from the next deploy on.
+          ./cloud/orangepi/bootstrap.nix
           {
             image.baseName = "orangepi-sd-image";
           }
@@ -131,5 +140,28 @@
           };
         };
       };
+
+      # Secrets tooling. `nix develop` makes the commands in secrets/README.md
+      # work without installing anything system-wide.
+      devShells.${system}.default =
+        let
+          pkgs = import nixpkgs { inherit system; };
+        in
+        pkgs.mkShell {
+          packages = with pkgs; [
+            sops
+            age
+            ssh-to-age
+            mkpasswd
+            colmena
+          ];
+
+          # Where sops looks for the admin key when editing and decrypting. Set
+          # in the shellHook rather than as a derivation variable because it
+          # depends on $HOME, which does not exist during pure flake evaluation.
+          shellHook = ''
+            export SOPS_AGE_KEY_FILE="$HOME/.config/sops/age/keys.txt"
+          '';
+        };
     };
 }
