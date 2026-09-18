@@ -127,6 +127,37 @@ in
       environmentFile = config.sops.templates."acme-cloudflare.env".path;
       # Cloudflare publishes fast; the check is what makes renewals reliable.
       dnsPropagationCheck = true;
+
+      # 160 hours of validity instead of 90 days.
+      #
+      # "shortlived" is Let's Encrypt's six-day profile. The point is blast
+      # radius: a private key copied off this board is worthless within a week,
+      # with no revocation to distribute and no CRL for anyone to fetch -- the
+      # certificate simply stops being trusted. That is the whole reason to
+      # accept everything below.
+      #
+      # It is otherwise identical to their "tlsserver" profile, which means two
+      # differences from the classic certificates: no Subject Common Name (the
+      # names live only in the SAN extension, which every current TLS client
+      # already reads) and at most 25 names. This certificate carries two.
+      profile = "shortlived";
+
+      # Renewal cadence, stated explicitly because it is now load-bearing.
+      #
+      # null makes lego renew with --dynamic: below a ten-day lifetime it
+      # renews once half the validity is gone, so roughly every 80 hours. That
+      # number has to clear a hard limit -- Let's Encrypt allows 5 certificates
+      # per exact set of names per 7 days, refilling one per 34 hours, with no
+      # override available. At 80 hours we spend about 2.1 per week against a
+      # budget of 5. Pinning validMinDays above the six-day lifetime instead --
+      # 30, the value this option used to default to -- would renew on every
+      # daily run, 7 per week, and issuance would fail from day three on.
+      #
+      # The cost of the whole arrangement is margin: a broken renewal now takes
+      # TLS down in about three days rather than two months. Since renewal
+      # depends on the Cloudflare API, revoking or expiring the DNS token is
+      # enough to start that clock.
+      validMinDays = null;
     };
 
     certs.${domain} = {
@@ -137,6 +168,23 @@ in
     };
   };
 
+  # CAA is the other half of this, and it does not live here.
+  #
+  # The DNS token above can edit records in the zone, which is exactly what is
+  # needed to pass DNS-01 -- and exactly what someone who steals the token would
+  # use to have a certificate issued for these names behind our backs. Revoking
+  # the token does not undo a certificate that was already issued.
+  #
+  # A CAA record at h.lalvesl.com closes that. With accounturi= it names the one
+  # ACME account allowed to issue here, so a stolen token is no longer enough:
+  # the thief would also need this board's ACME account key, which never leaves
+  # /var/lib/acme. Scoped at h.lalvesl.com rather than the apex, so the rest of
+  # lalvesl.com stays unconstrained.
+  #
+  # It is a DNS record, so it cannot be declared in this repository -- run
+  # ../caa-records.sh against the board and paste what it prints into
+  # Cloudflare. The script explains the ordering, which matters: accounturi=
+  # cannot be set before the account it names exists.
   sops.templates."acme-cloudflare.env" = {
     content = ''
       CF_DNS_API_TOKEN=${config.sops.placeholder."acme/cloudflare-dns-token"}
