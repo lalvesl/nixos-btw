@@ -42,6 +42,18 @@
         };
       };
 
+      # Native aarch64 package set. The colmena hive builds with this rather
+      # than pkgsCross so that cache.nixos.org actually matches -- see the
+      # measurement in cloud/colmena.nix.
+      pkgsNative = import nixpkgs {
+        system = "aarch64-linux";
+        # Elasticsearch has been unfree since 7.11. Scoped to that one package
+        # rather than a blanket allowUnfree. It has to be set here, on the
+        # instance, because colmena passes this to the hive ready-made and
+        # NixOS rejects `nixpkgs.config` next to an external instance.
+        config.allowUnfreePredicate = pkg: builtins.elem (nixpkgs.lib.getName pkg) [ "elasticsearch" ];
+      };
+
       rk3588Path = nixos-rk3588;
 
       # specialArgs required by gnull/nixos-rk3588 board modules
@@ -114,8 +126,7 @@
         inherit
           nixpkgs
           inputs
-          pkgsCross
-          rk3588SpecialArgs
+          pkgsNative
           rk3588Path
           ;
       };
@@ -132,6 +143,10 @@
           pkgs = import nixpkgs { inherit system; };
           sdImage = self.nixosConfigurations.orangepi.config.system.build.sdImage;
         };
+
+        # The Pingora gateway. Exposed mainly so it can be built and tested on
+        # its own; the board gets it through cloud/orangepi/services/proxy.nix.
+        homelab-gateway = (import nixpkgs { inherit system; }).callPackage ./cloud/orangepi/pingora { };
 
         gamebox-image = import ./nixos/modules/gamebox-image.nix {
           pkgs = import nixpkgs {
