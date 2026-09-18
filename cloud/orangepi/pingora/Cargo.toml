@@ -1,0 +1,26 @@
+[package]
+name = "homelab-gateway"
+version = "0.1.0"
+edition = "2021"
+description = "Pingora reverse proxy splitting trusted tailnet traffic from Cloudflare tunnel traffic"
+
+[dependencies]
+# rustls rather than the openssl backend: pingora ships a no-op TLS stack when
+# no backend feature is selected, which compiles and then panics on the first
+# handshake. rustls is also pure Rust, so cross-compiling to the board does not
+# drag openssl-sys and a C toolchain along.
+pingora = { version = "0.6", features = ["proxy", "rustls"] }
+async-trait = "0.1"
+tokio = { version = "1", features = ["process", "sync"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+http = "1"
+log = "0.4"
+env_logger = "0.11"
+
+[profile.release]
+# The board compiles this itself often enough that build time matters as much
+# as runtime; 1 codegen unit and LTO roughly triples the build for a few
+# percent on a proxy that is not CPU-bound anyway.
+lto = false
+codegen-units = 16
