@@ -1,22 +1,49 @@
 # Colmena deployment hive
 # Usage: colmena apply --on orangepi
+#
+# Built natively for aarch64, not cross-compiled, and the difference is not
+# stylistic. A cross-built derivation hashes differently from the aarch64 one
+# Hydra published, so it matches nothing in cache.nixos.org and everything gets
+# rebuilt from source. Measured on this configuration:
+#
+#   cross-compiled   1938 derivations to build, 14.6 GiB to fetch
+#   native aarch64    518 derivations to build,  3.9 GiB to fetch
+#
+# The 1420 that disappear are the ones nobody wants to build by hand: the whole
+# Python interpreter plus 299 packages behind Home Assistant, the .NET runtime
+# behind Jellyfin, Qt, Node. Natively those all substitute.
+#
+# The x86_64 build host runs aarch64 builds through binfmt emulation -- see
+# nixos/modules/binfmt.nix on the desktop. Emulation is slow per instruction,
+# but it only has to cover what is genuinely not in the cache, which after this
+# change is mostly generated config files plus the Pingora gateway.
+#
+# The SD image (nixosConfigurations.orangepi) stays cross-compiled: it builds
+# fine that way today, and the bootstrap path is not worth disturbing.
 {
   nixpkgs,
   inputs,
-  pkgsCross,
-  rk3588SpecialArgs,
+  pkgsNative,
   rk3588Path,
 }:
 {
   meta = {
-    nixpkgs = pkgsCross;
-    specialArgs = rk3588SpecialArgs // {
+    nixpkgs = pkgsNative;
+    specialArgs = {
+      rk3588 = {
+        inherit nixpkgs;
+        # The board modules build kernel packages with this. Native here too,
+        # for the same cache reason as everything else.
+        pkgsKernel = pkgsNative;
+      };
+      # dtb-install.nix lists this arg but never uses it
+      nixos-generators = { };
       inherit nixpkgs inputs;
     };
   };
 
   orangepi =
-    { pkgs, ... }:
+    { ... }:
     {
       deployment = {
         targetHost = "192.168.1.100"; # update with board IP after first boot
@@ -43,18 +70,26 @@
         };
       };
 
-      nixpkgs.crossSystem.config = "aarch64-unknown-linux-gnu";
+      nixpkgs.hostPlatform = "aarch64-linux";
 
       imports = [
         (import "${toString rk3588Path}/modules/boards/orangepi5.nix")
         ./orangepi/configuration.nix
-        ./orangepi/cross-fixes.nix
+        # Note: cross-fixes.nix is deliberately absent. It disables systemd's
+        # BPF framework to work around a cross-compilation failure, and that
+        # costs RestrictFileSystems=, RestrictNetworkInterfaces=, SocketBind*=
+        # and IPAddress{Allow,Deny}= enforcement -- all of which the service
+        # stack relies on. Building natively removes the reason for it.
+        # The SD image still imports it, because that build is still cross.
+        #
         # Root filesystem and boot entries for the installed system; sdcard.nix
         # only covers the image.
         ./orangepi/deployed.nix
         # Passwords and service secrets, decrypted on the board itself at
         # activation. Kept out of the SD image on purpose -- see orangepi/bootstrap.nix.
         ./orangepi/secrets.nix
+        # The home-lab service stack.
+        ./orangepi/services/mod.nix
       ];
     };
 }
