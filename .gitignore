@@ -2,3 +2,7 @@
 result
 cloud/orangepi/nixos-rk3588
 nix-wallet/.luks-hash
+
+# secret material, encrypted or not, stays out of the repository
+secrets/*.yaml
+secrets/**/*.yaml
