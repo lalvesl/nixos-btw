@@ -17,6 +17,7 @@
     ./nvidia.nix
     ./ports.nix
     ./qt.nix
+    ./secrets.nix
     ./sound.nix
     ./special-configs.nix
     ./steam.nix
