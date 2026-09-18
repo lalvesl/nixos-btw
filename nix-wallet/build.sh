@@ -23,12 +23,29 @@ luks_pass=$(prompt_password "LUKS password")
 echo "=== User & Root Password (lalvesl-wallet / root) ==="
 user_pass=$(prompt_password "User/root password")
 
-# Hash user password for NixOS (sha-512 with random salt)
+# Hash the user password for NixOS.
+#
+# yescrypt, not sha512crypt, and not argon2. argon2 is the one you would reach
+# for, and it cannot be used: PAM validates /etc/shadow through libxcrypt,
+# which has never implemented it, so the ISO would build and then refuse every
+# login. yescrypt is the memory-hard scheme libxcrypt does implement -- an
+# attacker has to spend memory per guess, which is what rules out cracking on
+# GPUs. sha512crypt is only CPU-expensive and does not.
 export WALLET_HASHED_PASSWORD
-WALLET_HASHED_PASSWORD=$(printf '%s' "$user_pass" | mkpasswd -m sha-512 -s)
+WALLET_HASHED_PASSWORD=$(printf '%s' "$user_pass" | mkpasswd -m yescrypt -s)
 
-# Store LUKS password hash locally (never embedded in ISO)
-printf '%s' "$luks_pass" | mkpasswd -m sha-512 -s > "$SCRIPT_DIR/.luks-hash"
+# Store a verifier for the LUKS passphrase locally (never embedded in the ISO).
+#
+# Read the warning before relying on this. LUKS does not use crypt(3) hashes,
+# so this file is not a key and unlocks nothing -- its only use is checking
+# later that you remember the passphrase you chose. What it *is*, on disk, is
+# an offline-crackable verifier for the passphrase guarding a wallet volume.
+# Anyone who copies this file can grind at it without touching the disk it
+# protects, and without you noticing.
+#
+# yescrypt at least makes that grinding memory-hard rather than merely
+# CPU-bound. The safer move is to not keep the file at all.
+printf '%s' "$luks_pass" | mkpasswd -m yescrypt -s > "$SCRIPT_DIR/.luks-hash"
 chmod 600 "$SCRIPT_DIR/.luks-hash"
 
 echo ""
