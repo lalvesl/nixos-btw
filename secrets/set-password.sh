@@ -23,7 +23,17 @@ read -rsp "Confirm: " p2; echo >&2
 [ "$p1" = "$p2" ] || { echo "passwords do not match" >&2; exit 1; }
 [ -n "$p1" ] || { echo "empty password" >&2; exit 1; }
 
-hash=$(printf '%s' "$p1" | mkpasswd -m sha-512 -s)
+# yescrypt, not sha512crypt.
+#
+# argon2 is what you would reach for first, and it is not an option: PAM
+# validates /etc/shadow through libxcrypt, which has never implemented argon2.
+# No amount of generating one elsewhere helps -- the login would simply fail.
+#
+# yescrypt is the memory-hard scheme libxcrypt does implement, and it is the
+# default on Debian and Fedora now. Unlike sha512crypt, which is only
+# CPU-expensive, it forces an attacker to spend memory per guess, which is what
+# takes GPU and ASIC cracking off the table.
+hash=$(printf '%s' "$p1" | mkpasswd -m yescrypt -s)
 unset p1 p2
 
 # sops set wants the path as indices: ["users"]["lalvesl"]["hashed-password"]
@@ -33,7 +43,7 @@ for part in "${parts[@]}"; do
   index+="[\"${part}\"]"
 done
 
-# The value goes in as JSON. The sha-512 crypt alphabet contains no quotes or
+# The value goes in as JSON. The crypt alphabet contains no quotes or
 # backslashes, so wrapping it in quotes is enough.
 sops set "$file" "$index" "\"$hash\""
 echo "wrote ${path} to ${file}"
