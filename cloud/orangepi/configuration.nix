@@ -40,9 +40,9 @@
     openFirewall = true;
   };
 
-  # Runs the x86_64 dedicated server under box64. Set a password with
-  # `services.valheim.passwordFile`, or let the first start generate one in
-  # /var/lib/valheim/password.
+  # Runs the x86_64 dedicated server under box64. The password comes from sops
+  # in cloud/orangepi/secrets.nix; in the SD image, which has no sops, the
+  # service generates a random one in /var/lib/valheim/password on first start.
   services.valheim = {
     enable = true;
     serverName = "orangepi";
@@ -63,8 +63,17 @@
       "wheel"
       "disk"
     ];
-    initialPassword = "changeme";
+
+    # Public key: perfectly fine in cleartext in the repo. It is what lets
+    # secrets.nix turn off SSH password authentication.
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICYtFQr+WJHP6PAXxrLRvpdSg6aYQrFEAZdq6jI/YsAd alvesdelima.lucas45@gmail.com"
+    ];
   };
+
+  users.users.root.openssh.authorizedKeys.keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICYtFQr+WJHP6PAXxrLRvpdSg6aYQrFEAZdq6jI/YsAd alvesdelima.lucas45@gmail.com"
+  ];
 
   system.stateVersion = "26.05";
 }
