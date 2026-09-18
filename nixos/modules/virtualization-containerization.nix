@@ -17,7 +17,15 @@
   #     ];
   # };
 
-  # Multi architecture
+  # Multi architecture.
+  #
+  # aarch64-linux is load-bearing for the orangepi deployment, not a
+  # convenience: it is what lets `colmena apply` build the board's system here
+  # natively instead of cross-compiling it. A cross-built derivation hashes
+  # differently from the aarch64 build Hydra published, so it matches nothing in
+  # cache.nixos.org. Measured on that configuration, cross meant 1938
+  # derivations to build and 14.6 GiB to fetch, against 518 and 3.9 GiB
+  # natively. Removing aarch64-linux here would quietly bring that back.
   boot.binfmt.emulatedSystems = [
     "aarch64-linux"
     "x86_64-windows"
