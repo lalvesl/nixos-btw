@@ -108,6 +108,36 @@ about files that are already encrypted.
 Update `deployment.targetHost` in `cloud/colmena.nix` with the board's real
 address first.
 
+## The Cloudflare DNS token, and CAA
+
+`acme/cloudflare-dns-token` is the one secret here whose damage is not contained
+by the host that holds it. It is a `Zone:DNS:Edit` token, which means it cannot
+transfer the domain, change nameservers or touch the Cloudflare account -- but it
+can edit records in the zone, and editing records is precisely how DNS-01 proves
+domain control. Whoever holds it can have a certificate issued for these names by
+any CA, and revoking the token afterwards does not invalidate a certificate that
+was already issued.
+
+CAA is what closes that. `cloud/orangepi/caa-records.sh` prints the records; run
+it with no arguments for the bootstrap pair, then again against the board once it
+has issued once, to get the version pinned to this board's ACME account with
+`accounturi=`. After that the token alone is no longer enough -- issuance also
+requires the ACME account key in `/var/lib/acme`, which never leaves the board.
+
+Two consequences of pinning worth keeping in mind:
+
+- **`/var/lib/acme` becomes load-bearing.** Rebuild the board without preserving
+  it and issuance fails against the pinned record until the CAA is updated to the
+  new account.
+- **Certificates outlive the record.** Anything issued before the CAA went up
+  stays valid until it expires. With the `shortlived` profile that is under seven
+  days, which is most of the reason that profile is used.
+
+If the `shortlived` profile is ever refused (`account ID ... is not permitted to
+use certificate profile`), it is behind an allowlist for that account; fall back
+to `profile = "tlsserver"` in `cloud/orangepi/services/proxy.nix` for 45-day
+certificates until it is available.
+
 ## Rotating and revoking
 
 Rotate a value: `sops secrets/<file>.yaml`, change it, save. Any
