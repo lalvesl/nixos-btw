@@ -6,6 +6,10 @@
 # normal FHS-looking environment, which is what its dynamically linked
 # binaries expect.
 #
+# Those wrappers are rebuilt here instead of taken from the flake's outputs;
+# see `fhsTargetPkgs` below for why. Only data files — the icons, install.adoc
+# and the python patch — still come out of the input.
+#
 # First-time setup, via mpm (no GUI installer, no MathWorks login to download):
 #
 #   1. matlab-install-products
@@ -32,8 +36,247 @@
   ...
 }:
 let
-  nix-matlab = inputs.nix-matlab.packages.x86_64-linux;
-  fhsTargetPkgs = import "${inputs.nix-matlab}/common.nix";
+  # MATLAB's FHS dependency list, vendored from nix-matlab's common.nix.
+  #
+  # Importing that file still works, but it reaches the X11 libraries through
+  # `pkgs.xorg.*`, a set nixpkgs deprecated in January 2026, so every
+  # evaluation printed 21 rename warnings. Vendoring the list only fixes half
+  # of that: the flake's own wrappers evaluate the same file against their own
+  # nixpkgs, which no overlay here can reach, so they are rebuilt below from
+  # this list instead. Upstream is archived, so there is no fix to wait for.
+  #
+  # The packages are the ones the aliases resolved to -- `xorg.libX11` *is*
+  # `libx11` -- so the environment MATLAB sees is unchanged.
+  #
+  # Upstream derived the list from MathWorks' official R2020a container image
+  # (https://github.com/mathworks-ref-arch/container-images) and extended it
+  # per release; its per-release notes are kept.
+  fhsTargetPkgs =
+    pkgs: with pkgs; [
+      cacert
+      alsa-lib # libasound2
+      atk
+      glib
+      glibc
+      cairo
+      cups
+      dbus
+      fontconfig
+      gdk-pixbuf
+      gst_all_1.gst-plugins-base
+      gst_all_1.gstreamer
+      gtk3
+      nspr
+      nss
+      pam
+      pango
+      python3
+      libselinux
+      libsndfile
+      glibcLocales
+      procps
+      unzip
+      zlib
+      linux-pam
+
+      # These packages are needed since 2021b version
+      gtk2
+      at-spi2-atk
+      at-spi2-core
+      libdrm
+
+      # Required by Simulink
+      mesa
+
+      gcc
+      gfortran
+
+      # nixos specific
+      udev
+      jre
+      ncurses # Needed for CLI
+
+      # Keyboard input may not work in simulink otherwise
+      libxkbcommon
+      xkeyboard_config
+
+      # Needed since 2022a
+      libglvnd
+
+      # Needed since 2022b
+      libuuid
+      libxcrypt
+      libxcrypt-legacy
+
+      # Needed since 2024
+      libgbm
+
+      # X11. Spelled xorg.libSM, xorg.libX11, ... upstream, before that set was
+      # deprecated.
+      libsm
+      libx11
+      libxcb
+      libxcomposite
+      libxcursor
+      libxdamage
+      libxext
+      libxfixes
+      libxft
+      libxi
+      libxinerama
+      libxrandr
+      libxrender
+      libxt
+      libxtst
+      libxxf86vm
+
+      # Needed since 2025
+      libice
+    ];
+
+  # Every wrapper starts by locating the imperative installation. matlab-shell
+  # passes errorOut = false: it is the thing you run *before* MATLAB exists, so
+  # a missing nix.sh there is not a failure.
+  runScriptPrefix =
+    {
+      errorOut ? true,
+    }:
+    ''
+      # Needed for simulink even on wayland systems
+      export QT_QPA_PLATFORM=xcb
+      # Where MATLAB was installed imperatively; written by ./home/matlab.nix.
+      if [[ -f ~/.config/matlab/nix.sh ]]; then
+        source ~/.config/matlab/nix.sh
+    ''
+    + lib.optionalString errorOut ''
+      else
+        echo "nix-matlab-error: Did not find ~/.config/matlab/nix.sh" >&2
+        exit 1
+      fi
+      if [[ ! -d "$INSTALL_DIR" ]]; then
+        echo "nix-matlab-error: INSTALL_DIR $INSTALL_DIR isn't a directory" >&2
+        exit 2
+    ''
+    + ''
+      fi
+    '';
+
+  # The entry points differ only in the script they run, so the FHS environment
+  # itself is described once.
+  matlabWrapper =
+    {
+      name,
+      description,
+      script,
+      extraInstallCommands ? "",
+    }:
+    pkgs.buildFHSEnv {
+      inherit name extraInstallCommands;
+      targetPkgs = fhsTargetPkgs;
+      runScript = pkgs.writeScript "${name}-runner" script;
+      meta = {
+        inherit description;
+        homepage = "https://www.mathworks.com/";
+        # nix-matlab's license, not MATLAB's.
+        license = lib.licenses.mit;
+        platforms = lib.platforms.linux;
+      };
+    };
+
+  # @out@ is substituted at install time because the desktop file has to point
+  # at the wrapper that embeds it.
+  desktopItem = pkgs.makeDesktopItem {
+    desktopName = "Matlab";
+    name = "matlab";
+    # -desktop is needed, see
+    # https://www.mathworks.com/matlabcentral/answers/20-how-do-i-make-a-desktop-launcher-for-matlab-in-linux#answer_25
+    exec = "@out@/bin/matlab -desktop %F";
+    icon = "matlab";
+    # Most of the following are copied from octave's desktop launcher
+    categories = [
+      "Utility"
+      "TextEditor"
+      "Development"
+      "IDE"
+    ];
+    mimeTypes = [
+      "text/x-octave"
+      "text/x-matlab"
+    ];
+    keywords = [
+      "science"
+      "math"
+      "matrix"
+      "numerical computation"
+      "plotting"
+    ];
+  };
+
+  matlab = matlabWrapper {
+    name = "matlab";
+    description = "Matlab itself - the GUI launcher";
+    script = (runScriptPrefix { }) + ''
+      # Needed in order to run and load NixOS' executables and shared objects
+      # installed to the FHS environment. Forces matlab to not use their
+      # potentially outdated and incompatible libstdc++.
+      exec env \
+        LD_PRELOAD=/lib/libstdc++.so \
+        LD_LIBRARY_PATH=/usr/lib/xorg/modules/dri/ \
+        $INSTALL_DIR/bin/matlab "$@"
+    '';
+    extraInstallCommands = ''
+      install -Dm644 ${desktopItem}/share/applications/matlab.desktop \
+        $out/share/applications/matlab.desktop
+      substituteInPlace $out/share/applications/matlab.desktop \
+        --replace-fail "@out@" ${builtins.placeholder "out"}
+      for size in 64x64 256x256 512x512; do
+        install -Dm644 ${inputs.nix-matlab}/icons/hicolor/$size/matlab.png \
+          $out/share/icons/hicolor/$size/apps/matlab.png
+      done
+    '';
+  };
+
+  matlab-shell = matlabWrapper {
+    name = "matlab-shell";
+    description = "A bash shell from which you can install matlab or launch matlab from CLI";
+    script =
+      (runScriptPrefix {
+        # If the user hasn't setup a ~/.config/matlab/nix.sh file yet, don't
+        # yell at them that it's missing
+        errorOut = false;
+      })
+      + ''
+        cat <<EOF
+        ============================
+        welcome to nix-matlab shell!
+
+        To install matlab:
+        ${lib.strings.escape [ "`" "'" "\"" "$" ] (builtins.readFile "${inputs.nix-matlab}/install.adoc")}
+
+        4. Finish the installation, and exit the shell (with \`exit\`).
+        5. Follow the rest of the instructions in the README to make matlab
+           executable available anywhere on your system.
+        ============================
+        EOF
+        exec bash
+      '';
+  };
+
+  matlab-mlint = matlabWrapper {
+    name = "mlint";
+    description = "Check MATLAB code files for possible problems";
+    script = (runScriptPrefix { }) + ''
+      exec $INSTALL_DIR/bin/glnxa64/mlint "$@"
+    '';
+  };
+
+  matlab-mex = matlabWrapper {
+    name = "mex";
+    description = "Build MEX function or engine application";
+    script = (runScriptPrefix { }) + ''
+      exec $INSTALL_DIR/bin/glnxa64/mex "$@"
+    '';
+  };
 
   # MathWorks Package Manager: installs MATLAB and toolboxes from the CLI, no
   # GUI installer and no login needed to download (licensing still happens on
@@ -91,16 +334,13 @@ let
   ];
 
   # mpm is a dynamically linked MathWorks binary, so it needs the same FHS
-  # environment as MATLAB itself.
-  matlab-mpm = pkgs.buildFHSEnv {
+  # environment as MATLAB itself. No prefix: it is what creates INSTALL_DIR.
+  matlab-mpm = matlabWrapper {
     name = "matlab-mpm";
-    targetPkgs = fhsTargetPkgs;
-    runScript = pkgs.writeScript "matlab-mpm-runner" ''
+    description = "MathWorks Package Manager (mpm), wrapped in MATLAB's FHS env";
+    script = ''
       exec ${mpmBin} "$@"
     '';
-    meta = {
-      description = "MathWorks Package Manager (mpm), wrapped in MATLAB's FHS env";
-    };
   };
 
   # Installs the product list above into the same INSTALL_DIR the wrappers read.
@@ -139,10 +379,9 @@ let
   enablePythonEngine = false;
   pythonSrcSha256 = "";
 
-  # Upstream nix-matlab is archived and its python package no longer evaluates
-  # against current nixpkgs (buildPythonPackage now demands an explicit
-  # format/build-system), so it's redefined here from the same sources instead
-  # of taken from the flake.
+  # Upstream's python package no longer evaluates against current nixpkgs
+  # (buildPythonPackage now demands an explicit format/build-system), so it's
+  # redefined here from the same sources instead of taken from the flake.
   matlab-python-package = pkgs.python3.pkgs.buildPythonPackage {
     pname = "matlab-python-package";
     version = "unstable";
@@ -180,39 +419,23 @@ let
     };
   };
 
-  matlab-python-shell = pkgs.buildFHSEnv {
+  matlab-python-shell = matlabWrapper {
     name = "matlab-python-shell";
-    targetPkgs = fhsTargetPkgs;
-    runScript = pkgs.writeScript "matlab-python-shell-runner" ''
-      export QT_QPA_PLATFORM=xcb
-      if [[ -f ~/.config/matlab/nix.sh ]]; then
-        source ~/.config/matlab/nix.sh
-      else
-        echo "nix-matlab-error: Did not find ~/.config/matlab/nix.sh" >&2
-        exit 1
-      fi
-      if [[ ! -d "$INSTALL_DIR" ]]; then
-        echo "nix-matlab-error: INSTALL_DIR $INSTALL_DIR isn't a directory" >&2
-        exit 2
-      fi
+    description = "Python shell with MATLAB's engine importable";
+    script = (runScriptPrefix { }) + ''
       export MATLAB_INSTALL_DIR="$INSTALL_DIR"
       unset INSTALL_DIR
       export PYTHONPATH=${matlab-python-package}/${pkgs.python3.sitePackages}
       exec python "$@"
     '';
-    meta = {
-      description = "Python shell with MATLAB's engine importable";
-    };
   };
 in
 {
-  nixpkgs.overlays = [ inputs.nix-matlab.overlay ];
-
   environment.systemPackages = [
-    nix-matlab.matlab # the GUI/CLI launcher
-    nix-matlab.matlab-shell # FHS shell used to run the installer
-    nix-matlab.matlab-mlint # code checker
-    nix-matlab.matlab-mex # MEX builder
+    matlab # the GUI/CLI launcher
+    matlab-shell # FHS shell used to run the installer
+    matlab-mlint # code checker
+    matlab-mex # MEX builder
     matlab-mpm # raw mpm, for one-off product operations
     matlab-install-products # mpm preloaded with the product list above
   ]
