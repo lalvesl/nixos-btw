@@ -1,4 +1,4 @@
-# nix-matlab's wrappers source this file to find where MATLAB was installed
+# The MATLAB FHS wrappers source this file to find where MATLAB was installed
 # imperatively. See ../matlab.nix for the one-time installation steps.
 { config, ... }:
 {
