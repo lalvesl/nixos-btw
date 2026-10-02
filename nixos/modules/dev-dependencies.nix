@@ -7,8 +7,8 @@ let
   latest_antigravity = pkgs.callPackage "${antigravity-nix-src}/pkgs/google-antigravity-ide.nix" { };
   latest_antigravity-cli = pkgs.callPackage "${antigravity-nix-src}/pkgs/cli.nix" { };
   claude-code-src = fetchTarball {
-    url = "https://github.com/sadjow/claude-code-nix/archive/0bbe2588524a0280307c81c14fd5631c7cd277b0.tar.gz";
-    sha256 = "1s60yd5nvmx8wm0b133dzbyndxd3k43c9dsala6bchh8camf91ib";
+    url = "https://github.com/sadjow/claude-code-nix/archive/82ee196c58667c5f76fdd4ac646e2e2c05778e86.tar.gz";
+    sha256 = "0ir73lmhwr4fcjrm6ppq11abgr2c6bhz520gwbdha1nmsn5ddmki";
   };
   latest_claude-code = pkgs.callPackage "${claude-code-src}/package.nix" { };
 in
