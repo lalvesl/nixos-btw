@@ -38,6 +38,21 @@ in
       jq-zsh-plugin
       inotify-tools
 
+      fastfetch
+      file
+      tree
+      wget
+      git
+      fastfetch
+      ripgrep
+      sd
+      fd
+      htop
+      nix-index
+      unzip
+      scrot
+      ffmpeg
+
       # DBs
       dbeaver-bin
 

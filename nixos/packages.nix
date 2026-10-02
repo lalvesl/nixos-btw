@@ -57,19 +57,6 @@ in
     # zoom-us
     # pcmanfm-qt
 
-    fastfetch
-    file
-    tree
-    wget
-    git
-    fastfetch
-    ripgrep
-    fd
-    htop
-    nix-index
-    unzip
-    scrot
-    ffmpeg
     brightnessctl
     lux
     mediainfo
