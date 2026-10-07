@@ -21,6 +21,9 @@
       url = "gitlab:doronbehar/nix-matlab";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # Long-term memory server shared by AI coding agents. No `follows`: its
+    # build relies on its own pinned nixpkgs + rust-overlay toolchain.
+    ai-memory.url = "github:akitaonrails/ai-memory";
   };
 
   outputs =
