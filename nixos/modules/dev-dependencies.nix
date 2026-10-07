@@ -1,4 +1,9 @@
-{ pkgs, ... }:
+{
+  config,
+  inputs,
+  pkgs,
+  ...
+}:
 let
   antigravity-nix-src = fetchTarball {
     url = "https://github.com/jacopone/antigravity-nix/archive/d76245c033c9a5c2a85750341c568a49db4ac681.tar.gz";
@@ -13,6 +18,15 @@ let
   latest_claude-code = pkgs.callPackage "${claude-code-src}/package.nix" { };
 in
 {
+  imports = [ inputs.ai-memory.nixosModules.default ];
+
+  # Shared long-term memory for coding agents (hardened systemd service on
+  # 127.0.0.1:49374, data in /var/lib/ai-memory). Loopback-only, so no auth.
+  # Agents are wired imperatively, once per user:
+  #   ai-memory install-mcp --client claude-code --apply
+  #   ai-memory install-hooks --agent claude-code --apply
+  services.ai-memory.enable = true;
+
   environment.systemPackages =
     with pkgs;
     [
@@ -65,5 +79,7 @@ in
       latest_antigravity
       latest_antigravity-cli
       latest_claude-code
+      # CLI for install-mcp/install-hooks and the native hook commands
+      config.services.ai-memory.package
     ];
 }
