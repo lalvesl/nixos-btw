@@ -22,10 +22,30 @@ in
 
   # Shared long-term memory for coding agents (hardened systemd service on
   # 127.0.0.1:49374, data in /var/lib/ai-memory). Loopback-only, so no auth.
-  # Agents are wired imperatively, once per user:
-  #   ai-memory install-mcp --client claude-code --apply
-  #   ai-memory install-hooks --agent claude-code --apply
   services.ai-memory.enable = true;
+
+  # Wire Claude Code to ai-memory on every activation (switch and boot).
+  # Both commands are idempotent: an unchanged config is a no-op, so a backup
+  # (`*.bak-<ts>`) is only written when the package path changes. Hooks point
+  # at the current store path, which stays alive as part of this generation.
+  home-manager.users.lalvesl =
+    { lib, ... }:
+    {
+      home.activation.aiMemory = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        aiMemory=${config.services.ai-memory.package}
+        # Staged hook scripts keep the store's read-only mode, so a re-run
+        # could not overwrite them without this.
+        if [ -d "$HOME/.local/share/ai-memory/hooks" ]; then
+          run chmod -R u+w "$HOME/.local/share/ai-memory/hooks"
+        fi
+        run "$aiMemory/bin/ai-memory" install-mcp --client claude-code --apply \
+          || warnEcho "ai-memory: install-mcp failed"
+        # The binary does not probe share/ for its hook bundle; point at it.
+        run "$aiMemory/bin/ai-memory" install-hooks --agent claude-code --apply \
+          --hooks-dir "$aiMemory/share/ai-memory/hooks" \
+          || warnEcho "ai-memory: install-hooks failed"
+      '';
+    };
 
   environment.systemPackages =
     with pkgs;
