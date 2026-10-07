@@ -1,14 +1,14 @@
 { pkgs, ... }:
 let
   antigravity-nix-src = fetchTarball {
-    url = "https://github.com/jacopone/antigravity-nix/archive/cd0cda807c66d30ae347b8b61ec146f60f695b8f.tar.gz";
-    sha256 = "1zmm4s1na3q2hx71gpmx99zkzqyzjaq06vz6sn6awaji635z4fcj";
+    url = "https://github.com/jacopone/antigravity-nix/archive/d76245c033c9a5c2a85750341c568a49db4ac681.tar.gz";
+    sha256 = "0cp0rp1kpqhhm1j7fib1c8dign4kzih9whq5kvimc1spfzgwa5ny";
   };
   latest_antigravity = pkgs.callPackage "${antigravity-nix-src}/pkgs/google-antigravity-ide.nix" { };
   latest_antigravity-cli = pkgs.callPackage "${antigravity-nix-src}/pkgs/cli.nix" { };
   claude-code-src = fetchTarball {
-    url = "https://github.com/sadjow/claude-code-nix/archive/82ee196c58667c5f76fdd4ac646e2e2c05778e86.tar.gz";
-    sha256 = "0ir73lmhwr4fcjrm6ppq11abgr2c6bhz520gwbdha1nmsn5ddmki";
+    url = "https://github.com/sadjow/claude-code-nix/archive/13f3032e7a46582bbd3ed749e25817c7ac584b77.tar.gz";
+    sha256 = "1xdyma69xsmhk3162nxs1cdlnndcmk1f66ajhns7lvq0akb0q17b";
   };
   latest_claude-code = pkgs.callPackage "${claude-code-src}/package.nix" { };
 in
