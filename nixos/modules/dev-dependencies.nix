@@ -6,14 +6,14 @@
 }:
 let
   antigravity-nix-src = fetchTarball {
-    url = "https://github.com/jacopone/antigravity-nix/archive/d76245c033c9a5c2a85750341c568a49db4ac681.tar.gz";
-    sha256 = "0cp0rp1kpqhhm1j7fib1c8dign4kzih9whq5kvimc1spfzgwa5ny";
+    url = "https://github.com/jacopone/antigravity-nix/archive/65aeafed6d9290cb73a6124bcc7b37fc1246a22d.tar.gz";
+    sha256 = "1ghx7b2432xfw31if75fb37qg184dl73g1sx9bx6c8a58m5zdqnb";
   };
   latest_antigravity = pkgs.callPackage "${antigravity-nix-src}/pkgs/google-antigravity-ide.nix" { };
   latest_antigravity-cli = pkgs.callPackage "${antigravity-nix-src}/pkgs/cli.nix" { };
   claude-code-src = fetchTarball {
-    url = "https://github.com/sadjow/claude-code-nix/archive/13f3032e7a46582bbd3ed749e25817c7ac584b77.tar.gz";
-    sha256 = "1xdyma69xsmhk3162nxs1cdlnndcmk1f66ajhns7lvq0akb0q17b";
+    url = "https://github.com/sadjow/claude-code-nix/archive/1ce054c09e8a10c4480c281178ff7e2a737aec17.tar.gz";
+    sha256 = "0ail921apl0l2ngp0qna9d3mpxzgz9mygxfmnh152r31c1ds655n";
   };
   latest_claude-code = pkgs.callPackage "${claude-code-src}/package.nix" { };
 in
@@ -93,6 +93,7 @@ in
       # Why?, i don't now, i not use, I USE NVIM BTW
       vscodium
 
+      zed-editor
     ]
     ++ [
       #Yep, this day has come
