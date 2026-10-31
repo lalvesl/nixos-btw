@@ -129,6 +129,17 @@ let
       libxt
       libxtst
       libxxf86vm
+      libxau
+
+      # Needed since 2026b: its installer (and MATLABWindow) ship Qt 6 with the
+      # xcb platform plugin, which wants these. Qt itself is bundled.
+      xcb-util-cursor
+      libxcb-util
+      libxcb-wm
+      libxcb-image
+      libxcb-keysyms
+      libxcb-render-util
+      freetype
 
       # Needed since 2025
       libice
@@ -296,7 +307,7 @@ let
   # MATLAB they're installed into, so a different release means a fresh
   # INSTALL_DIR (or wipe the old one first). The product list below was checked
   # against R2026a and R2025b.
-  matlabRelease = "R2026a";
+  matlabRelease = "R2026b";
 
   # Toolboxes installed by `matlab-install-products`. Control + electrical
   # engineering set; add or drop lines and re-run the command.
