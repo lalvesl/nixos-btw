@@ -11,11 +11,7 @@ let
   };
   latest_antigravity = pkgs.callPackage "${antigravity-nix-src}/pkgs/google-antigravity-ide.nix" { };
   latest_antigravity-cli = pkgs.callPackage "${antigravity-nix-src}/pkgs/cli.nix" { };
-  claude-code-src = fetchTarball {
-    url = "https://github.com/sadjow/claude-code-nix/archive/1ce054c09e8a10c4480c281178ff7e2a737aec17.tar.gz";
-    sha256 = "0ail921apl0l2ngp0qna9d3mpxzgz9mygxfmnh152r31c1ds655n";
-  };
-  latest_claude-code = pkgs.callPackage "${claude-code-src}/package.nix" { };
+  latest_claude-code = import ../pkgs/claude-code.nix { inherit pkgs; };
 in
 {
   imports = [ inputs.ai-memory.nixosModules.default ];
