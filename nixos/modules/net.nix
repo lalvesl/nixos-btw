@@ -66,6 +66,14 @@
   # tailnet domains there instead of overwriting /etc/resolv.conf.
   services.resolved.enable = true;
 
+  # The home server's blocky answers h.lalvesl.com, and only that domain is sent
+  # to it. The LAN address comes first: it works at home with the VPN off, and
+  # away from home through the subnet route. The tailnet address is the fallback.
+  services.resolved.dnsDelegates.homelab.Delegate = {
+    DNS = "192.168.100.100 100.94.106.0";
+    Domains = "~h.lalvesl.com";
+  };
+
   # Always on after a boot. `tailscale down` is remembered across reboots, so a
   # switch left off would otherwise stay off. A machine that has never logged in
   # (NeedsLogin) is left alone, as that needs a person.
