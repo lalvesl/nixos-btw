@@ -24,6 +24,34 @@ let
         }
     '';
   };
+
+  # Tailscale switch. The state comes from the daemon, not from a file, so it
+  # stays right when something else runs `tailscale up` or `down`. The click
+  # handler needs no root because net.nix makes lalvesl the Tailscale operator.
+  tailscale = "${pkgs.tailscale}/bin/tailscale";
+  tailscaleState = ''
+    state=$(${tailscale} status --json 2>/dev/null | ${pkgs.jq}/bin/jq -r '.BackendState // "Unknown"')
+  '';
+
+  tailscaleStatus = pkgs.writeShellScript "waybar-tailscale" ''
+    ${tailscaleState}
+    case "$state" in
+      Running) text="󰖂 ON"; class=on; tip="Tailscale connected. Click to turn off." ;;
+      NeedsLogin) text="󰖂 login"; class=login; tip="Tailscale needs a login: run tailscale up." ;;
+      *) text="󰖂 OFF"; class=off; tip="Tailscale is off. Click to turn on." ;;
+    esac
+    printf '{"text":"%s","class":"%s","tooltip":"%s"}\n' "$text" "$class" "$tip"
+  '';
+
+  tailscaleToggle = pkgs.writeShellScript "waybar-tailscale-toggle" ''
+    ${tailscaleState}
+    case "$state" in
+      Running) ${tailscale} down ;;
+      NeedsLogin) ${pkgs.libnotify}/bin/notify-send "Tailscale" "Login needed: run 'tailscale up' in a terminal." ;;
+      *) ${tailscale} up ;;
+    esac
+    pkill -RTMIN+9 waybar
+  '';
 in
 {
 
@@ -66,6 +94,7 @@ in
         modules-left = [
           "niri/workspaces"
           "custom/claude"
+          "custom/tailscale"
         ];
         modules-center = [ "clock" ];
         modules-right = [
@@ -87,6 +116,15 @@ in
           return-type = "json";
           interval = 30;
           signal = 8;
+          format = "{}";
+        };
+
+        "custom/tailscale" = {
+          exec = "${tailscaleStatus}";
+          return-type = "json";
+          interval = 5;
+          signal = 9;
+          on-click = "${tailscaleToggle}";
           format = "{}";
         };
 
@@ -260,6 +298,22 @@ in
 
       #custom-claude.critical {
           color: #f53c3c;
+      }
+
+      #custom-tailscale {
+          margin-left: 6px;
+          padding: 0 14px;
+          border-radius: 10px;
+          background: #383c4a;
+          color: #90b1b1;
+      }
+
+      #custom-tailscale.on {
+          color: #26A65B;
+      }
+
+      #custom-tailscale.login {
+          color: #ffbe61;
       }
 
       #pulseaudio,

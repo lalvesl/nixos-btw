@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 {
 
   networking.networkmanager.enable = true;
@@ -42,6 +42,60 @@
     8080
   ];
   networking.firewall.interfaces.tun0.allowedUDPPorts = [ 53 ];
+
+  # Tailscale client. tailscale0 is deliberately not a trusted interface here:
+  # this is a desktop, and tailnet peers should not reach its local services.
+  services.tailscale = {
+    enable = true;
+    useRoutingFeatures = "client";
+    openFirewall = true;
+    extraSetFlags = [
+      # Lets the waybar switch run `tailscale up/down` without root.
+      "--operator=lalvesl"
+      # 192.168.100.0/24 is advertised by the home server, so its address works
+      # the same away from home.
+      "--accept-routes"
+      # Split DNS from the admin console: h.lalvesl.com is answered by the home
+      # server's blocky.
+      "--accept-dns"
+    ];
+  };
+
+  # Split DNS needs a resolver that can send one domain to one server.
+  # NetworkManager hands its DNS to systemd-resolved, and tailscaled adds the
+  # tailnet domains there instead of overwriting /etc/resolv.conf.
+  services.resolved.enable = true;
+
+  # Always on after a boot. `tailscale down` is remembered across reboots, so a
+  # switch left off would otherwise stay off. A machine that has never logged in
+  # (NeedsLogin) is left alone, as that needs a person.
+  systemd.services.tailscale-autoconnect = {
+    description = "Bring Tailscale up at boot";
+    after = [
+      "tailscaled.service"
+      "network-online.target"
+    ];
+    wants = [ "network-online.target" ];
+    requires = [ "tailscaled.service" ];
+    wantedBy = [ "multi-user.target" ];
+    path = [
+      config.services.tailscale.package
+      pkgs.jq
+      pkgs.coreutils
+    ];
+    serviceConfig.Type = "oneshot";
+    script = ''
+      state=
+      for _ in $(seq 30); do
+        state=$(tailscale status --json 2>/dev/null | jq -r '.BackendState // empty')
+        case "$state" in Running | Stopped | NeedsLogin) break ;; esac
+        sleep 1
+      done
+      if [ "$state" = Stopped ]; then
+        tailscale up
+      fi
+    '';
+  };
 
   # services.network-manager-applet.enable = true;
 }
