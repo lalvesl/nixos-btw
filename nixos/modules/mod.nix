@@ -14,6 +14,7 @@
     ./lan-mouse.nix
     ./matlab.nix
     ./net.nix
+    ./wifi-hotspot.nix
     ./nvidia.nix
     ./ports.nix
     ./qt.nix
