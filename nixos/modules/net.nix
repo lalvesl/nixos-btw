@@ -5,9 +5,9 @@
   ...
 }:
 let
-  # Tailscale and the home server's DNS. Off while the home lab is down:
+  # Tailscale and the home server's DNS. Turn off while the home lab is down:
   # tailscaled kept trying to come up and took the connection with it.
-  homelab = false;
+  homelab = true;
 in
 {
 
