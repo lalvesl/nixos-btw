@@ -1,4 +1,10 @@
-{ config, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  vars,
+  ...
+}:
 let
   # Force the external monitor on when it is hotplugged (DRM "change" event).
   # `niri msg` talks to the compositor over the IPC socket pointed to by
@@ -23,15 +29,19 @@ in
     enable = true;
   };
 
+  # Everything below up to the udev rule is the proprietary driver. With
+  # `vars.nouveau` it is all left out, the nvidia kernel modules are not built, and
+  # the kernel loads nouveau for the same GPU.
+
   # Load nvidia driver for Xorg and Wayland
-  services.xserver.videoDrivers = [ "nvidia" ];
+  services.xserver.videoDrivers = lib.mkIf (!vars.nouveau) [ "nvidia" ];
   # Enable nvidia for containers
-  hardware.nvidia-container-toolkit.enable = true;
+  hardware.nvidia-container-toolkit.enable = lib.mkIf (!vars.nouveau) true;
 
   systemd.services.nvidia-container-toolkit-cdi-generator.unitConfig.ConditionPathExists =
-    "/dev/nvidia0";
+    lib.mkIf (!vars.nouveau) "/dev/nvidia0";
 
-  hardware.nvidia = {
+  hardware.nvidia = lib.mkIf (!vars.nouveau) {
 
     # Modesetting is required.
     modesetting.enable = true;
@@ -76,7 +86,7 @@ in
   # bug on the 580 branch; concealing VRR caps avoids the broken code path.
   # Takes effect after a reboot. (Do NOT add nvidia_drm.fbdev=1 — it makes this
   # worse.) https://forums.developer.nvidia.com/t/580-display-engine-timeout-and-atomic-modeset-failure-related-to-vrr-and-tty-switching/373168
-  boot.kernelParams = [ "nvidia_modeset.conceal_vrr_caps=1" ];
+  boot.kernelParams = lib.mkIf (!vars.nouveau) [ "nvidia_modeset.conceal_vrr_caps=1" ];
 
   services.udev.extraRules = ''
     ACTION=="change", SUBSYSTEM=="drm", RUN+="${niri-hdmi-hotplug}"

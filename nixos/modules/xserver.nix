@@ -1,3 +1,4 @@
+{ lib, vars, ... }:
 {
   services.xserver = {
     enable = true;
@@ -15,7 +16,7 @@
     #   touchpad.accelProfile = "flat";
     # };
 
-    videoDrivers = [ "nvidia" ];
+    videoDrivers = lib.mkIf (!vars.nouveau) [ "nvidia" ];
     deviceSection = ''Option "TearFree" "True"'';
     # displayManager.sddm = {
     #     enable = true;

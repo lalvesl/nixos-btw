@@ -21,6 +21,7 @@
         scale 1.0
     }
 
+    ${lib.optionalString (!vars.nouveau) ''
     // The HDMI-A-1 port is wired to the NVIDIA GPU (card0), but niri defaults to
     // rendering on the Intel iGPU (card1). Buffers can't be shared Intel->NVIDIA
     // with the proprietary driver, so the external monitor stays on "no signal".
@@ -29,7 +30,7 @@
     // direction that works). Path is by PCI address so it survives reboots.
     debug {
         render-drm-device "/dev/dri/by-path/pci-0000:01:00.0-render"
-    }
+    }''}
     ''}
 
     input {
