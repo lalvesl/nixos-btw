@@ -15,6 +15,9 @@
   boot.initrd.availableKernelModules = [
     "ahci"
     "ata_piix"
+    # AES-NI: the passphrase is checked and the disk decrypted in hardware.
+    "aesni_intel"
+    "cryptd"
     "xhci_pci"
     "ehci_pci"
     "usb_storage"
@@ -23,24 +26,32 @@
   ];
   boot.kernelModules = [ "kvm-intel" ];
 
-  # Same labels the disk image builder gives its partitions, so the image boots
-  # no matter whether the disk shows up as sda, sdb or something else.
+  # Layout made by install-laptop-i5 (see installer.nix) on /dev/sda:
+  #   1  1 MiB   BIOS boot (GRUB core image on a GPT disk, legacy BIOS)
+  #   2  1 GiB   ESP, FAT32, mounted on /boot (kernels and initrds; not encrypted)
+  #   3  rest    LUKS2 "cryptroot" holding a bcachefs
+  # The root is found by partition label, so only GRUB below names the disk.
+  boot.initrd.luks.devices."cryptroot".device = "/dev/disk/by-partlabel/cryptroot";
+
+  # bcachefs is an out-of-tree module on this kernel. It sits on top of LUKS2
+  # rather than using its own encryption, so the passphrase prompt is the usual
+  # one and the key slots are managed with cryptsetup.
+  boot.supportedFilesystems = [ "bcachefs" ];
+
   fileSystems."/" = {
-    device = "/dev/disk/by-label/nixos";
-    fsType = "ext4";
-    autoResize = true; # first boot grows it to fill the whole HDD
+    device = "/dev/mapper/cryptroot";
+    fsType = "bcachefs";
     # noatime: no write on every read, which matters on a spinning disk.
     options = [ "noatime" ];
   };
   fileSystems."/boot" = {
-    device = "/dev/disk/by-label/ESP";
+    device = "/dev/disk/by-partlabel/ESP";
     fsType = "vfat";
     options = [
-      "fmask=0022"
-      "dmask=0022"
+      "fmask=0077"
+      "dmask=0077"
     ];
   };
-  boot.growPartition = true;
 
   # GPT disk that boots on both firmware types: GRUB is installed twice, as
   # BIOS code in the bios_grub partition and as the removable EFI binary. A
@@ -48,9 +59,9 @@
   # have to know which one it is.
   boot.loader.grub = {
     enable = true;
-    # The disk as the image builder's VM sees it. The BIOS stage is bound to the
-    # partition table, not to this name, so the HDD can be /dev/sda here.
-    device = "/dev/vda";
+    device = "/dev/sda";
+    # Old kernels pile up on a 1 GiB ESP.
+    configurationLimit = 10;
     efiSupport = true;
     efiInstallAsRemovable = true;
   };

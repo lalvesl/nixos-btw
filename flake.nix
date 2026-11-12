@@ -111,6 +111,16 @@
 
       nixosConfigurations.wallet = walletIso;
 
+      # Live ISO that installs the laptop system onto its HDD (LUKS2 + bcachefs).
+      nixosConfigurations.laptop-i5-installer = nixpkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs = {
+          inherit inputs;
+          laptop = self.nixosConfigurations.laptop-i5;
+        };
+        modules = [ ./cloud/laptop-i5/installer.nix ];
+      };
+
       # Second computer: Intel i5-3210M/3230M laptop on an HDD. Same desktop,
       # minus the NVIDIA and heavy parts; see cloud/laptop-i5/README.md.
       nixosConfigurations.laptop-i5 = nixpkgs.lib.nixosSystem {
@@ -118,7 +128,6 @@
         specialArgs = { inherit inputs vars; };
         modules = [
           ./cloud/laptop-i5/configuration.nix
-          ./cloud/laptop-i5/image.nix
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
@@ -174,7 +183,7 @@
 
       packages.${system} = {
         wallet = walletIso.config.system.build.isoImage;
-        laptop-i5-image = self.nixosConfigurations.laptop-i5.config.system.build.diskImage;
+        laptop-i5-installer = self.nixosConfigurations.laptop-i5-installer.config.system.build.isoImage;
         orangepi-sdimage = self.nixosConfigurations.orangepi.config.system.build.sdImage;
         send-orangepi-sdimage = import ./cloud/orangepi/send-sdimage.nix {
           pkgs = import nixpkgs { inherit system; };

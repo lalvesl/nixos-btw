@@ -42,6 +42,11 @@ in
   ];
 
   networking.hostName = lib.mkForce "lalvesl-i5";
+
+  # The LUKS passphrase is typed in the initrd, before any keyboard setting of
+  # the desktop applies, so the layout has to be loaded that early.
+  console.keyMap = "br-abnt2";
+  console.earlySetup = true;
   time.timeZone = "America/Sao_Paulo";
 
   nix.settings.experimental-features = [
