@@ -53,9 +53,9 @@ machine. Otherwise write the image to a USB stick, boot the laptop from it and
 - Tailscale has to be logged in once: `sudo tailscale up`.
 - SSH is off. To turn it on set `enable = true;` in `nixos/modules/ssh.nix` and
   rebuild (this machine: `sudo nixos-rebuild switch --flake .#laptop-i5`).
-- Wi-Fi: Intel cards work out of the box. Broadcom cards (common in this
-  generation) need `hardware.enableAllFirmware = true;` in `hardware.nix`
-  (unfree firmware), then a rebuild. Wired and USB tethering work either way.
+- Wi-Fi: this laptop has an Atheros card. The in-kernel `ath9k` driver needs no
+  firmware file, and newer Atheros/Qualcomm chips and the card's Bluetooth use
+  `linux-firmware`, which is already enabled. Nothing to configure.
 
 ## Rebuilding on the laptop
 

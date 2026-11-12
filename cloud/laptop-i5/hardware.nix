@@ -56,9 +56,9 @@
   };
   boot.loader.timeout = 3;
 
-  # Redistributable firmware covers most Intel Wi-Fi. Broadcom Wi-Fi cards
-  # (common in this generation) also need `hardware.enableAllFirmware = true`
-  # plus allowUnfree; left off until the card is known.
+  # The Wi-Fi card is Atheros: ath9k needs no firmware file, and the
+  # redistributable firmware covers the newer Atheros chips and the Bluetooth part
+  # of combo cards.
   hardware.enableRedistributableFirmware = true;
   hardware.cpu.intel.updateMicrocode = config.hardware.enableRedistributableFirmware;
 
