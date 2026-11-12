@@ -128,6 +128,7 @@
         specialArgs = { inherit inputs vars; };
         modules = [
           ./cloud/laptop-i5/configuration.nix
+          ./cloud/laptop-i5/image.nix
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
@@ -183,7 +184,9 @@
 
       packages.${system} = {
         wallet = walletIso.config.system.build.isoImage;
-        laptop-intel-i5 = self.nixosConfigurations.laptop-i5-installer.config.system.build.isoImage;
+        # The image to write to the HDD, and the installer ISO as the alternative.
+        laptop-intel-i5 = self.nixosConfigurations.laptop-i5.config.system.build.diskImage;
+        laptop-intel-i5-installer = self.nixosConfigurations.laptop-i5-installer.config.system.build.isoImage;
         orangepi-sdimage = self.nixosConfigurations.orangepi.config.system.build.sdImage;
         send-orangepi-sdimage = import ./cloud/orangepi/send-sdimage.nix {
           pkgs = import nixpkgs { inherit system; };
