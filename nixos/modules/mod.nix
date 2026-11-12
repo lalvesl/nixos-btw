@@ -21,6 +21,7 @@
     ./secrets.nix
     ./sound.nix
     ./special-configs.nix
+    ./ssh.nix
     ./steam.nix
     ./sys-utils.nix
     ./portals.nix
