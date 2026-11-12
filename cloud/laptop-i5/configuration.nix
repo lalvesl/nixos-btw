@@ -9,13 +9,10 @@
   vars,
   ...
 }:
-let
-  # Written to the image. Change it with `passwd` after the first login.
-  firstPassword = "changeme";
-in
 {
   imports = [
     ./hardware.nix
+    ./password.nix
 
     # Shared with the main machine.
     ../../nixos/modules/bluetooth.nix
@@ -59,12 +56,9 @@ in
   # card and no tearing option to set.
   services.xserver.deviceSection = lib.mkForce "";
 
-  # No sops key exists on this machine, so there is no hashed-password secret:
-  # the account starts with a known password and has to be changed.
-  users.users.${vars.username} = {
-    initialPassword = firstPassword;
-    packages = [ pkgs.nautilus ];
-  };
+  # No sops key exists on this machine, so the password comes from the build
+  # environment instead (password.nix).
+  users.users.${vars.username}.packages = [ pkgs.nautilus ];
 
   # The lighter half of nixos/packages.nix and dev-dependencies.nix.
   environment.systemPackages = with pkgs; [

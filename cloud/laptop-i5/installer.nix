@@ -10,6 +10,10 @@
   ...
 }:
 let
+  # Same variable password.nix reads: one password for the disk, the user and root.
+  password = builtins.getEnv "LAPTOP_PASSWORD";
+  keyFile = "/etc/laptop-i5/luks-passphrase";
+
   system = laptop.config.system.build.toplevel;
 
   install = pkgs.writeShellApplication {
@@ -24,7 +28,10 @@ let
       parted
       util-linux
     ];
-    runtimeEnv.SYSTEM = "${system}";
+    runtimeEnv = {
+      SYSTEM = "${system}";
+      LUKS_KEY_FILE = keyFile;
+    };
     text = builtins.readFile ./install.sh;
   };
 in
@@ -46,6 +53,20 @@ in
   isoImage.squashfsCompression = "zstd -Xcompression-level 6";
 
   environment.systemPackages = [ install ];
+
+  # The plaintext lives only in this ISO, never in the laptop system. Treat the
+  # ISO (and the USB stick) like the password itself.
+  environment.etc."laptop-i5/luks-passphrase" = {
+    text = password;
+    mode = "0400";
+  };
+
+  assertions = [
+    {
+      assertion = password != "";
+      message = "Set the password and build with --impure: LAPTOP_PASSWORD=... nix build .#laptop-intel-i5 --impure";
+    }
+  ];
 
   services.getty.helpLine = ''
 

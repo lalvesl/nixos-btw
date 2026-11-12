@@ -183,7 +183,7 @@
 
       packages.${system} = {
         wallet = walletIso.config.system.build.isoImage;
-        laptop-i5-installer = self.nixosConfigurations.laptop-i5-installer.config.system.build.isoImage;
+        laptop-intel-i5 = self.nixosConfigurations.laptop-i5-installer.config.system.build.isoImage;
         orangepi-sdimage = self.nixosConfigurations.orangepi.config.system.build.sdImage;
         send-orangepi-sdimage = import ./cloud/orangepi/send-sdimage.nix {
           pkgs = import nixpkgs { inherit system; };

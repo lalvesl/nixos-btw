@@ -7,7 +7,8 @@
 #   2  1 GiB   ESP        (FAT32, /boot)
 #   3  rest    LUKS2      (bcachefs inside, /)
 #
-# $SYSTEM is the store path of the system to install (set by installer.nix).
+# $SYSTEM is the store path of the system to install and $LUKS_KEY_FILE the file
+# holding the disk passphrase (both set by installer.nix).
 
 if [ "$(id -u)" -ne 0 ]; then
   exec sudo "$0" "$@"
@@ -28,6 +29,20 @@ part() {
   esac
 }
 
+# A previous run may have left things open.
+umount -R /mnt 2>/dev/null || true
+cryptsetup close cryptroot 2>/dev/null || true
+
+# The live system runs from the USB stick and keeps it mounted. If that stick
+# is the disk named here (it shows up as sda when the HDD is not first), refuse
+# instead of erasing the installer.
+if lsblk -nro MOUNTPOINTS "$disk" | grep -q .; then
+  echo "$disk has mounted filesystems, so it is probably the USB stick this" >&2
+  echo "system booted from. Pick the internal HDD instead:" >&2
+  lsblk -o NAME,SIZE,TYPE,MODEL,TRAN,MOUNTPOINTS >&2
+  exit 1
+fi
+
 lsblk -o NAME,SIZE,TYPE,MODEL,FSTYPE "$disk"
 echo
 echo "This ERASES everything on $disk and installs the laptop system."
@@ -36,10 +51,6 @@ if [ "$answer" != "$disk" ]; then
   echo "Aborted."
   exit 1
 fi
-
-# A previous run may have left things open.
-umount -R /mnt 2>/dev/null || true
-cryptsetup close cryptroot 2>/dev/null || true
 
 wipefs --all --force "$disk"
 sgdisk --zap-all "$disk"
@@ -50,10 +61,17 @@ partprobe "$disk"
 udevadm settle
 
 echo
-echo "Choose the disk passphrase. It is asked on every boot, and typed on the"
-echo "Brazilian ABNT2 layout, the same one the boot prompt uses."
-cryptsetup luksFormat --type luks2 --label cryptroot "$(part 3)"
-cryptsetup open "$(part 3)" cryptroot
+if [ -n "${LUKS_KEY_FILE:-}" ] && [ -f "$LUKS_KEY_FILE" ]; then
+  # The passphrase was chosen when the ISO was built (LAPTOP_PASSWORD).
+  cryptsetup luksFormat --type luks2 --label cryptroot --batch-mode \
+    --key-file "$LUKS_KEY_FILE" "$(part 3)"
+  cryptsetup open --key-file "$LUKS_KEY_FILE" "$(part 3)" cryptroot
+else
+  echo "Choose the disk passphrase. It is asked on every boot, and typed on the"
+  echo "Brazilian ABNT2 layout, the same one the boot prompt uses."
+  cryptsetup luksFormat --type luks2 --label cryptroot "$(part 3)"
+  cryptsetup open "$(part 3)" cryptroot
+fi
 
 # zstd: the HDD is far slower than the two cores compressing in front of it.
 mkfs.bcachefs --compression=zstd --label nixos /dev/mapper/cryptroot
@@ -63,9 +81,9 @@ mount -t bcachefs /dev/mapper/cryptroot /mnt
 mkdir -p /mnt/boot
 mount "$(part 2)" /mnt/boot
 
-# The account starts with the password written in configuration.nix.
+# The user and root passwords are already in the system (password.nix).
 nixos-install --system "$SYSTEM" --no-root-passwd
 
 echo
-echo "Done. Remove the USB stick and reboot. The first password of the user is"
-echo "the one in cloud/laptop-i5/configuration.nix; change it with passwd."
+echo "Done. Remove the USB stick and reboot. The disk passphrase, the user and root"
+echo "all use the password the ISO was built with."

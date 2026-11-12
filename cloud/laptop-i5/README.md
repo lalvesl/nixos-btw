@@ -10,8 +10,8 @@ The username, home directory and everything else shared comes from
 
 It is delivered as an **installer ISO**: it boots live, partitions `/dev/sda`
 (LUKS2 + bcachefs) and installs the finished system from its own contents, with
-no network. The disk is encrypted with a passphrase chosen at install time, so
-there is no prebuilt disk image.
+no network. One password, set when you build, is the disk passphrase and the
+password of both the user and root.
 
 ## What differs from the main machine
 
@@ -44,9 +44,18 @@ experiment: keep what matters copied somewhere else.
 ## Build
 
 ```sh
-nix build .#laptop-i5-installer -o result-installer
+LAPTOP_PASSWORD='your password' nix build .#laptop-intel-i5 --impure -o result-installer
 ls -lh result-installer/iso/
 ```
+
+`--impure` is what lets Nix read `LAPTOP_PASSWORD`. Without the variable the
+build stops with a message.
+
+The plaintext password ends up in the ISO, because it has to format the LUKS
+volume, and in the build host's /nix/store. The installed laptop only gets a
+yescrypt hash of it. Treat the ISO and the USB stick like the password: delete
+them after installing, and change the passphrase on the laptop if the ISO was
+shared (`sudo cryptsetup luksChangeKey /dev/disk/by-partlabel/cryptroot`).
 
 ## Install
 
@@ -64,15 +73,16 @@ On the laptop, in the live system:
 sudo install-laptop-i5          # defaults to /dev/sda
 ```
 
-It asks you to type the disk path, then for the LUKS passphrase (twice), and
-installs. The keyboard is Brazilian ABNT2 in the live system and in the boot
-prompt, so the passphrase types the same both times. Reboot and remove the stick.
+It asks you to type the disk path and installs; the passphrase is the one the ISO
+was built with, so it asks nothing else. It refuses a disk that has mounted
+filesystems, which is how the USB stick it booted from looks. The keyboard is
+Brazilian ABNT2 in the live system and in the boot prompt. Reboot and remove the
+stick.
 
 ## First boot
 
-- The boot prompt asks for the LUKS passphrase.
-- The user's first password is `changeme` (`cloud/laptop-i5/configuration.nix`).
-  Change it with `passwd`.
+- The boot prompt asks for the LUKS passphrase: the build password.
+- The user and root log in with the same password.
 - Tailscale has to be logged in once: `sudo tailscale up`.
 - SSH is off. To turn it on set `enable = true;` in `nixos/modules/ssh.nix` and
   rebuild.
@@ -88,9 +98,13 @@ cd ~/super_balas/nixos-btw
 sudo nixos-rebuild switch --flake .#laptop-i5
 ```
 
+No password variable is needed here: with `LAPTOP_PASSWORD` unset the accounts keep
+their current passwords.
+
 ## Files
 
 - `configuration.nix` - what is installed and which shared modules are used
 - `hardware.nix` - disk, LUKS2, bcachefs, boot, CPU/GPU, HDD tuning
-- `installer.nix` - the installer ISO (`laptop-i5-installer`)
+- `installer.nix` - the installer ISO (`laptop-intel-i5`)
+- `password.nix` - user and root password hash from `LAPTOP_PASSWORD`
 - `install.sh` - the `install-laptop-i5` command that partitions and installs
