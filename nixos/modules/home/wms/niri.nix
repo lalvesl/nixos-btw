@@ -1,6 +1,14 @@
-{ vars, ... }:
+{
+  lib,
+  vars,
+  # Desktop-only: the two fixed monitors and the NVIDIA render device below.
+  # A machine without the dGPU (the i5 laptop) lets niri pick the outputs.
+  hasNvidia,
+  ...
+}:
 {
   xdg.configFile."niri/config.kdl".text = ''
+    ${lib.optionalString hasNvidia ''
     output "eDP-1" {
         mode "1920x1080@59.999"
         position x=1920 y=0
@@ -22,6 +30,7 @@
     debug {
         render-drm-device "/dev/dri/by-path/pci-0000:01:00.0-render"
     }
+    ''}
 
     input {
         keyboard {

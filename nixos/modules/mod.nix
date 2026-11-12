@@ -6,6 +6,7 @@
     ./dev-dependencies.nix
     ./env.nix
     ./flatpak.nix
+    ./fonts.nix
     ./gamebox.nix
     ./niri.nix
     ./i18n.nix
