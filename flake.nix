@@ -57,6 +57,8 @@
         config.allowUnfreePredicate = pkg: builtins.elem (nixpkgs.lib.getName pkg) [ "elasticsearch" ];
       };
 
+      vars = import ./nixos/vars.nix;
+
       rk3588Path = nixos-rk3588;
 
       # specialArgs required by gnull/nixos-rk3588 board modules
@@ -78,7 +80,8 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.lalvesl = import ./nixos/modules/home/mod.nix;
+            home-manager.extraSpecialArgs = { inherit vars; };
+            home-manager.users.${vars.username} = import ./nixos/modules/home/mod.nix;
           }
         ];
       };
@@ -86,15 +89,16 @@
     {
       nixosConfigurations.lalvesl-nix = nixpkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = { inherit inputs; };
+        specialArgs = { inherit inputs vars; };
         modules = [
           ./nixos/configuration.nix
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = { inherit vars; };
             home-manager.backupFileExtension = "bak";
-            home-manager.users.lalvesl = import ./nixos/modules/home/mod.nix;
+            home-manager.users.${vars.username} = import ./nixos/modules/home/mod.nix;
           }
         ];
       };

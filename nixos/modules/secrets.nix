@@ -11,7 +11,7 @@
 # the cleartext into the store, which is world-readable. Always use the options
 # that take a path -- hashedPasswordFile, EnvironmentFile, LoadCredential,
 # passwordFile.
-{ inputs, ... }:
+{ inputs, vars, ... }:
 let
   # Absolute path, deliberately a string and not a Nix path: the encrypted files
   # are gitignored, and a flake can only read files git tracks. As a string it
@@ -20,7 +20,7 @@ let
   #
   # The cost of that is a hardcoded location: move the repository and this must
   # move with it.
-  secretsDir = "/home/lalvesl/super_balas/nixos-btw/secrets";
+  secretsDir = "${vars.home}/super_balas/nixos-btw/secrets";
 in
 {
   imports = [ inputs.sops-nix.nixosModules.sops ];

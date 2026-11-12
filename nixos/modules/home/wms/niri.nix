@@ -1,4 +1,4 @@
-{ ... }:
+{ vars, ... }:
 {
   xdg.configFile."niri/config.kdl".text = ''
     output "eDP-1" {
@@ -41,7 +41,7 @@
     environment {
         XCURSOR_SIZE "16"
         XCURSOR_THEME "Adwaita"
-        XDG_SCREENSHOTS_DIR "/home/lalvesl/screens"
+        XDG_SCREENSHOTS_DIR "${vars.home}/screens"
         GTK_THEME "Adwaita:dark"
         ADW_DEBUG_COLOR_SCHEME "prefer-dark"
         XDG_CURRENT_DESKTOP "niri"

@@ -1,4 +1,4 @@
-{ ... }:
+{ vars, ... }:
 {
   imports = [
     ./zsh.nix
@@ -14,8 +14,8 @@
     ./wms/mod.nix
   ];
 
-  home.username = "lalvesl";
-  home.homeDirectory = "/home/lalvesl";
+  home.username = vars.username;
+  home.homeDirectory = vars.home;
   home.stateVersion = "25.05";
 
   programs.home-manager.enable = true;

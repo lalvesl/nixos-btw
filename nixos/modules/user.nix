@@ -1,13 +1,13 @@
-{ pkgs, ... }:
+{ pkgs, vars, ... }:
 {
   programs.zsh.enable = true;
 
   users = {
     defaultUserShell = pkgs.zsh;
 
-    users.lalvesl = {
+    users.${vars.username} = {
       isNormalUser = true;
-      description = "lalvesl";
+      description = vars.username;
       extraGroups = [
         "networkmanager"
         "wheel"

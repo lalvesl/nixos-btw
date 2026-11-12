@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  vars,
   ...
 }:
 let
@@ -61,7 +62,7 @@ in
     openFirewall = true;
     extraSetFlags = [
       # Lets the waybar switch run `tailscale up/down` without root.
-      "--operator=lalvesl"
+      "--operator=${vars.username}"
       # 192.168.100.0/24 is advertised by the home server, so its address works
       # the same away from home.
       "--accept-routes"

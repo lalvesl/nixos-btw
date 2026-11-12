@@ -1,8 +1,8 @@
-{ pkgs, ... }:
+{ pkgs, vars, ... }:
 
 let
   vmt = "${pkgs.vmtouch}/bin/vmtouch";
-  userHome = "/home/lalvesl";
+  userHome = vars.home;
 
   preloadScript = pkgs.writeShellScript "hotstarter-preload" ''
     touch_path() {

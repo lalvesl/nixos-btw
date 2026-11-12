@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, vars, ... }:
 {
   programs.kdeconnect = {
     enable = true;
@@ -7,6 +7,6 @@
   };
   environment.etc."kdeconnect/config".text = ''
     [General]
-    preferredReceivePath=/home/lalvesl/Downloads/kde_connect
+    preferredReceivePath=${vars.home}/Downloads/kde_connect
   '';
 }

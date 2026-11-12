@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, vars, ... }:
 let
   # niri sets XDG_CURRENT_DESKTOP=niri, which Chromium's desktop-environment
   # autodetection doesn't recognize, so it silently falls back to "basic"
@@ -22,7 +22,7 @@ in
     # permittedInsecurePackages = ["python-2.7.18.8" "electron-25.9.0"];
   };
 
-  users.users."lalvesl" = {
+  users.users.${vars.username} = {
     packages = with pkgs; [
       nautilus
     ];

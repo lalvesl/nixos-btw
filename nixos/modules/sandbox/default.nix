@@ -23,6 +23,7 @@
   lib,
   pkgs,
   inputs,
+  vars,
   ...
 }:
 let
@@ -101,7 +102,7 @@ in
       lib.nameValuePair "sbx${toString n}" {
         virtual = true;
         virtualType = "tap";
-        virtualOwner = "lalvesl";
+        virtualOwner = vars.username;
         ipv4.addresses = [
           {
             address = "10.77.${toString n}.1";

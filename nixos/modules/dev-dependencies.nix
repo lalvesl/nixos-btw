@@ -2,6 +2,7 @@
   config,
   inputs,
   pkgs,
+  vars,
   ...
 }:
 let
@@ -24,7 +25,7 @@ in
   # Both commands are idempotent: an unchanged config is a no-op, so a backup
   # (`*.bak-<ts>`) is only written when the package path changes. Hooks point
   # at the current store path, which stays alive as part of this generation.
-  home-manager.users.lalvesl =
+  home-manager.users.${vars.username} =
     { lib, ... }:
     {
       home.activation.aiMemory = lib.hm.dag.entryAfter [ "writeBoundary" ] ''

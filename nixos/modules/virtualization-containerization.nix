@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, vars, ... }:
 
 {
   # users.users.lalvesl = {
@@ -40,7 +40,7 @@
   programs.dconf.enable = true;
 
   # Add user to libvirtd group
-  users.users.lalvesl.extraGroups = [
+  users.users.${vars.username}.extraGroups = [
     "libvirtd"
     "podman"
   ];
@@ -70,7 +70,7 @@
   };
   users.groups.libvirtd.members = [
     "root"
-    "lalvesl"
+    vars.username
   ];
 
   # Packages
