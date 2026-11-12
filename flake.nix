@@ -80,7 +80,10 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = { inherit vars; };
+            home-manager.extraSpecialArgs = {
+              inherit vars;
+              hasNvidia = true;
+            };
             home-manager.users.${vars.username} = import ./nixos/modules/home/mod.nix;
           }
         ];
@@ -96,7 +99,10 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = { inherit vars; };
+            home-manager.extraSpecialArgs = {
+              inherit vars;
+              hasNvidia = true;
+            };
             home-manager.backupFileExtension = "bak";
             home-manager.users.${vars.username} = import ./nixos/modules/home/mod.nix;
           }
@@ -104,6 +110,29 @@
       };
 
       nixosConfigurations.wallet = walletIso;
+
+      # Second computer: Intel i5-3210M/3230M laptop on an HDD. Same desktop,
+      # minus the NVIDIA and heavy parts; see cloud/laptop-i5/README.md.
+      nixosConfigurations.laptop-i5 = nixpkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs = { inherit inputs vars; };
+        modules = [
+          ./cloud/laptop-i5/configuration.nix
+          ./cloud/laptop-i5/image.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.backupFileExtension = "bak";
+            # No NVIDIA here: niri keeps its monitor and render-device block off.
+            home-manager.extraSpecialArgs = {
+              inherit vars;
+              hasNvidia = false;
+            };
+            home-manager.users.${vars.username} = import ./nixos/modules/home/mod.nix;
+          }
+        ];
+      };
 
       # Orange Pi 5 — cross-compiled from x86_64 to aarch64
       nixosConfigurations.orangepi = nixpkgs.lib.nixosSystem {
@@ -145,6 +174,7 @@
 
       packages.${system} = {
         wallet = walletIso.config.system.build.isoImage;
+        laptop-i5-image = self.nixosConfigurations.laptop-i5.config.system.build.diskImage;
         orangepi-sdimage = self.nixosConfigurations.orangepi.config.system.build.sdImage;
         send-orangepi-sdimage = import ./cloud/orangepi/send-sdimage.nix {
           pkgs = import nixpkgs { inherit system; };
