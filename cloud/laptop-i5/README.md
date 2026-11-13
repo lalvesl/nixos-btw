@@ -65,13 +65,20 @@ if the host's store is shared.
 
 ## Write it to the HDD
 
-Check the device name first; `dd` overwrites the whole disk. Do not use
-`conv=sparse`: it skips the empty parts, and old data on the HDD would stay there.
+Check the device name first; `dd` overwrites the partition table and everything
+the image uses.
 
 ```sh
 lsblk -o NAME,SIZE,MODEL,TRAN
-sudo dd if=result/lalvesl-i5.img of=/dev/sdX bs=4M status=progress conv=fsync
+sudo dd if=result/lalvesl-i5.img of=/dev/sdX bs=4M status=progress conv=fsync,sparse
 ```
+
+`conv=sparse` skips the blocks that are zero in the image, which is almost the
+whole disk when `LAPTOP_DISK_SIZE` is set: only the system (about 6 GB) is
+written, so it takes minutes instead of hours. That is safe: a filesystem never
+assumes the space it has not allocated is zero. The old contents of the HDD stay
+in those regions, as after any normal format; wipe the disk first if that
+matters for what it held.
 
 With the HDD in a USB adapter this is done from the main machine. Otherwise
 boot the laptop from any live system with the image on a USB stick and `dd` it
