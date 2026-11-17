@@ -3,8 +3,8 @@
 { pkgs }:
 let
   claude-code-src = fetchTarball {
-    url = "https://github.com/sadjow/claude-code-nix/archive/02cb98e535e518b992598bea883a7f6393ca5b8c.tar.gz";
-    sha256 = "03nvz3xybn3blfl7jqm48mhgwqgmmkw1wfzywhab2rkmpdqd00wh";
+    url = "https://github.com/sadjow/claude-code-nix/archive/ab27a02c0f2d046e8d4ed53fb03c0649bdfae191.tar.gz";
+    sha256 = "07hhbv0y6vbd66wkvf1qsnnzwpnwlh734xj2kg1yxvsaly216216";
   };
 in
 pkgs.callPackage "${claude-code-src}/package.nix" { }
