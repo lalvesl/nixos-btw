@@ -10,6 +10,7 @@
     ./gamebox.nix
     ./niri.nix
     ./i18n.nix
+    ./io.nix
     ./kde_connect.nix
     ./keyring.nix
     ./lan-mouse.nix
