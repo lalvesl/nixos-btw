@@ -26,6 +26,7 @@
     ../../nixos/modules/lan-mouse.nix
     ../../nixos/modules/net.nix
     ../../nixos/modules/niri.nix
+    ../../nixos/modules/nix-priority.nix
     ../../nixos/modules/portals.nix
     ../../nixos/modules/ports.nix
     ../../nixos/modules/qt.nix

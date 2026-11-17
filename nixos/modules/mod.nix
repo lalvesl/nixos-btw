@@ -15,6 +15,7 @@
     ./keyring.nix
     ./lan-mouse.nix
     ./matlab.nix
+    ./nix-priority.nix
     ./net.nix
     ./wifi-hotspot.nix
     ./nvidia.nix

@@ -1,6 +1,9 @@
 { pkgs, lib, ... }:
 {
-  imports = [ ./valheim.nix ];
+  imports = [
+    ./valheim.nix
+    ../../nixos/modules/nix-priority.nix
+  ];
 
   nix.settings.experimental-features = [
     "nix-command"
