@@ -86,12 +86,26 @@
 
   # HDD: bfq shares the disk fairly between a boot that reads thousands of small
   # files and everything else, so the desktop stays usable while it warms up.
+  #
+  # The device queue is also kept short. Under a long write (a copy, a build, a
+  # browser cache) the default queue fills with writes and every read -- niri,
+  # waybar, Firefox -- waits in blk_mq_get_tag for seconds, which is what made the
+  # whole desktop freeze. With 4 requests in flight and 16 queued, reads get in
+  # between the writes. Measured on this laptop with a continuous 2 GB write.
   services.udev.extraRules = ''
     ACTION=="add|change", KERNEL=="sd[a-z]", ATTR{queue/rotational}=="1", ATTR{queue/scheduler}="bfq"
+    ACTION=="add|change", KERNEL=="sd[a-z]", ATTR{queue/rotational}=="1", ATTR{device/queue_depth}="4", ATTR{queue/nr_requests}="16"
   '';
   # Prefer dropping page cache over swapping to a slow disk; zram (zram.nix)
   # is the swap, so this only keeps the kernel from favouring it too eagerly.
-  boot.kernel.sysctl."vm.swappiness" = 60;
+  boot.kernel.sysctl = {
+    "vm.swappiness" = 60;
+    # Cap the dirty page cache. The default is a share of RAM (about 700 MB here),
+    # which a slow disk needs many seconds to flush; while it does, any process
+    # that writes is throttled. 32 MiB starts the flush early, 128 MiB is the cap.
+    "vm.dirty_background_bytes" = 33554432;
+    "vm.dirty_bytes" = 134217728;
+  };
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }

@@ -53,7 +53,12 @@ let
   ];
 in
 {
-  system.build.diskImage = vmTools.runInLinuxVM (
+  # Only the image needs the password: a plain `nixos-rebuild` of this system
+  # must keep working without it, so the check is here and not in `assertions`.
+  system.build.diskImage =
+    lib.throwIf (password == "")
+      "Set the password and build with --impure: LAPTOP_PASSWORD=... nix build .#laptop-intel-i5 --impure"
+    (vmTools.runInLinuxVM (
     pkgs.runCommand "lalvesl-i5-image"
       {
         # Read inside the VM; the plaintext never reaches the image.
@@ -140,12 +145,5 @@ in
         umount /mnt
         cryptsetup --disable-locks close cryptroot
       ''
-  );
-
-  assertions = [
-    {
-      assertion = password != "";
-      message = "Set the password and build with --impure: LAPTOP_PASSWORD=... nix build .#laptop-intel-i5 --impure";
-    }
-  ];
+  ));
 }
