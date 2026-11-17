@@ -1,8 +1,10 @@
 # Second computer: Intel i5-3210M / i5-3230M laptop (HDD)
 
 The same desktop as the main machine: niri, waybar, the shell, terminals,
-networking (NetworkManager, Tailscale, split DNS), the SSH toggle and the
-`wifi-hotspot` command. The home-manager config is the shared
+networking (NetworkManager, Tailscale, split DNS), the browsers, editors and
+dev tools (Chrome, Brave, Firefox, VSCodium, Zed, Claude Code, Antigravity,
+DBeaver, LibreOffice, OBS, GIMP...), MATLAB, the KVM sandbox, containers, Flatpak,
+the `wifi-hotspot` command and its own SSH option (off). The home-manager config is the shared
 `nixos/modules/home/mod.nix`, so the look and the key bindings are identical.
 
 The username, home directory and everything else shared comes from
@@ -20,9 +22,10 @@ disk passphrase and the password of both the user and root.
 | niri fixed monitors + NVIDIA render node | niri picks the outputs (`hasNvidia = false`) |
 | LUKS + btrfs on NVMe, systemd-boot       | LUKS2 + bcachefs on HDD, GRUB on BIOS + UEFI |
 | sops secrets                             | none (no key on this machine)                |
-| Steam, gamebox, MATLAB, KVM sandbox      | left out                                     |
-| Docker, libvirt, Flatpak                 | left out                                     |
-| IDE/editor set, ai-memory, Claude Code   | CLI editors and tools only                   |
+| CUDA toolkit, CUDA builds                | off (`vars.nvidia = false`)                  |
+| Steam and the game container             | left out on purpose                          |
+| Docker with the btrfs storage driver     | Docker with `overlay2` (root is bcachefs)    |
+| everything else (apps, IDEs, MATLAB...)  | the same shared modules                      |
 
 ## Disk layout
 
@@ -63,6 +66,19 @@ a yescrypt hash of it. Delete the build result and change the password
 (`passwd`, and `sudo cryptsetup luksChangeKey /dev/disk/by-partlabel/cryptroot`)
 if the host's store is shared.
 
+## Size
+
+This is the full desktop, so the system is large: the main machine's is 53 GiB
+with NVIDIA, CUDA, Steam and the game container, and this one is the same order
+of magnitude without them. Set `LAPTOP_DISK_SIZE` to the HDD size, or leave it
+unset and the image is sized to the system. Building the image here and writing
+it with `dd` is far cheaper than running `nixos-rebuild` on the laptop, which
+would download tens of GiB onto a 4 GB machine with an HDD.
+
+The Docker storage driver is untested on bcachefs; if Docker does not start,
+set `virtualisation.docker.storageDriver = lib.mkForce "vfs";` in
+`configuration.nix`.
+
 ## Write it to the HDD
 
 Check the device name first; `dd` overwrites the partition table and everything
@@ -89,8 +105,8 @@ onto the internal disk.
 - The boot prompt asks for the LUKS passphrase: the build password.
 - The user and root log in with the same password.
 - Tailscale has to be logged in once: `sudo tailscale up`.
-- SSH is off. To turn it on set `enable = true;` in `nixos/modules/ssh.nix` and
-  rebuild.
+- SSH is off. To turn it on set `enable = true;` in `cloud/laptop-i5/ssh.nix`
+  and rebuild. It is separate from the main machine's `nixos/modules/ssh.nix`.
 - Wi-Fi: this laptop has an Atheros card. The in-kernel `ath9k` driver needs no
   firmware file, and newer Atheros/Qualcomm chips and the card's Bluetooth use
   `linux-firmware`, which is already enabled. Nothing to configure.

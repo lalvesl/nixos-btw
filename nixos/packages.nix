@@ -1,4 +1,9 @@
-{ pkgs, vars, ... }:
+{
+  lib,
+  pkgs,
+  vars,
+  ...
+}:
 let
   # niri sets XDG_CURRENT_DESKTOP=niri, which Chromium's desktop-environment
   # autodetection doesn't recognize, so it silently falls back to "basic"
@@ -17,7 +22,7 @@ in
 {
   nixpkgs.config = {
     allowUnfree = true;
-    cudaSupport = true;
+    cudaSupport = vars.nvidia;
     # cudnnSupport = true;
     # permittedInsecurePackages = ["python-2.7.18.8" "electron-25.9.0"];
   };
@@ -107,7 +112,9 @@ in
 
     # GPU stuff
     #nvidia-somethink-someday
-    cudatoolkit
+  ]
+  ++ lib.optional vars.nvidia pkgs.cudatoolkit
+  ++ (with pkgs; [
     ncurses5
 
     # Screenshotting
@@ -123,5 +130,5 @@ in
     # libsForQt5.qtstyleplugin-kvantum
     # libsForQt5.qt5ct
     papirus-nord
-  ];
+  ]);
 }

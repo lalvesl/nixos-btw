@@ -59,6 +59,9 @@
 
       vars = import ./nixos/vars.nix;
 
+      # The i5 laptop has no NVIDIA GPU: same shared modules, without CUDA.
+      laptopVars = vars // { nvidia = false; };
+
       rk3588Path = nixos-rk3588;
 
       # specialArgs required by gnull/nixos-rk3588 board modules
@@ -125,7 +128,10 @@
       # minus the NVIDIA and heavy parts; see cloud/laptop-i5/README.md.
       nixosConfigurations.laptop-i5 = nixpkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = { inherit inputs vars; };
+        specialArgs = {
+          inherit inputs;
+          vars = laptopVars;
+        };
         modules = [
           ./cloud/laptop-i5/configuration.nix
           ./cloud/laptop-i5/image.nix
@@ -136,7 +142,7 @@
             home-manager.backupFileExtension = "bak";
             # No NVIDIA here: niri keeps its monitor and render-device block off.
             home-manager.extraSpecialArgs = {
-              inherit vars;
+              vars = laptopVars;
               hasNvidia = false;
             };
             home-manager.users.${vars.username} = import ./nixos/modules/home/mod.nix;
