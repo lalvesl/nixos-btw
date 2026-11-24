@@ -36,7 +36,14 @@ jobs:
       - name: Build the laptop system
         working-directory: src
         run: |
+          # The homelab input is a private repo on this same Forgejo, locked over
+          # SSH, which the runner has no key for. Fetch the very revision the
+          # lock names over HTTP, with the job token instead.
+          rev=$(nix eval --raw --impure --expr \
+            '(builtins.fromJSON (builtins.readFile ./flake.lock)).nodes.homelab.locked.rev')
           nix build .#packages.x86_64-linux.ci-laptop-i5 \
+            --override-input homelab \
+            "git+http://runner:${{ github.token }}@127.0.0.1:3001/lalvesl/homelab.git?ref=main&rev=$rev" \
             --no-link --print-out-paths -L
 
   desktop:
@@ -51,5 +58,9 @@ jobs:
       - name: Build the desktop system
         working-directory: src
         run: |
+          rev=$(nix eval --raw --impure --expr \
+            '(builtins.fromJSON (builtins.readFile ./flake.lock)).nodes.homelab.locked.rev')
           nix build .#packages.x86_64-linux.ci-desktop \
+            --override-input homelab \
+            "git+http://runner:${{ github.token }}@127.0.0.1:3001/lalvesl/homelab.git?ref=main&rev=$rev" \
             --no-link --print-out-paths -L
