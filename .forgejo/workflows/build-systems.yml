@@ -1,0 +1,55 @@
+# Builds the x86_64 systems (the old laptop first, then the desktop) on the
+# Orange Pi, so their store paths exist in the board's CI Nix store and the
+# machines can fetch them instead of compiling. Runs on the `host` runner of
+# orangepi/services/ci.nix (homelab repo), whose Nix store lives on secure.
+#
+# The board is aarch64: anything cache.nixos.org does not have is built through
+# qemu-user emulation, which is slow. One job and one core at a time keeps the
+# memory low.
+#
+# Two things are left out (the ci-* packages, see ciModule in flake.nix): the sbx
+# base disk images, since a VM inside the emulation takes hours and starves the
+# board, and ai-memory, a Rust build that takes hours under emulation. The
+# machines build both themselves, natively.
+name: build-systems
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [cloud]
+    paths:
+      - .forgejo/workflows/**
+      - flake.lock
+      - flake.nix
+      - nixos/**
+      - cloud/laptop-i5/**
+
+jobs:
+  laptop-i5:
+    runs-on: host
+    timeout-minutes: 720
+    steps:
+      - name: Fetch the repository
+        run: |
+          git clone --depth 1 --branch "${{ github.ref_name }}" \
+            "http://runner:${{ github.token }}@127.0.0.1:3001/${{ github.repository }}.git" src
+      - name: Build the laptop system
+        working-directory: src
+        run: |
+          nix build .#packages.x86_64-linux.ci-laptop-i5 \
+            --no-link --print-out-paths -L
+
+  desktop:
+    runs-on: host
+    needs: laptop-i5
+    timeout-minutes: 1440
+    steps:
+      - name: Fetch the repository
+        run: |
+          git clone --depth 1 --branch "${{ github.ref_name }}" \
+            "http://runner:${{ github.token }}@127.0.0.1:3001/${{ github.repository }}.git" src
+      - name: Build the desktop system
+        working-directory: src
+        run: |
+          nix build .#packages.x86_64-linux.ci-desktop \
+            --no-link --print-out-paths -L
