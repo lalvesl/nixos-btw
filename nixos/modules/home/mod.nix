@@ -1,0 +1,22 @@
+{ vars, ... }:
+{
+  imports = [
+    ./zsh.nix
+    ./git.nix
+    ./alacritty.nix
+    ./kitty.nix
+    ./htop.nix
+    ./gtk.nix
+    ./rofi.nix
+    ./helix.nix
+    ./matlab.nix
+    ./swaylock.nix
+    ./wms/mod.nix
+  ];
+
+  home.username = vars.username;
+  home.homeDirectory = vars.home;
+  home.stateVersion = "25.05";
+
+  programs.home-manager.enable = true;
+}

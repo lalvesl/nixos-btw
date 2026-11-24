@@ -1,0 +1,189 @@
+{
+  lib,
+  vars,
+  # Desktop-only: the two fixed monitors and the NVIDIA render device below.
+  # A machine without the dGPU (the i5 laptop) lets niri pick the outputs.
+  hasNvidia,
+  ...
+}:
+{
+  xdg.configFile."niri/config.kdl".text = ''
+    ${lib.optionalString hasNvidia ''
+    output "eDP-1" {
+        mode "1920x1080@59.999"
+        position x=1920 y=0
+        scale 1.0
+    }
+
+    output "HDMI-A-1" {
+        mode "1920x1080@60.000"
+        position x=0 y=0
+        scale 1.0
+    }
+
+    ${lib.optionalString (!vars.nouveau) ''
+    // The HDMI-A-1 port is wired to the NVIDIA GPU (card0), but niri defaults to
+    // rendering on the Intel iGPU (card1). Buffers can't be shared Intel->NVIDIA
+    // with the proprietary driver, so the external monitor stays on "no signal".
+    // Force niri to render on the NVIDIA GPU so it drives its own HDMI output
+    // directly; the internal eDP panel is then fed via NVIDIA->Intel (the PRIME
+    // direction that works). Path is by PCI address so it survives reboots.
+    debug {
+        render-drm-device "/dev/dri/by-path/pci-0000:01:00.0-render"
+    }''}
+    ''}
+
+    input {
+        keyboard {
+            xkb {
+                layout "br"
+            }
+        }
+        touchpad {
+            tap
+            dwt
+            scroll-method "two-finger"
+            click-method "clickfinger"
+        }
+        focus-follows-mouse
+    }
+
+    environment {
+        XCURSOR_SIZE "16"
+        XCURSOR_THEME "Adwaita"
+        XDG_SCREENSHOTS_DIR "${vars.home}/screens"
+        GTK_THEME "Adwaita:dark"
+        ADW_DEBUG_COLOR_SCHEME "prefer-dark"
+        XDG_CURRENT_DESKTOP "niri"
+        DISPLAY ":0"
+    }
+
+    layout {
+        gaps 16
+        default-column-width { proportion 0.45; }
+        preset-column-widths {
+            proportion 0.45
+            proportion 0.33333
+        }
+        border {
+            off
+        }
+        focus-ring {
+            width 2
+            active-color "#33ccffcc"
+            inactive-color "#00000000"
+        }
+        empty-workspace-above-first
+    }
+
+    window-rule {
+        opacity 0.99
+        draw-border-with-background false
+    }
+
+    window-rule {
+        match is-focused=false
+        opacity 0.75
+    }
+
+    spawn-at-startup "sh" "-c" "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP DBUS_SESSION_BUS_ADDRESS && gsettings set org.gnome.desktop.interface color-scheme prefer-dark"
+    spawn-at-startup "waybar"
+    spawn-at-startup "swaybg" "-i" "${./wall.jpg}" "-m" "fill"
+    spawn-at-startup "wl-paste" "--type" "text" "--watch" "cliphist" "store"
+    spawn-at-startup "wl-paste" "--type" "image" "--watch" "cliphist" "store"
+
+    binds {
+        Mod+Return { spawn "alacritty"; }
+        Mod+Space { spawn "alacritty"; }
+        Mod+Q { close-window; }
+        Mod+N { spawn "nautilus"; }
+        Mod+T { switch-preset-column-width; }
+        Mod+F { toggle-window-floating; }
+        Mod+Ctrl+F { fullscreen-window; }
+        Mod+G { maximize-column; }
+        Mod+F11 { fullscreen-window; }
+        Mod+D { spawn "sh" "-c" "rofi -show drun"; }
+        Mod+V { spawn "sh" "-c" "cliphist list | rofi -dmenu | cliphist decode | wl-copy"; }
+        Mod+Alt+Ctrl+Shift+X { spawn "sh" "-c" "if pidof xwayland-satellite > /dev/null; then pkill -f xwayland-satellite & notify-send 'XWayland' 'Disabled'; else xwayland-satellite & notify-send 'XWayland' 'Enabled'; fi"; }
+        Mod+B { spawn "swaylock"; }
+        Mod+S { spawn "sh" "-c" "pgrep wlsunset && pkill wlsunset || wlsunset -t 3000 -T 3001"; }
+        Mod+W { spawn "sh" "-c" "pgrep waybar && pkill -SIGUSR1 waybar || waybar &"; }
+        //Mod+P { spawn "sh" "-c" "niri msg output HDMI-A-1 on"; }
+
+        Mod+H { focus-column-left; }
+        Mod+L { focus-column-right; }
+        Mod+K { focus-window-up; }
+        Mod+J { focus-window-down; }
+
+        Mod+Shift+H { move-column-left; }
+        Mod+Shift+L { move-column-right; }
+        Mod+Shift+K { move-window-up; }
+        Mod+Shift+J { move-window-down; }
+
+        Mod+I { consume-window-into-column; }
+        Mod+O { expel-window-from-column; }
+
+        Mod+Ctrl+H { set-column-width "-60"; }
+        Mod+Ctrl+Shift+H { set-column-width "-300"; }
+        Mod+Ctrl+L { set-column-width "+60"; }
+        Mod+Ctrl+Shift+L { set-column-width "+300"; }
+        Mod+Ctrl+K { set-window-height "-60"; }
+        Mod+Ctrl+Shift+K { set-window-height "-300"; }
+        Mod+Ctrl+J { set-window-height "+60"; }
+        Mod+Ctrl+Shift+J { set-window-height "+300"; }
+
+        Mod+1 { focus-workspace 1; }
+        Mod+2 { focus-workspace 2; }
+        Mod+3 { focus-workspace 3; }
+        Mod+4 { focus-workspace 4; }
+        Mod+5 { focus-workspace 5; }
+        Mod+6 { focus-workspace 6; }
+        Mod+7 { focus-workspace 7; }
+        Mod+8 { focus-workspace 8; }
+        Mod+9 { focus-workspace 9; }
+        Mod+0 { focus-workspace 10; }
+
+        Mod+Shift+1 { move-window-to-workspace 1; }
+        Mod+Shift+2 { move-window-to-workspace 2; }
+        Mod+Shift+3 { move-window-to-workspace 3; }
+        Mod+Shift+4 { move-window-to-workspace 4; }
+        Mod+Shift+5 { move-window-to-workspace 5; }
+        Mod+Shift+6 { move-window-to-workspace 6; }
+        Mod+Shift+7 { move-window-to-workspace 7; }
+        Mod+Shift+8 { move-window-to-workspace 8; }
+        Mod+Shift+9 { move-window-to-workspace 9; }
+        Mod+Shift+0 { move-window-to-workspace 10; }
+
+        Mod+Alt+J { focus-workspace-down; }
+        Mod+Alt+K { focus-workspace-up; }
+        Mod+Alt+Shift+J { move-window-to-workspace-down; }
+        Mod+Alt+Shift+K { move-window-to-workspace-up; }
+
+        Mod+Alt+H { focus-monitor-left; }
+        Mod+Alt+L { focus-monitor-right; }
+        Mod+Alt+Shift+H { move-window-to-monitor-left; }
+        Mod+Alt+Shift+L { move-window-to-monitor-right; }
+
+        Print { spawn "sh" "-c" "grim -g \"$(slurp)\" - | swappy -f -"; }
+
+        XF86AudioRaiseVolume { spawn "sh" "-c" "wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%+"; }
+        Shift+XF86AudioRaiseVolume { spawn "sh" "-c" "wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%+"; }
+        XF86AudioLowerVolume { spawn "sh" "-c" "wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%-"; }
+        Shift+XF86AudioLowerVolume { spawn "sh" "-c" "wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%-"; }
+        XF86AudioMute { spawn "sh" "-c" "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
+        XF86AudioMicMute { spawn "sh" "-c" "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
+        Ctrl+XF86AudioRaiseVolume { spawn "sh" "-c" "pamixer --source @DEFAULT_SOURCE@ -i 10"; }
+        Ctrl+XF86AudioLowerVolume { spawn "sh" "-c" "pamixer --source @DEFAULT_SOURCE@ -d 10"; }
+
+        XF86MonBrightnessUp { spawn "sh" "-c" "brightnessctl s 2%+"; }
+        Shift+XF86MonBrightnessUp { spawn "sh" "-c" "brightnessctl s 20%+"; }
+        XF86MonBrightnessDown { spawn "sh" "-c" "brightnessctl s 2%-"; }
+        Shift+XF86MonBrightnessDown { spawn "sh" "-c" "brightnessctl s 20%-"; }
+
+        XF86AudioNext { spawn "sh" "-c" "playerctl next"; }
+        XF86AudioPause { spawn "sh" "-c" "playerctl play-pause"; }
+        XF86AudioPlay { spawn "sh" "-c" "playerctl play-pause"; }
+        XF86AudioPrev { spawn "sh" "-c" "playerctl previous"; }
+    }
+  '';
+}

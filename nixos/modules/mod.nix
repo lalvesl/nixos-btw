@@ -1,0 +1,41 @@
+{
+  imports = [
+    ./binary-cache.nix
+    ./homelab-network.nix
+    ./bluetooth.nix
+    ./cpu.nix
+    ./bootloader.nix
+    ./dev-dependencies.nix
+    ./env.nix
+    ./flatpak.nix
+    ./fonts.nix
+    ./gamebox.nix
+    ./niri.nix
+    ./i18n.nix
+    ./io.nix
+    ./kde_connect.nix
+    ./keyring.nix
+    ./lan-mouse.nix
+    ./matlab.nix
+    ./nix-priority.nix
+    ./net.nix
+    ./wifi-hotspot.nix
+    ./nvidia.nix
+    ./ports.nix
+    ./qt.nix
+    ./secrets.nix
+    ./sound.nix
+    ./special-configs.nix
+    ./ssh.nix
+    ./steam.nix
+    ./sys-utils.nix
+    ./portals.nix
+    ./hotstarter.nix
+    ./trim.nix
+    ./user.nix
+    ./virtualization-containerization.nix
+    ./xserver.nix
+    ./zram.nix
+    ./sandbox
+  ];
+}
