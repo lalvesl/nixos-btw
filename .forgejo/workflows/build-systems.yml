@@ -38,12 +38,13 @@ jobs:
         run: |
           # The homelab input is a private repo on this same Forgejo, locked over
           # SSH, which the runner has no key for. Fetch the very revision the
-          # lock names over HTTP, with the job token instead.
+          # lock names over HTTP, with a read-only token kept as a secret (the
+          # job token only reaches this repository, not the homelab one).
           rev=$(nix eval --raw --impure --expr \
             '(builtins.fromJSON (builtins.readFile ./flake.lock)).nodes.homelab.locked.rev')
           nix build .#packages.x86_64-linux.ci-laptop-i5 \
             --override-input homelab \
-            "git+http://runner:${{ github.token }}@127.0.0.1:3001/lalvesl/homelab.git?ref=main&rev=$rev" \
+            "git+http://lalvesl:${{ secrets.HOMELAB_READ_TOKEN }}@127.0.0.1:3001/lalvesl/homelab.git?ref=main&rev=$rev" \
             --no-link --print-out-paths -L
 
   desktop:
@@ -62,5 +63,5 @@ jobs:
             '(builtins.fromJSON (builtins.readFile ./flake.lock)).nodes.homelab.locked.rev')
           nix build .#packages.x86_64-linux.ci-desktop \
             --override-input homelab \
-            "git+http://runner:${{ github.token }}@127.0.0.1:3001/lalvesl/homelab.git?ref=main&rev=$rev" \
+            "git+http://lalvesl:${{ secrets.HOMELAB_READ_TOKEN }}@127.0.0.1:3001/lalvesl/homelab.git?ref=main&rev=$rev" \
             --no-link --print-out-paths -L
