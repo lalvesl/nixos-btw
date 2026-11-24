@@ -78,6 +78,7 @@ in
       tree
       wget
       git
+      gh
       fastfetch
       ripgrep
       sd
