@@ -1,0 +1,43 @@
+# Who can decrypt what.
+#
+# Each file under secrets/ is encrypted to a different set of age keys, so the
+# separation between environments is cryptographic and not merely organisational:
+# the orangepi, which faces the network, cannot open the desktop's secrets even
+# with the whole repository in hand.
+#
+# After changing any rule here the affected files must be re-encrypted with
+# `sops updatekeys <file>`. Editing this list on its own changes nothing about
+# what is already encrypted.
+
+keys:
+  # Root of trust. Lives in ~/.config/sops/age/keys.txt, never in the repo. It
+  # is in every file: without it you cannot edit anything, and if it is lost
+  # with no backup every secret here becomes unrecoverable.
+  - &admin age174dmykd8r7ugypsw3767uzr75wlt85z0dw5f6fr029rrxjahje5qx8722y
+
+  # Desktop (lalvesl-nix). A dedicated age key at /var/lib/sops-nix/key.txt:
+  # the machine runs no sshd, so there is no SSH host key to derive one from.
+  - &desktop age1732zcx7hccnrsayz9w4svrfpq3qt0gvau3hdnv9dkrcpcyffjamsx9f2l3
+
+  # Orange Pi. Derived from /etc/ssh/ssh_host_ed25519_key with ssh-to-age, which
+  # is only possible after the board's first boot. Fill it in with
+  # `./secrets/add-host-key.sh orangepi <ip>` -- see secrets/README.md.
+  # - &orangepi age1...
+
+creation_rules:
+  - path_regex: ^secrets/desktop\.yaml$
+    key_groups:
+      - age:
+          - *admin
+          - *desktop
+
+  - path_regex: ^secrets/cloud/orangepi\.yaml$
+    key_groups:
+      - age:
+          - *admin
+          # - *orangepi
+
+  - path_regex: ^secrets/wallet\.yaml$
+    key_groups:
+      - age:
+          - *admin
