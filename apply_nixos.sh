@@ -1,1 +1,1 @@
-nixos-rebuild switch --flake .#lalvesl-nix
+nixos-rebuild switch --flake .#lalvesl-nix -v
