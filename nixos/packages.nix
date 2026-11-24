@@ -58,7 +58,7 @@ in
     resources
     gimp
     kalker
-    libreoffice-fresh
+    libreoffice
     # kdenlive
     # gparted
     # obsidian
