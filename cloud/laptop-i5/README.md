@@ -122,6 +122,12 @@ sudo cryptsetup resize cryptroot                            # grow the LUKS mapp
 sudo bcachefs device resize /dev/mapper/cryptroot           # grow the filesystem
 ```
 
+## Prebuilt on the Orange Pi
+
+The `build-systems` workflow (`.forgejo/workflows/build-systems.yml`) builds this
+system on the home server before the desktop, so its store paths can be fetched
+instead of compiled on the laptop.
+
 ## Rebuilding on the laptop
 
 ```sh

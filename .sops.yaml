@@ -22,7 +22,7 @@ keys:
   # Orange Pi. Derived from /etc/ssh/ssh_host_ed25519_key with ssh-to-age, which
   # is only possible after the board's first boot. Fill it in with
   # `./secrets/add-host-key.sh orangepi <ip>` -- see secrets/README.md.
-  # - &orangepi age1...
+  - &orangepi age13luyxrkc5lq4m6vu8mme5cahc7xezqecn0j4ehq6vuvldec7uegqqmx4e3
 
 creation_rules:
   - path_regex: ^secrets/desktop\.yaml$
@@ -35,7 +35,7 @@ creation_rules:
     key_groups:
       - age:
           - *admin
-          # - *orangepi
+          - *orangepi
 
   - path_regex: ^secrets/wallet\.yaml$
     key_groups:

@@ -24,6 +24,14 @@
     # Long-term memory server shared by AI coding agents. No `follows`: its
     # build relies on its own pinned nixpkgs + rust-overlay toolchain.
     ai-memory.url = "github:akitaonrails/ai-memory";
+    # The home-lab (the Orange Pi and its services), kept off GitHub on the
+    # private git server at home: it names every service, disk and device in
+    # the house. Only reachable from the home LAN or the tailnet, so a clone of
+    # this repository from anywhere else builds everything but the home-lab.
+    homelab = {
+      url = "git+ssh://forgejo@git.h.lalvesl.com/lalvesl/homelab.git";
+      flake = false;
+    };
   };
 
   outputs =
@@ -32,6 +40,7 @@
       nixpkgs,
       home-manager,
       nixos-rk3588,
+      homelab,
       ...
     }@inputs:
     let
@@ -47,14 +56,9 @@
 
       # Native aarch64 package set. The colmena hive builds with this rather
       # than pkgsCross so that cache.nixos.org actually matches -- see the
-      # measurement in cloud/colmena.nix.
+      # measurement in the homelab input's colmena.nix.
       pkgsNative = import nixpkgs {
         system = "aarch64-linux";
-        # Elasticsearch has been unfree since 7.11. Scoped to that one package
-        # rather than a blanket allowUnfree. It has to be set here, on the
-        # instance, because colmena passes this to the hive ready-made and
-        # NixOS rejects `nixpkgs.config` next to an external instance.
-        config.allowUnfreePredicate = pkg: builtins.elem (nixpkgs.lib.getName pkg) [ "elasticsearch" ];
       };
 
       vars = import ./nixos/vars.nix;
@@ -98,6 +102,8 @@
         specialArgs = { inherit inputs vars; };
         modules = [
           ./nixos/configuration.nix
+          # The home lab's domain, DNS and cache, kept in the private homelab repo.
+          "${homelab}/network.nix"
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
@@ -134,6 +140,7 @@
         };
         modules = [
           ./cloud/laptop-i5/configuration.nix
+          "${homelab}/network.nix"
           ./cloud/laptop-i5/image.nix
           home-manager.nixosModules.home-manager
           {
@@ -150,7 +157,7 @@
         ];
       };
 
-      # Orange Pi 5 — cross-compiled from x86_64 to aarch64
+      # Orange Pi 5B — cross-compiled from x86_64 to aarch64
       nixosConfigurations.orangepi = nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = {
@@ -159,14 +166,14 @@
         // rk3588SpecialArgs;
         modules = [
           { nixpkgs.crossSystem.config = "aarch64-unknown-linux-gnu"; }
-          (import "${toString rk3588Path}/modules/boards/orangepi5.nix")
-          ./cloud/orangepi/sdcard.nix
-          ./cloud/orangepi/configuration.nix
-          ./cloud/orangepi/cross-fixes.nix
+          (import "${toString rk3588Path}/modules/boards/orangepi5b.nix")
+          "${homelab}/orangepi/sdcard.nix"
+          "${homelab}/orangepi/configuration.nix"
+          "${homelab}/orangepi/cross-fixes.nix"
           # First-boot image: cleartext initial password and no sops secrets. The
           # board has no host key yet, so nothing here may depend on decrypting
           # anything. Colmena takes over from the next deploy on.
-          ./cloud/orangepi/bootstrap.nix
+          "${homelab}/orangepi/bootstrap.nix"
           {
             image.baseName = "orangepi-sd-image";
           }
@@ -174,7 +181,7 @@
       };
 
       # Colmena deployment hive
-      colmena = import ./cloud/colmena.nix {
+      colmena = import "${homelab}/colmena.nix" {
         inherit
           nixpkgs
           inputs
@@ -188,20 +195,49 @@
         program = "${self.packages.${system}.send-orangepi-sdimage}/bin/send-orangepi-sdimage";
       };
 
-      packages.${system} = {
+      packages.${system} =
+        let
+          # What the Orange Pi pipeline leaves out of a system build, because building
+          # it there is not worth it: the sbx base images (a VM under emulation starves
+          # the board), the gamebox image (proot needs ptrace, which the emulation
+          # lacks) and ai-memory (a Rust build that takes hours under emulation).
+          # The machines build them themselves; the rest is fetched from the board.
+          ciModule =
+            {
+              lib,
+              options,
+              pkgs,
+              ...
+            }:
+            {
+              config = lib.mkMerge [
+                {
+                  sbx.bakeImage = false;
+                  services.ai-memory.package = lib.mkForce pkgs.emptyDirectory;
+                }
+                # Only the desktop has the gamebox module.
+                (lib.optionalAttrs (options ? gamebox) { gamebox.bakeImage = false; })
+              ];
+            };
+          ci = name: (self.nixosConfigurations.${name}.extendModules { modules = [ ciModule ]; }).config.system.build.toplevel;
+        in
+        {
         wallet = walletIso.config.system.build.isoImage;
+        # The systems as the Orange Pi pipeline builds them (see ciModule).
+        ci-laptop-i5 = ci "laptop-i5";
+        ci-desktop = ci "lalvesl-nix";
         # The image to write to the HDD, and the installer ISO as the alternative.
         laptop-intel-i5 = self.nixosConfigurations.laptop-i5.config.system.build.diskImage;
         laptop-intel-i5-installer = self.nixosConfigurations.laptop-i5-installer.config.system.build.isoImage;
         orangepi-sdimage = self.nixosConfigurations.orangepi.config.system.build.sdImage;
-        send-orangepi-sdimage = import ./cloud/orangepi/send-sdimage.nix {
+        send-orangepi-sdimage = import "${homelab}/orangepi/send-sdimage.nix" {
           pkgs = import nixpkgs { inherit system; };
           sdImage = self.nixosConfigurations.orangepi.config.system.build.sdImage;
         };
 
         # The Pingora gateway. Exposed mainly so it can be built and tested on
-        # its own; the board gets it through cloud/orangepi/services/proxy.nix.
-        homelab-gateway = (import nixpkgs { inherit system; }).callPackage ./cloud/orangepi/pingora { };
+        # its own; the board gets it through the homelab input's services/proxy.nix.
+        homelab-gateway = (import nixpkgs { inherit system; }).callPackage "${homelab}/orangepi/pingora" { };
 
         gamebox-image = import ./nixos/modules/gamebox-image.nix {
           pkgs = import nixpkgs {

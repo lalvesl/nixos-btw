@@ -115,6 +115,22 @@
         "type": "github"
       }
     },
+    "homelab": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1795531427,
+        "narHash": "sha256-iooJ7m/KhHjxkmVixl/jQs4I1UfQo6HlFhVrsnw0+VU=",
+        "ref": "refs/heads/main",
+        "rev": "93431a4e98aacb763efa5ce4b4c66c1b9fccf4f6",
+        "revCount": 132,
+        "type": "git",
+        "url": "ssh://forgejo@git.h.lalvesl.com/lalvesl/homelab.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://forgejo@git.h.lalvesl.com/lalvesl/homelab.git"
+      }
+    },
     "nix-matlab": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -257,6 +273,7 @@
       "inputs": {
         "ai-memory": "ai-memory",
         "home-manager": "home-manager",
+        "homelab": "homelab",
         "nix-matlab": "nix-matlab",
         "nixos-rk3588": "nixos-rk3588",
         "nixpkgs": "nixpkgs_2",

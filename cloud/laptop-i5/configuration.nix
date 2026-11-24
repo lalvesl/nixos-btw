@@ -17,6 +17,8 @@
 
     # Shared with the main machine (nixos/modules/mod.nix), in the same order.
     ../../nixos/packages.nix
+    ../../nixos/modules/binary-cache.nix
+    ../../nixos/modules/homelab-network.nix
     ../../nixos/modules/bluetooth.nix
     ../../nixos/modules/dev-dependencies.nix
     ../../nixos/modules/env.nix
