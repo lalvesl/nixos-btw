@@ -15,7 +15,13 @@
         scale 1.0
     }
 
-    output "HDMI-A-1" {
+    // The home monitor is matched by its make, model and serial (the string
+    // `niri msg outputs` prints), not by the HDMI-A-1 port, so it keeps its mode
+    // and its place on the left. Any other display on that port (a projector
+    // with 1024x768 or 1280x720, a 1440p monitor) has no block here: niri takes
+    // the mode it prefers and places it by itself, instead of asking it for
+    // 1920x1080, a mode it may not offer.
+    output "LG Electronics 24BL550J 0x01010101" {
         mode "1920x1080@60.000"
         position x=0 y=0
         scale 1.0
