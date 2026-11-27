@@ -7,8 +7,8 @@
 }:
 let
   antigravity-nix-src = fetchTarball {
-    url = "https://github.com/jacopone/antigravity-nix/archive/6d55867d1411beb4dcfb74b5e15bad3a5843ac8d.tar.gz";
-    sha256 = "1n8c7wsij9dawy3da2yf98aqnpvldzgzs53g8hwbmz3ryw4p7kgh";
+    url = "https://github.com/jacopone/antigravity-nix/archive/b589f42919ba2059baa4141f7103dd8cb18fcb90.tar.gz";
+    sha256 = "1vfqwqzq1cw78y8yhkg4m556i204nyrqpfm7z2wbb15bi8hn9p8y";
   };
   latest_antigravity = pkgs.callPackage "${antigravity-nix-src}/pkgs/google-antigravity-ide.nix" { };
   latest_antigravity-cli = pkgs.callPackage "${antigravity-nix-src}/pkgs/cli.nix" { };
